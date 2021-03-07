@@ -5,11 +5,12 @@ bin-release/
 [Bb]in/
 Debug/
 FRMS/Debug/
-.vs/
+
 
 
 # Other files and folders
 .settings/
+.vs/航班预定管理系统/
 
 # Executables
 *.swf
