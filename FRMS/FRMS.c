@@ -8,5 +8,7 @@ int main(void)
 
 	printf("are you still there?\n");
 	
+	printf("this is for the 4th test\n");
+
 	return 0;
 }
