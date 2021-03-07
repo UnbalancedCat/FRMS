@@ -4,7 +4,8 @@ bin-release/
 [Oo]bj/
 [Bb]in/
 Debug/
-FRMS/Debug
+FRMS/Debug/
+.vs/
 
 
 # Other files and folders
@@ -15,6 +16,9 @@ FRMS/Debug
 *.air
 *.ipa
 *.apk
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
 
 # Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
 # should NOT be excluded as they contain compiler settings and other important
