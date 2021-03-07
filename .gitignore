@@ -10,7 +10,7 @@ FRMS/Debug/
 
 # Other files and folders
 .settings/
-.vs/航班预定管理系统/
+.vs/
 
 # Executables
 *.swf
