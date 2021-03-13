@@ -1,20 +1,6 @@
 #pragma once
-#ifndef _GLOBAL_H
-#define _GLOBAL_H
-
-//输出航班时刻表题头
-void flight_info_title(void)
-{
-	printf("-----------------------------------------------------------------------------------------------------------\n");
-	printf("                                               航 班 时 刻 表\n");
-}
-
-//输出航班预定管理系统题头
-void FRMS_title(void)
-{
-	printf("-----------------------------------------------------------------------------------------------------------\n\n");
-	printf("                  航        班        预        定        管        理        系        统\n\n");
-}
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
 
 //航班信息结构体
 typedef struct flight_info
@@ -31,7 +17,7 @@ typedef struct flight_info
 
 	struct flight_info* next;	//保存下一个地址
 
-}flight;//实际测试占用116字节
+}flight;
 
 //全局变量头节点和尾节点
 flight* head_flight, * end_flight;

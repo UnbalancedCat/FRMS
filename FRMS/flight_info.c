@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<malloc.h>
 #include"global.h"//自定义头文件
+#include"output.h"//输出类头文件
 
 //读取flight_info.txt航班信息
 void get_flight_info(void)
@@ -37,7 +38,7 @@ void get_flight_info(void)
 
 					if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)//读取一行数据保存在当前节点,并判断是否读写完毕
 					{
-						node = NULL;
+						node->next = NULL;
 						break;
 					}				
 				}
@@ -50,23 +51,21 @@ void get_flight_info(void)
 //显示航班信息
 void show_flight_info(void)
 {
-	int i;//定义循环变量
+	int i = 0;//定义循环变量
 	flight* node;//定义普通节点
 	node = head_flight;//初始化普通节点
 	
 	FRMS_title();//调用输出航班预定管理系统题头函数
 	flight_info_title();//调用输出输出航班预定管理系统题头函数
+	flight_info_subtitle();//调用输出航班时刻表分类栏函数
 
-	printf("-----------------------------------------------------------------------------------------------------------\n");
-	printf("|No|%23s|%23s|%12s|%7s|%8s|%8s|%8s|%6s|\n", "始发地", "目的地", "航空公司", "航班号", "起飞时间", "到达时间", "航班人数", "票价");
-	printf("-----------------------------------------------------------------------------------------------------------\n");
-	for (i = 0; i < flight_info_num; i++)
+	printf("-----------------------------------------------------------------------------------------------------\n");
+	while (node->next != NULL)
 	{
-		printf("|%02d|%23s|%23s|%12s|%7s|%8s|%8s|%8d|%6d|\n", i + 1, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("|%02d|%20s|%20s|%12s|%7s|%8s|%8s|%8d|%6d|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		node = node->next;
 	}
-	printf("-----------------------------------------------------------------------------------------------------------\n");
-	//单行输出长度为108个字符长度
+	printf("-----------------------------------------------------------------------------------------------------\n");
 }
 
 //排序航班信息
@@ -77,5 +76,7 @@ int main()
 {
 	get_flight_info();
 	show_flight_info();
+
+
 	return 0;
 }
