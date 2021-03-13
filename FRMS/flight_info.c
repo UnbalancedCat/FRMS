@@ -71,9 +71,10 @@ void show_flight_info(void)//显示航班信息
 	flight* node;//定义普通节点
 	node = head_flight;//初始化普通节点
 
+	printf("|%23s|%23s|%12s|%8s|%8s|%8s|%8s|%6s\n", "始发地", "目的地", "航空公司",  "航班号" ,"起飞时间", "到达时间", "航班人数", "票价");
 	for (i = 0; i < flight_info_num; i++)
 	{
-		printf("|%23s|%23s|%16s|%8s|%8s|%8s|%6d|%6d\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("|%23s|%23s|%12s|%8s|%8s|%8s|%8d|%6d\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		node = node->next;
 	}
 }
