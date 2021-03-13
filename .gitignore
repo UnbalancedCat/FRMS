@@ -2,7 +2,7 @@
 Debug/
 FRMS/Debug/
 Release/
-
+ignore/
 
 # Other files and folders
 .vs/
