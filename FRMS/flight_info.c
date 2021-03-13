@@ -1,28 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS  
 #include<stdio.h>
 #include<malloc.h>
-#include"global.h"
+#include"global.h"//自定义头文件
 
-typedef struct flight_info//航班信息结构体
-{
-
-	char start_place[32];	//起飞地
-	char end_place[32];		//目的地
-	char company[16];		//航空公司
-	char flight_num[8];		//航班号
-	char start_time[8];		//起飞时间
-	char end_time[8];		//到达时间
-	int people_num;			//人数
-	int price;				//价格
-
-	struct flight_info* next;	//保存下一个地址
-
-}flight;//实际测试占用116字节
-
-flight* head_flight, * end_flight;//全局变量头节点和尾节点
-int flight_info_num;//全局变量航班信息数量
-
-void get_flight_info(void)//读取flight_info.txt航班信息
+//读取flight_info.txt航班信息
+void get_flight_info(void)
 {
 	flight_info_num = 0;//初始化航班信息数量
 	FILE* fp;//定义文件指针
@@ -65,19 +47,31 @@ void get_flight_info(void)//读取flight_info.txt航班信息
 	}
 }
 
-void show_flight_info(void)//显示航班信息
+//显示航班信息
+void show_flight_info(void)
 {
 	int i;//定义循环变量
 	flight* node;//定义普通节点
 	node = head_flight;//初始化普通节点
+	
+	FRMS_title();//调用输出航班预定管理系统题头函数
+	flight_info_title();//调用输出输出航班预定管理系统题头函数
 
-	printf("|%23s|%23s|%12s|%8s|%8s|%8s|%8s|%6s\n", "始发地", "目的地", "航空公司",  "航班号" ,"起飞时间", "到达时间", "航班人数", "票价");
+	printf("-----------------------------------------------------------------------------------------------------------\n");
+	printf("|No|%23s|%23s|%12s|%7s|%8s|%8s|%8s|%6s|\n", "始发地", "目的地", "航空公司", "航班号", "起飞时间", "到达时间", "航班人数", "票价");
+	printf("-----------------------------------------------------------------------------------------------------------\n");
 	for (i = 0; i < flight_info_num; i++)
 	{
-		printf("|%23s|%23s|%12s|%8s|%8s|%8s|%8d|%6d\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("|%02d|%23s|%23s|%12s|%7s|%8s|%8s|%8d|%6d|\n", i + 1, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		node = node->next;
 	}
+	printf("-----------------------------------------------------------------------------------------------------------\n");
+	//单行输出长度为108个字符长度
 }
+
+//排序航班信息
+
+
 
 int main()
 {
