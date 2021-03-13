@@ -1,7 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS  
 #include<stdio.h>
 #include<malloc.h>
-
+#include"global.h"
 
 typedef struct flight_info//航班信息结构体
 {
@@ -18,37 +18,69 @@ typedef struct flight_info//航班信息结构体
 	struct flight_info* next;	//保存下一个地址
 
 }flight;//实际测试占用116字节
-flight* head, * end;//定义共用的头节点和尾节点
+
+flight* head_flight, * end_flight;//全局变量头节点和尾节点
+int flight_info_num;//全局变量航班信息数量
 
 void get_flight_info(void)//读取flight_info.txt航班信息
 {
+	flight_info_num = 0;//初始化航班信息数量
 	FILE* fp;//定义文件指针
+
 	fp = fopen("flight_info.txt", "r");//打开flight_info.txt文件
-	if (fp == NULL)printf("航班信息缺失！\n");//提示文件是否缺失
-	else{
-		flight * node;//定义结构体头节点、普通节点、尾节点
+
+	if (fp == NULL)printf("航班信息文件缺失！\a\n");//提示文件是否缺失				//仍需编辑
+	else
+	{
+		flight * node;//定义普通节点
 		node = (flight*)malloc(sizeof(flight));//分配空间
-		head = node;//保存头节点
-		if (node == NULL)printf("内存分配失败！\n");//提示空间是否分配不足
-		else{
-			if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)printf("文件读写失败！\n");
+		head_flight = node;//保存头节点
+
+		if (node == NULL)printf("内存分配失败！\a\n");//提示空间是否分配不足		//仍需编辑
+		else
+		{
+			//第一次录入
+			if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)printf("文件读写失败！\a\n");//提示文件是否读写成功
+			//剩余录入
 			while (1)
 			{
+				flight_info_num++;//航班信息数量自增
 				node->next = (flight*)malloc(sizeof(flight));//分配空间
-				if (node->next == NULL)printf("内存分配失败！\n");//提示空间是否分配不足
-				else {
-					end = node;//保存尾节点
+
+				if (node->next == NULL)printf("内存分配失败！\a\n");//提示空间是否分配不足//仍需编辑
+				else
+				{
+					end_flight = node;//保存尾节点
 					node = node->next;//向下移动节点
+
 					if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)//读取一行数据保存在当前节点,并判断是否读写完毕
 					{
 						node = NULL;
 						break;
-					}
-						
+					}				
 				}
 			}
-			rewind(fp);
+			fclose(fp);//关闭文件
 		}
 	}
 }
 
+void show_flight_info(void)//显示航班信息
+{
+	int i;//定义循环变量
+	flight* node;//定义普通节点
+	node = head_flight;//初始化普通节点
+
+	for (i = 0; i < flight_info_num; i++)
+	{
+		printf("|%23s|%23s|%16s|%8s|%8s|%8s|%6d|%6d\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		node = node->next;
+	}
+}
+
+int main()
+{
+	get_flight_info();
+	show_flight_info();
+	return 0;
+}
