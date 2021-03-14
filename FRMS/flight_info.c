@@ -74,7 +74,7 @@ void show_flight_info(void)
 while ((std_in = getchar()) != EOF && std_in != '\n');//清空因非法输入而产生的输入区缓存
 */
 
-//排序航班信息（单关键字）
+//排序航班信息（单关键字）//目前对数字不行！其他可以
 void sort_flight_info(char option)
 {
 	int offset;//定义偏移量
@@ -94,22 +94,31 @@ void sort_flight_info(char option)
 	}
 
 
-	flight* node, * buffer;//定义普通节点、缓存节点
+	flight* node, * buffer, * lag;//定义普通节点、缓存节点、滞后节点
 
 	for (i = 0; i < flight_info_num-1; i++)
 	{
 		node = head_flight;//初始化普通节点
+		lag = head_flight;//初始化滞后节点
 		for (j = 0; j < flight_info_num - 1 - i; j++)
-		{
-			
+		{		
 			buffer = node;//初始化缓存节点
 			if (strcmp(node->start_place + offset, node->next->start_place + offset) == 1)
 			{
 				node = node->next;
 				buffer->next = node->next;
 				node->next = buffer;
-				if (j == 0)head_flight = node;
+				if (j == 0)
+				{
+					head_flight = node;
+					lag = head_flight;//初始化滞后节点
+				}
+				else
+				{
+					lag->next = node;
+				}
 			}
+			if (j != 0)lag = lag->next;
 			node = node->next;
 		}
 	}
@@ -134,8 +143,10 @@ int main()
 		printf("%s\n", node->start_place + 112);
 		node = node->next;
 	}*/
-
-	sort_flight_info('H');
+	printf("排序之前\n");
+	sort_flight_info('F');
+	printf("排序之后\n");
 	show_flight_info();
+	printf("Done\n");
 	return 0;
 }
