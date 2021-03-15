@@ -16,6 +16,7 @@ typedef struct flight_info
 	int price;			//价格
 	//变量部分大小112
 	struct flight_info* next;	//保存下一个地址
+
 	//实际测试大小116个字节
 }flight;
 
