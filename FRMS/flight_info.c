@@ -6,6 +6,10 @@
 #include"global.h"//自定义头文件
 #include"output.h"//输出类头文件
 
+int count=0;
+
+
+
 //读取flight_info.txt航班信息
 void get_flight_info(void)
 {
@@ -56,7 +60,17 @@ void get_flight_info(void)
 
 					if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)//读取一行数据保存在当前节点,并判断是否读写完毕
 					{
-						node->next = NULL;
+						{
+							strcpy(node->start_place, "Airport muggle can not found");
+							strcpy(node->end_place, "Airport can not be landed at");
+							strcpy(node->company, "Hogwarts Co.");
+							strcpy(node->flight_num, "HE5972");
+							strcpy(node->start_time, "notoday");
+							strcpy(node->end_time, "anytime");
+							node->people_num = 0;
+							node->price = 0;
+							node->next = NULL;
+						}
 						break;
 					}				
 				}
@@ -86,8 +100,9 @@ void show_flight_info(void)
 	printf("-----------------------------------------------------------------------------------------------------\n");
 }
 
-//排序航班信息（单关键字）
-flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head)//需要关键字字符数组首地址，排序链表成员个数，排序链表首地址 返回排序后首地址
+//排序航班信息
+flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head)
+//需要 顺序倒叙标识 关键字个数 关键字数组首地址 需要排序的航班信息数量 需要排序的航班信息首地址 || 返回 排序后首地址
 {
 	int offset;//用于描述成员占用长度或总偏移量
 	int i, j;//定义循环变量
@@ -193,6 +208,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 							head = buffer;
 							j += 1;
 						}
+						//问题所在！！出头地址外，其余下面链表排序后返回地址没有链接到上面：想法  加入lag指针
 						while (--loop_num_next)
 						{
 							buffer = buffer->next;
@@ -205,8 +221,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 
 		}
 	}
-	
-	
+	count++;//no use,for test
 	return head;
 }
 
@@ -224,7 +239,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 //测试用主函数
 int main()
 {
-	char option[9] = { 'F','H' };
+	char option[9] = { 'H', 'D' ,'G'};
 	int option_num = 2;
 	char direction = 'A';//未启用
 	int i = 1;
@@ -239,7 +254,6 @@ int main()
 		printf("##排序之前##\n");
 		
 		head_flight = sort_flight_info(direction, option_num, option, flight_info_num, head_flight);
-		
 		
 		printf("##排序之后##\n");
 		printf("##排序关键字:%s##\n", option);
