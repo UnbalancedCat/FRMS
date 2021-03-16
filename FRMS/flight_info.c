@@ -6,8 +6,8 @@
 #include"global.h"//自定义头文件
 #include"output.h"//输出类头文件
 
-//读取flight_info.txt航班信息
-void get_flight_info(void)
+//读取航班信息文件
+void pull_flight_info(void)
 {
 	flight_info_num = 0;//初始化航班信息数量
 	FILE* fp;//定义文件指针
@@ -56,7 +56,7 @@ void get_flight_info(void)
 
 					if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)//读取一行数据保存在当前节点,并判断是否读写完毕
 					{
-						{
+						{	//初始化无用空间
 							strcpy(node->start_place, "Airport muggle can not found");
 							strcpy(node->end_place, "Airport can not be landed at");
 							strcpy(node->company, "Hogwarts Co.");
@@ -66,6 +66,7 @@ void get_flight_info(void)
 							node->people_num = 0;
 							node->price = 0;
 							node->next_global = NULL;
+							node->next_part = NULL;
 						}
 						break;
 					}				
@@ -74,6 +75,28 @@ void get_flight_info(void)
 			fclose(fp);//关闭文件
 		}
 	}
+}
+
+//保存航班信息文件
+void push_flight_info(void)
+{
+	flight* node = head_flight;
+	FILE* fp;//定义文件指针
+	fp = fopen("flight_info.output", "w");//打开并覆盖清楚flight_info.txt文件内容
+	if (fp == NULL)
+	{
+		printf("文件输出错误！\a\n");//提示fopen是否成功返回指针
+		return;
+	}
+	else
+	{
+		while (node->next_global != NULL)
+		{
+			fprintf(fp, "%s %s %s %s %s %s %d %d\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+			node = node->next_global;
+		}
+	}
+	fclose(fp);
 }
 
 //显示航班信息
@@ -244,15 +267,18 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 
 
 
+
+
+
 //测试用主函数
 int main()
 {
-	char option[9] = { 'H','D','G','A','C','E','B','F' };
+	char option[9] = { 'A','D','G','B','C','E','H','F' };
 	int option_num = 8;
 	char direction = 'B';
 	int i = 1;
 	printf("读取数据...\n");
-	get_flight_info();
+	pull_flight_info();
 	printf("数据读写成功\n\n");
 
 	printf("输出数据...\n");
@@ -260,7 +286,6 @@ int main()
 	printf("数据输出成功\n\n");
 
 	//用于测试排序函数
-	while (i--)
 	{
 		
 		printf("排序数据...\n");
@@ -272,10 +297,14 @@ int main()
 		printf("输出数据...\n");
 		show_flight_info(head_flight);
 		printf("数据输出成功\n\n");
+
+		printf("保存数据...\n");
+		push_flight_info();
+		printf("数据保存成功\n\n");
 	}
+
 	
 	printf("Done\n");
 
-	printf("%d", sizeof(flight));
 	return 0;
 }
