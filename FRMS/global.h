@@ -12,12 +12,14 @@ typedef struct flight_info
 	char flight_num[8];		//航班号
 	char start_time[8];		//起飞时间
 	char end_time[8];		//到达时间
-	int people_num;		//人数
-	int price;			//价格
+	int people_num;			//人数
+	int price;				//价格
 	//变量部分大小112
-	struct flight_info* next;	//保存下一个地址
 
-	//实际测试大小116个字节
+	struct flight_info* next_global;	//保存整体的链表下一个成员的地址
+	struct flight_info* next_part;		//保存查询后链表下一个成员的地址
+
+	//实际测试大小120个字节
 }flight;
 
 //全局变量头节点和尾节点

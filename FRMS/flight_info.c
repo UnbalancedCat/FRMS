@@ -6,10 +6,6 @@
 #include"global.h"//自定义头文件
 #include"output.h"//输出类头文件
 
-int count=0;
-
-
-
 //读取flight_info.txt航班信息
 void get_flight_info(void)
 {
@@ -46,9 +42,9 @@ void get_flight_info(void)
 			while (1)
 			{
 				flight_info_num++;//航班信息数量自增
-				node->next = (flight*)malloc(sizeof(flight));//分配空间
+				node->next_global = (flight*)malloc(sizeof(flight));//分配空间
 
-				if (node->next == NULL)
+				if (node->next_global == NULL)
 				{
 					printf("内存分配失败！\a\n");//提示空间是否分配不足
 					return;//中止函数
@@ -56,7 +52,7 @@ void get_flight_info(void)
 				else
 				{
 					end_flight = node;//保存尾节点
-					node = node->next;//向下移动节点
+					node = node->next_global;//向下移动节点
 
 					if (fscanf(fp, "%s %s %s %s %s %s %d %d", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, &node->people_num, &node->price) != 8)//读取一行数据保存在当前节点,并判断是否读写完毕
 					{
@@ -69,7 +65,7 @@ void get_flight_info(void)
 							strcpy(node->end_time, "anytime");
 							node->people_num = 0;
 							node->price = 0;
-							node->next = NULL;
+							node->next_global = NULL;
 						}
 						break;
 					}				
@@ -81,33 +77,41 @@ void get_flight_info(void)
 }
 
 //显示航班信息
-void show_flight_info(void)
+void show_flight_info(flight* head)//需要 显示的链表的首地址
 {
 	int i = 0;//定义循环变量
-	flight* node;//定义普通节点
-	node = head_flight;//初始化普通节点
-	
+	flight* node = head;//定义并初始化普通节点
+
 	FRMS_title();//调用输出航班预定管理系统题头函数
 	flight_info_title();//调用输出输出航班预定管理系统题头函数
 	flight_info_subtitle();//调用输出航班时刻表分类栏函数
 
 	printf("-----------------------------------------------------------------------------------------------------\n");
-	while (node->next != NULL)
+	while (node->next_global != NULL)
 	{
 		printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6d|%6d|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
-		node = node->next;
+		node = node->next_global;
 	}
 	printf("-----------------------------------------------------------------------------------------------------\n");
 }
 
-//排序航班信息
+//多关键字排序航班信息
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head)
-//需要 顺序倒叙标识 关键字个数 关键字数组首地址 需要排序的航班信息数量 需要排序的航班信息首地址 || 返回 排序后首地址
+//需要 顺序倒叙标识字符 关键字个数 关键字数组首地址 排序的航班信息数量 排序的航班信息首地址 || 返回 排序后首地址
 {
 	int offset;//用于描述成员占用长度或总偏移量
 	int i, j;//定义循环变量
-	_Bool bool;
+	_Bool bool, bool_direction;
+
 	flight* node, * buffer, * lag;//定义普通节点、缓存节点、滞后节点	
+
+	//判断排序顺序
+	switch (direction)
+	{
+	case 'A': bool_direction = 1; break;
+	case 'B': bool_direction = 0; break;
+	default : bool_direction = 1;
+	}
 
 	//一级关键字
 	switch (*option_info)
@@ -120,7 +124,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	case 'F':offset = 96; break;
 	case 'G': break;
 	case 'H': break;
-	default: printf("错误指令,请重新输入\n\a"); return head;
+	default: printf("传递参数错误，排序关键字错误\n\a"); return head;
 	}
 
 	for (i = 0; i < loop_num - 1; i++)
@@ -133,21 +137,20 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 
 			if (*option_info == 'G' || *option_info == 'H')
 			{
-				if (*option_info == 'G')bool = (node->people_num > node->next->people_num);
-				if (*option_info == 'H')bool = (node->price > node->next->price);
+				if (*option_info == 'G')bool = ((node->people_num > node->next_global->people_num) == bool_direction);
+				if (*option_info == 'H')bool = ((node->price > node->next_global->price) == bool_direction);
 			}
 			else
 			{
-				bool = (strcmp(node->start_place + offset, node->next->start_place + offset) == 1);
+				bool = ((strcmp(node->start_place + offset, node->next_global->start_place + offset) == 1) == bool_direction);
 			}
 
 
 			if (bool)
-				//node->people_num > node->next->people_num
 			{
-				node = node->next;
-				buffer->next = node->next;
-				node->next = buffer;
+				node = node->next_global;
+				buffer->next_global = node->next_global;
+				node->next_global = buffer;
 				if (j == 0)
 				{
 					head = node;
@@ -155,11 +158,11 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 				}
 				else
 				{
-					lag->next = node;
+					lag->next_global = node;
 				}
 			}
-			if (j != 0)lag = lag->next;
-			node = node->next;
+			if (j != 0)lag = lag->next_global;
+			node = node->next_global;
 
 		}
 	}
@@ -174,33 +177,33 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 		node = head;
 		buffer_next = head;
 		lag = NULL;
-		while (node->next != NULL)
+		while (node->next_global != NULL)
 		{
 			
 			loop_num_next = 1;
 			head_next = buffer_next;
 			node = head_next;
 			buffer = head_next;
-			while (node->next != NULL)
+			while (node->next_global != NULL)
 			{
 				if (*option_info == 'G' || *option_info == 'H')
 				{
-					if (*option_info == 'G')bool = (node->people_num == node->next->people_num);
-					if (*option_info == 'H')bool = (node->price == node->next->price);
+					if (*option_info == 'G')bool = (node->people_num == node->next_global->people_num);
+					if (*option_info == 'H')bool = (node->price == node->next_global->price);
 				}
 				else
 				{
-					bool = (strcmp(node->start_place + offset, node->next->start_place + offset) == 0);
+					bool = (strcmp(node->start_place + offset, node->next_global->start_place + offset) == 0);
 				}
 
 				if (bool)//前后成员元素比对相同，继续比对
 				{
-					node = node->next;
+					node = node->next_global;
 					loop_num_next += 1;
 				}
 				else//前后成员元素对比不同，记录，开始二级关键字排序,链接链表，结束初次循环
 				{
-					buffer_next = node->next;
+					buffer_next = node->next_global;
 					if (loop_num_next != 1)
 					{
 						buffer = sort_flight_info(direction, option_num - 1, option_info + 1, loop_num_next, head_next);
@@ -211,14 +214,14 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 						}
 						else
 						{
-							lag->next = buffer;
+							lag->next_global = buffer;
 						}
 						while (--loop_num_next)
 						{
-							buffer = buffer->next;
+							buffer = buffer->next_global;
 						}
 						
-						buffer->next = buffer_next;
+						buffer->next_global = buffer_next;
 					}
 					lag = buffer;
 					break;
@@ -227,7 +230,6 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 
 		}
 	}
-	count++;//no use,for test
 	return head;
 }
 
@@ -245,29 +247,35 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 //测试用主函数
 int main()
 {
-	char option[9] = { 'H', 'D' ,'G','A'};
-	int option_num = 4;
-	char direction = 'A';//未启用
+	char option[9] = { 'H','D','G','A','C','E','B','F' };
+	int option_num = 8;
+	char direction = 'B';
 	int i = 1;
-
+	printf("读取数据...\n");
 	get_flight_info();
-	show_flight_info();
+	printf("数据读写成功\n\n");
+
+	printf("输出数据...\n");
+	show_flight_info(head_flight);
+	printf("数据输出成功\n\n");
 
 	//用于测试排序函数
 	while (i--)
 	{
 		
-		printf("##排序之前##\n");
-		
+		printf("排序数据...\n");
 		head_flight = sort_flight_info(direction, option_num, option, flight_info_num, head_flight);
+		printf("排序关键字:%s\n", option);
+		printf("数据排序成功\n\n");
 		
-		printf("##排序之后##\n");
-		printf("##排序关键字:%s##\n", option);
 
-		show_flight_info();
+		printf("输出数据...\n");
+		show_flight_info(head_flight);
+		printf("数据输出成功\n\n");
 	}
 	
-	printf("##Done##\n");
+	printf("Done\n");
 
+	printf("%d", sizeof(flight));
 	return 0;
 }
