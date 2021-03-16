@@ -16,7 +16,7 @@ void get_flight_info(void)
 	flight_info_num = 0;//初始化航班信息数量
 	FILE* fp;//定义文件指针
 
-	fp = fopen("flight_info.test", "r");//打开flight_info.txt文件
+	fp = fopen("flight_info.txt", "r");//打开flight_info.txt文件
 
 	if (fp == NULL)
 	{
@@ -167,12 +167,13 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	//二级关键字
 	if (option_num != 1)
 	{
-		flight* head_next, * buffer_next;//定义传递给嵌套函数的链表首地址
+		flight* head_next, * buffer_next, * lag;//定义传递给嵌套函数的链表首地址等
 		int loop_num_next;//定义传递给嵌套函数的链表成员个数
 		j = 0;
 
 		node = head;
 		buffer_next = head;
+		lag = NULL;
 		while (node->next != NULL)
 		{
 			
@@ -208,13 +209,18 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 							head = buffer;
 							j += 1;
 						}
-						//问题所在！！出头地址外，其余下面链表排序后返回地址没有链接到上面：想法  加入lag指针
+						else
+						{
+							lag->next = buffer;
+						}
 						while (--loop_num_next)
 						{
 							buffer = buffer->next;
 						}
+						
 						buffer->next = buffer_next;
 					}
+					lag = buffer;
 					break;
 				}
 			}
@@ -239,8 +245,8 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 //测试用主函数
 int main()
 {
-	char option[9] = { 'H', 'D' ,'G'};
-	int option_num = 2;
+	char option[9] = { 'H', 'D' ,'G','A'};
+	int option_num = 4;
 	char direction = 'A';//未启用
 	int i = 1;
 
