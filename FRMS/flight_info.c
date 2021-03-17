@@ -120,18 +120,25 @@ void show_flight_info(flight* head)//需要 显示的链表的首地址
 	}
 	else
 	{
-		while (node->next_part != NULL)
+		if (head == NULL)
 		{
-			printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
-			node = node->next_part;
+			printf("                                      没 有 符 合 条 件 的 信 息\n");
+		}
+		else
+		{
+			while (node->next_part != NULL)
+			{
+				printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+				node = node->next_part;
+			}
 		}
 	}
 	printf("-----------------------------------------------------------------------------------------------------\n");
 }
 
-//多关键字排序函数
+//多关键字排序函数（不能接收head_flight_part）
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head)
-//需要 顺序倒叙标识字符 关键字个数 关键字数组首地址 排序的航班信息数量 排序的航班信息首地址 || 返回 排序后首地址
+//需要 顺序倒叙标识字符 关键字对象个数 关键字对象数组首地址 排序的航班信息数量 排序的航班信息首地址 || 返回 排序后首地址 
 {
 	int offset;//用于描述成员占用长度或总偏移量
 	int i, j;//定义循环变量
@@ -172,7 +179,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 
 			if (*option_info == 'G' || *option_info == 'H')
 			{
-				bool = ((strtol((node->start_place + offset), NULL, 10) > strtol((node->next_global->start_place + offset), NULL, 10) == bool_direction));
+				bool = ((strtol((node->start_place + offset), NULL, 10) > strtol((node->next_global->start_place + offset), NULL, 10)) == bool_direction);
 			}
 			else
 			{
@@ -197,7 +204,6 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 			}
 			if (j != 0)lag = lag->next_global;
 			node = node->next_global;
-
 		}
 	}
 	
@@ -213,7 +219,6 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 		lag = NULL;
 		while (node->next_global != NULL)
 		{
-			
 			loop_num_next = 1;
 			head_next = buffer_next;
 			node = head_next;
@@ -253,7 +258,6 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 						{
 							buffer = buffer->next_global;
 						}
-						
 						buffer->next_global = buffer_next;
 					}
 					lag = buffer;
@@ -266,19 +270,21 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	return head;
 }
 
-//多关键字查询函数(单关键字已实现)
-flight* refer_flight_info(int option_num, char* option_info, char* refer_info, flight* head)//需要 关键词个数 关键词首地址 被查询链表首地址 || 返回 查询后新链表首地址
+//多关键字精确查询函数（对数字查询为模糊查询）
+void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head)//需要 关键字个数 关键字对象数组首地址 提供关键字首地址 被查询链表首地址
 {
+	search_flight_info_num = 0;
 	int j = 0;
 	int offset;//定义偏移量
 	flight* node, * buffer;//定义普通节点、缓冲节点
 
 	node = head;
 	buffer = head;
-	if (strlen(option_info) == 0 || *refer_info == '\n')
+
+	if (strlen(option_info) == 0 || refer_info[0][0] == '\n')
 	{
-		printf("未检测到字符！\n");
-		return NULL;
+		printf("未检测到字符！\n\a");
+		return;
 	}
 	switch (*option_info)
 	{
@@ -290,16 +296,18 @@ flight* refer_flight_info(int option_num, char* option_info, char* refer_info, f
 	case 'F':offset = 96; break;
 	case 'G':offset = 104; break;
 	case 'H':offset = 110; break;
-	default: printf("传递参数错误，查询关键字错误\n\a"); return NULL;
+	default: printf("传递参数错误，查询关键字错误\n\a"); return;
 	}
 
-	if (head != head_flight_part && head == head_flight_global)
+	//一级关键字
+	if (head != head_flight_part && head == head_flight_global)//获取的首地址为全局链表地址
 	{
 		while (node->next_global != NULL)
 		{
 
-			if (strstr((node->start_place + offset), refer_info) != NULL)
+			if (strstr((node->start_place + offset), refer_info[0]) != NULL)
 			{
+				search_flight_info_num++;
 				if (j == 0)
 				{
 					buffer = node;
@@ -314,15 +322,15 @@ flight* refer_flight_info(int option_num, char* option_info, char* refer_info, f
 			}
 			node = node->next_global;
 		}
-		buffer->next_part = NULL;
+		buffer->next_part = secret;
 	}
-	else
+	else//获取的首地址为查询链表地址
 	{
 		while (node->next_part != NULL)
 		{
-
-			if (strstr((node->start_place + offset), refer_info) != NULL)
+			if (strstr((node->start_place + offset), refer_info[0]) != NULL)
 			{
+				search_flight_info_num++;
 				if (j == 0)
 				{
 					buffer = node;
@@ -339,7 +347,15 @@ flight* refer_flight_info(int option_num, char* option_info, char* refer_info, f
 		}
 		buffer->next_part = secret;
 	}
-	return head;
+
+	head_flight_part = head ;
+
+	//二级关键字
+	if (option_num != 1)
+	{
+		refine_search_flight_info(option_num - 1, option_info + 1, refer_info + 1, head);
+	}
+	else if (search_flight_info_num == 0)head_flight_part = NULL;
 }
 
 
@@ -359,49 +375,58 @@ flight* refer_flight_info(int option_num, char* option_info, char* refer_info, f
 //测试用主函数
 int main()
 {
-	char option_sort[9] = { 'A','B','F','B','C','E','H','D' };
-	char refer_info[32] = { "上海" };
-	int option_num = 1;
-	char direction = 'B';
+	int i = 0;;
+	//char option_sort[9] = { 'B','A','C','D','E','F','G','B' };
+	char option_sort[9] = { 'A','H','C','B'};
+	char refer_info[8][32] = { "上海","2","大韩" ,"MI"};
+	int option_num = 3;
+	char direction = 'A';
 
 	//music();//careful!
 
 	//测试函数
 	{
-		printf("读取数据...\n");
+		printf("读取全局数据...\n");
 		pull_flight_info();
 		printf("数据读写成功\n\n");
-		system("pause");
 
-		printf("输出数据...\n");
+		printf("输出全局数据...\n");
 		show_flight_info(head_flight_global);
 		printf("数据输出成功\n\n");
-		system("pause");
 
 		printf("查询数据...\n");
-		head_flight_part = refer_flight_info(option_num, option_sort, refer_info, head_flight_global);
+		refine_search_flight_info(option_num, option_sort, refer_info, head_flight_global);
 		printf("查询关键字:%s\n", option_sort);
+		printf("查询关键词:");
+		while(refer_info[i][0]!='\0')
+		{
+			printf("%s ", refer_info[i]);
+			i++;
+		}
+		printf("\n");
 		printf("数据查询成功\n\n");
 		system("pause");
 
-		printf("输出数据...\n");
+		printf("输出查询数据...\n");
 		show_flight_info(head_flight_part);
 		printf("数据输出成功\n\n");
 		system("pause");
 
-		//printf("排序数据...\n");
-		//head_flight_global = sort_flight_info(direction, option_num, option_sort, flight_info_num, head_flight_global);
-		//printf("排序关键字:%s\n", option);
-		//printf("数据排序成功\n\n");
-		
+		printf("排序全局数据...\n");
+		head_flight_global = sort_flight_info(direction, option_num, option_sort, flight_info_num, head_flight_global);
+		printf("排序关键字:%s\n", option_sort);
+		printf("数据排序成功\n\n");
 
-		//printf("输出数据...\n");
-		//show_flight_info(head_flight_global);
-		//printf("数据输出成功\n\n");
+		printf("输出全局数据...\n");
+		show_flight_info(head_flight_global);
+		printf("数据输出成功\n\n");
+		system("pause");
 
-		//printf("保存数据...\n");
-		//push_flight_info();
-		//printf("数据保存成功\n\n");
+		printf("保存全局数据...\n");
+		push_flight_info();
+		printf("数据保存成功\n\n");
+		system("pause");
+
 	}
 
 

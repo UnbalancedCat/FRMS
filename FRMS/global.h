@@ -28,7 +28,7 @@ flight* head_flight_global, * head_flight_part;
 flight* secret;
 
 //全局变量航班信息数量
-int flight_info_num;
+int flight_info_num,search_flight_info_num;
 
 
 
