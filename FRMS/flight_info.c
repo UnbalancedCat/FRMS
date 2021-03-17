@@ -269,7 +269,6 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 
 
 
-
 //测试用主函数
 int main()
 {
@@ -277,6 +276,11 @@ int main()
 	int option_num = 8;
 	char direction = 'B';
 	int i = 1;
+
+	music();//careful!
+
+	PlaySound(TEXT("Knock Me Out.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
+
 	printf("读取数据...\n");
 	pull_flight_info();
 	printf("数据读写成功\n\n");
@@ -303,7 +307,7 @@ int main()
 		printf("数据保存成功\n\n");
 	}
 
-	
+
 	printf("Done\n");
 
 	return 0;

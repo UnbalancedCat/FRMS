@@ -28,4 +28,10 @@ flight* head_flight, * end_flight;
 //全局变量航班信息数量
 int flight_info_num;
 
+
+
+
+
+
+
 #endif
