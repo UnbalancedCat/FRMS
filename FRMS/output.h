@@ -32,8 +32,9 @@ void music(void)
 	char* point;
 	int i = 0;
 	char q = 'a';
-	char sentence[] =        "Loading Knock Me Out. . .\nEnter q to stop the music and start the rael project        ;)\nPlease enter a letter:\0";
-	char sentence_reload[] = "Reloading Knock Me Out...\nWhy don't you LISTEN TO ME to continue!?                    :(\nEnter q!:\0";
+	char no_use = '\n';
+	char sentence[] =        "Loading Knock Me Out. . .\nEnter q to stop the music and start the rael project         ;)\nPlease enter a letter:\0";
+	char sentence_reload[] = "Reloading Knock Me Out...\nWhy don't you LISTEN TO ME to continue!?                     :(\nEnter q!:\0";
 	while (q != 'q')
 	{
 		if (i == 0)
@@ -55,7 +56,7 @@ void music(void)
 		}
 
 		q = getchar();
-		getchar();
+		no_use = getchar();
 		system("cls");
 	}
 
