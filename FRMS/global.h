@@ -36,4 +36,4 @@ int flight_info_num,search_flight_info_num;
 
 
 
-#endif
+#endif		//GLOBAL_H_
