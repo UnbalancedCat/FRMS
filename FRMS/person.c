@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "personid.h"
+#include "global.h"
 #pragma warning(disable:4996)
 #pragma warning(disable:6031)
 #define _CRT_SECURE_NO_WARNINGS
@@ -21,26 +21,26 @@ char count_passenger[60] = { 0 };      //旅客的总人数
 int cp = 0;                             //旅客的总人数
 
 
-//判断输入，确定身份是旅客，管理员，或需要重新输入
-int main() {
-    printf("Please choose a number as 0 or 1!\n ");
-    int flag_personid;
-    flag_personid = getchar() - 48;
-        switch (flag_personid) {
-            //如果输入值为0，是旅客passenger 
-        case 0: {
-            getchar();
-            person_passenger();
-                break;}
-            //如果输入值为1，是管理员manager 
-        case 1:{
-            getchar();
-            person_manager();
-            break;}
-        default: printf("enter data error!please try again.\n");
-        }
-        return 0;
-}
+////判断输入，确定身份是旅客，管理员，或需要重新输入
+//int main() {
+//    printf("Please choose a number as 0 or 1!\n ");
+//    int flag_personid;
+//    flag_personid = getchar() - 48;
+//        switch (flag_personid) {
+//            //如果输入值为0，是旅客passenger 
+//        case 0: {
+//            getchar();
+//            person_passenger();
+//                break;}
+//            //如果输入值为1，是管理员manager 
+//        case 1:{
+//            getchar();
+//            person_manager();
+//            break;}
+//        default: printf("enter data error!please try again.\n");
+//        }
+//        return 0;
+//}
 
 
 //身份为旅客
@@ -375,19 +375,15 @@ void delete_passenger(void) {
     else  { Passenger[x - 1].pnext = NULL; }
 }
 
-
-
-
-
-
 //int search_passenger(void)       寻找对应的旅客,返回k值，对应Passenger[k]
 int search_passenger() {
     FILE* f_search;
     f_search = fopen("passenger.txt", "r");
     printf("请输入要查询旅客的电话号码。\n");
-    int k;          int qwe = 0;/*储存返回值*/
-    char search_passenger_tell[25] = { 0 };             //储存输入的电话号
-    int flag=0;             /*判断是否查询匹配成功。进而跳出for循环*/
+    int k;          
+    int qwe = 0;//储存返回值
+    char search_passenger_tell[25] = { 0 };            //储存输入的电话号
+    int flag = 0;           //判断是否查询匹配成功。进而跳出for循环
     scanf("%s", search_passenger_tell);
 
     for (k = 0; k <= cp; k++) {                        //注意k从0开始，同数组

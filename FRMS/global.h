@@ -41,13 +41,10 @@ int person_manager(void);
 void add_passenger(void);          //添加旅客信息
 void delete_passenger(void);       //删除旅客信息
 void mend_passenger(void);         //修改旅客信息
-void sort_passenger(void);         //排序旅客信息，按身份证号或年龄
 void seek_passenger(void);         //查询旅客信息
 void read_passenger(void);          //读取旅客信息
 void print_passenger(void);         //输出旅客信息
 void match_passenger(void);         //匹配旅客电话与密码
-void name_sort(void);               //依据旅客姓名排序
-void mix_sort(void);                //依据旅客姓名及身份证号排序
-int search_passenger(void);        //寻找对应的旅客
+int search_passenger(void);
 
 #endif	//OUTPUT_H_
