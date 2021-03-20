@@ -10,13 +10,15 @@
 1.  Visual Studio 2019
 2.  Visual Studio Code
 
-#### 使用说明
+#### 如何本地运行使用？
 
-使用Git建立本地仓库并绑定Gitee云端仓库
+本使用说明以 Visual Studio 2019 为例
+
+1. 在使用  Visual Studio 2019 本地新建 C++ 空项目
+2. 通过解决方案资源管理器添加现有项将对应文件加入解决方案
 
 #### 参与贡献
 
-1.  Fork 本仓库
+1.  Fork 本仓库并新建 Pull Request
 2.  新建 Feat_xxx 分支
 3.  提交代码
-4.  新建 Pull Request
