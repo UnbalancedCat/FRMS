@@ -65,6 +65,8 @@ void manager_1()
 	int begin_manager_1 = 0;//选项
 	show_FRMS_title();
 	show_manager_title();
+	show_flight_info_title();
+	show_flight_info(head_flight_global);
 	line();
 	printf("                                            1.添 加\n");
 	printf("                                            2.删 除\n");
@@ -73,14 +75,15 @@ void manager_1()
 	printf("                                            5.查 询\n");
 	printf("                                            6.返 回\n");
 	line();
+	printf("请输入对应序号访问功能（1-6）：");
 	scanf_s("%d", &begin_manager_1);//等待输入
 	if (begin_manager_1 == 1 || begin_manager_1 == 2 || begin_manager_1 == 3 || begin_manager_1 == 4 || begin_manager_1 == 5 || begin_manager_1 == 6)
 	{
 		switch (begin_manager_1)
 		{
-		case 1:system("cls"); break;//航班信息 添加
-		case 2:system("cls"); break;
-		case 3:system("cls"); break;
+		case 1:system("cls"); add_flight_info(); break;//航班信息 添加
+		case 2:system("cls"); delete_flight_info(); break;//航班信息 删除
+		case 3:system("cls"); modify_flight_info(); break;//航班信息 修改
 		case 4:system("cls"); break;
 		case 5:system("cls"); break;
 		case 6:system("cls"); manager(); break;

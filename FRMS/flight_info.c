@@ -443,7 +443,7 @@ void add_flight_info(void)
 }
 
 //修改航班信息函数
-void modify_flight_info()
+void modify_flight_info(void)
 {
 	int i;
 	flight* node;
