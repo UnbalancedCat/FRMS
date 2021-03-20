@@ -68,6 +68,8 @@ void manager_1()
 	show_FRMS_title();
 	show_manager_title();
 	line();
+	printf("                                             飞 机 航 班\n");
+	line();
 	printf("                                               1.添 加\n");
 	printf("                                               2.删 除\n");
 	printf("                                               3.修 改\n");
@@ -99,23 +101,23 @@ void manager_2()
 	show_FRMS_title();
 	show_manager_title();
 	line();
+	printf("                                             旅 客 信 息\n");
+	line();
 	printf("                                               1.添 加\n");
 	printf("                                               2.删 除\n");
 	printf("                                               3.修 改\n");
-	printf("                                               4.排 序\n");
-	printf("                                               5.查 询\n");
-	printf("                                               6.返 回\n");
+	printf("                                               4.查 询\n");
+	printf("                                               5.返 回\n");
 	line();
 	scanf_s("%d", &begin_manager_2);//等待输入
-	if (begin_manager_2 == 1 || begin_manager_2 == 2 || begin_manager_2 == 3 || begin_manager_2 == 4 || begin_manager_2 == 5 || begin_manager_2 == 6)
+	if (begin_manager_2 == 1 || begin_manager_2 == 2 || begin_manager_2 == 3 || begin_manager_2 == 4 || begin_manager_2 == 5)
 		switch (begin_manager_2)
 		{
 		case 1:system("cls"); break;
 		case 2:system("cls"); break;
 		case 3:system("cls"); break;
 		case 4:system("cls"); break;
-		case 5:system("cls"); break;
-		case 6:system("cls"); manager(); break;
+		case 5:system("cls"); manager(); break;
 		}
 	else
 	{
