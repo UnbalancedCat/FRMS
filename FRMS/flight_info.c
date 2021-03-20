@@ -3,8 +3,8 @@
 #include<stdlib.h>
 #include<string.h>
 #include<malloc.h>
-#include"global.h"//自定义头文件
-#include"output.h"//输出类头文件
+#include"global.h"
+#include"flight_info.h"
 
 //读取文件函数
 void pull_flight_info(void)
@@ -565,89 +565,149 @@ void delete_flight_info(void)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//测试用主函数
-int main()
+//输出长横线
+void line(void)
 {
-	int i = 0;;
-	//char option_sort[9] = { 'B','A','C','D','E','F','G','B' };
-	char option_sort[9] = { 'A','H','C','B'};
-	char refer_info[8][32] = { "上海","2","大韩" ,"MI"};
-	int option_num = 3;
-	char direction = 'A';
+	printf("-----------------------------------------------------------------------------------------------------\n");
+}
 
-	//music();//careful!
+//输出航班时刻表题头
+void show_flight_info_title(void)
+{
+	line();
+	printf("                                            航 班 时 刻 表\n");
+}
 
-	//测试函数
+//输出航班预定管理系统题头
+void show_FRMS_title(void)
+{
+	line();
+	printf("\n                      航      班      预      定      管      理      系      统\n\n");
+}
+
+//输出航班时刻表分类栏
+void show_flight_info_subtitle(void)
+{
+	line();
+	printf("|  |%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
+}
+
+//输出管理员标题
+void show_manager_title(void)
+{
+	line();
+	printf("                                            管 理 员 模 式\n");
+}
+
+#include <Windows.h>
+#pragma comment(lib,"Winmm.lib")
+//function plays music
+void music(void)
+{
+	char* point;
+	int i = 0;
+	char q = 'a';
+	char no_use = '\n';
+	char sentence[] = "Loading Knock Me Out. . .\nEnter q to stop the music and start the rael project         ;)\nPlease enter a letter:\0";
+	char sentence_reload[] = "Reloading Knock Me Out...\nWhy don't you LISTEN TO ME to continue!?                     :(\nEnter q!:\0";
+	while (q != 'q')
 	{
-		printf("读取全局数据...\n");
-		pull_flight_info();
-		printf("数据读写成功\n\n");
-
-		printf("输出全局数据...\n");
-		show_flight_info(head_flight_global);
-		printf("数据输出成功\n\n");
-
-		modify_flight_info();
-
-		delete_flight_info();
-
-		printf("查询数据...\n");
-		refine_search_flight_info(option_num, option_sort, refer_info, head_flight_global);
-		printf("查询关键字:%s\n", option_sort);
-		printf("查询关键词:");
-		while(refer_info[i][0]!='\0')
+		if (i == 0)
 		{
-			printf("%s ", refer_info[i]);
+			point = sentence;
 			i++;
 		}
-		printf("\n");
-		printf("数据查询成功\n\n");
-		system("pause");
-
-		printf("输出查询数据...\n");
-		show_flight_info(head_flight_part);
-		printf("数据输出成功\n\n");
-		system("pause");
-
-		printf("排序全局数据...\n");
-		head_flight_global = sort_flight_info(direction, option_num, option_sort, flight_info_num, head_flight_global);
-		printf("排序关键字:%s\n", option_sort);
-		printf("数据排序成功\n\n");
+		else point = sentence_reload;
 
 
-		printf("添加全局数据...\n");
-		add_flight_info();
-		printf("数据添加成功\n\n");
-		system("pause");
-		
+		PlaySound(TEXT("Knock Me Out.wav"), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP);
 
-		printf("输出全局数据...\n");
-		show_flight_info(head_flight_global);
-		printf("数据输出成功\n\n");
-		system("pause");
+		while (*point != '\0')
+		{
+			printf("%c", *point);
+			if (*point == '\n')Sleep(1500);
+			else Sleep(100);
+			point++;
+		}
 
-		printf("保存全局数据...\n");
-		push_flight_info();
-		printf("数据保存成功\n\n");
-		system("pause");
-
+		q = getchar();
+		no_use = getchar();
+		system("cls");
 	}
 
-
-	printf("Done\n");
-
-	return 0;
+	return;
 }
+
+//测试用主函数
+//int main()
+//{
+//	int i = 0;;
+//	//char option_sort[9] = { 'B','A','C','D','E','F','G','B' };
+//	char option_sort[9] = { 'A','H','C','B'};
+//	char refer_info[8][32] = { "上海","2","大韩" ,"MI"};
+//	int option_num = 3;
+//	char direction = 'A';
+//
+//	//music();//careful!
+//
+//	//测试函数
+//	{
+//		printf("读取全局数据...\n");
+//		pull_flight_info();
+//		printf("数据读写成功\n\n");
+//
+//		printf("输出全局数据...\n");
+//		show_flight_info(head_flight_global);
+//		printf("数据输出成功\n\n");
+//
+//		modify_flight_info();
+//
+//		delete_flight_info();
+//
+//		printf("查询数据...\n");
+//		refine_search_flight_info(option_num, option_sort, refer_info, head_flight_global);
+//		printf("查询关键字:%s\n", option_sort);
+//		printf("查询关键词:");
+//		while(refer_info[i][0]!='\0')
+//		{
+//			printf("%s ", refer_info[i]);
+//			i++;
+//		}
+//		printf("\n");
+//		printf("数据查询成功\n\n");
+//		system("pause");
+//
+//		printf("输出查询数据...\n");
+//		show_flight_info(head_flight_part);
+//		printf("数据输出成功\n\n");
+//		system("pause");
+//
+//		printf("排序全局数据...\n");
+//		head_flight_global = sort_flight_info(direction, option_num, option_sort, flight_info_num, head_flight_global);
+//		printf("排序关键字:%s\n", option_sort);
+//		printf("数据排序成功\n\n");
+//
+//
+//		printf("添加全局数据...\n");
+//		add_flight_info();
+//		printf("数据添加成功\n\n");
+//		system("pause");
+//		
+//
+//		printf("输出全局数据...\n");
+//		show_flight_info(head_flight_global);
+//		printf("数据输出成功\n\n");
+//		system("pause");
+//
+//		printf("保存全局数据...\n");
+//		push_flight_info();
+//		printf("数据保存成功\n\n");
+//		system("pause");
+//
+//	}
+//
+//
+//	printf("Done\n");
+//
+//	return 0;
+//}
