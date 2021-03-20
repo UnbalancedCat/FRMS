@@ -2,31 +2,39 @@
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
 
+#include<stdio.h>
 
-//输出航班时刻表题头
-void flight_info_title(void)
+//输出长横线
+void line(void)
 {
 	printf("-----------------------------------------------------------------------------------------------------\n");
+}
+
+//输出航班时刻表题头
+void show_flight_info_title(void)
+{
+	line();
 	printf("                                            航 班 时 刻 表\n");
 }
 
 //输出航班预定管理系统题头
-void FRMS_title(void)
+void show_FRMS_title(void)
 {
-	printf("-----------------------------------------------------------------------------------------------------\n\n");
-	printf("                      航      班      预      定      管      理      系      统\n\n");
+	line();
+	printf("\n                      航      班      预      定      管      理      系      统\n\n");
 }
 
 //输出航班时刻表分类栏
-void flight_info_subtitle(void)
+void show_flight_info_subtitle(void)
 {
-	printf("-----------------------------------------------------------------------------------------------------\n");
-	printf("|No|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
+	line();
+	printf("|  |%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
 }
 
-//function plays music
 #include <Windows.h>
 #pragma comment(lib,"Winmm.lib")
+
+//function plays music
 void music(void)
 {
 	char* point;
@@ -63,4 +71,4 @@ void music(void)
 	return;
 }
 
-#endif
+#endif	//OUTPUT_H_

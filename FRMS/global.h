@@ -6,13 +6,13 @@
 typedef struct flight_info
 {
 
-	char start_place[32];	//起飞地
+	char start_place[32];	//始发地
 	char end_place[32];		//目的地
 	char company[16];		//航空公司
 	char flight_num[8];		//航班号
 	char start_time[8];		//起飞时间
 	char end_time[8];		//到达时间
-	char people_num[6];			//人数
+	char people_num[6];			//载客
 	char price[6];				//价格
 	//变量部分大小112
 
