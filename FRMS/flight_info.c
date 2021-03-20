@@ -5,6 +5,11 @@
 #include<malloc.h>
 #include"global.h"
 #include"flight_info.h"
+//初始化
+void init(void)
+{
+	pull_flight_info();//读取航班信息;
+}
 
 //读取文件函数
 void pull_flight_info(void)
@@ -438,7 +443,7 @@ void add_flight_info(void)
 }
 
 //修改航班信息函数
-void modify_flight_info()
+void modify_flight_info(void)
 {
 	int i;
 	flight* node;

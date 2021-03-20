@@ -8,7 +8,7 @@
 
 //定义结构体_旅客
  struct Passenger{
-    char pname[7];	           //姓名
+    char pname[20];	           //姓名
     char pid[20];	           //身份证
     char password[20];	       //密码
     char tell[15];	           //电话
@@ -18,7 +18,30 @@
 struct Passenger Passenger[50];
 struct Passenger *phead, *pnode, *pend;              //定义旅客类型结构体 头节点、普通节点、尾节点
 char count_passenger[60] = { 0 };      //旅客的总人数
-int cp = 0;
+int cp = 0;                             //旅客的总人数
+
+
+////判断输入，确定身份是旅客，管理员，或需要重新输入
+//int main() {
+//    printf("Please choose a number as 0 or 1!\n ");
+//    int flag_personid;
+//    flag_personid = getchar() - 48;
+//        switch (flag_personid) {
+//            //如果输入值为0，是旅客passenger 
+//        case 0: {
+//            getchar();
+//            person_passenger();
+//                break;}
+//            //如果输入值为1，是管理员manager 
+//        case 1:{
+//            getchar();
+//            person_manager();
+//            break;}
+//        default: printf("enter data error!please try again.\n");
+//        }
+//        return 0;
+//}
+
 
 //身份为旅客
 int person_passenger() {                      //添加·删除·修改
@@ -46,8 +69,8 @@ int person_passenger() {                      //添加·删除·修改
 }
 
 //身份为管理员
-int person_manager() {									//添加·删除·修改·排序·查询
-    printf("添加请按1\n删除请按2\n修改请按3\n排序请按4\n查询请按5\n");
+int person_manager() {									//添加·删除·修改·查询
+    printf("添加请按1\n删除请按2\n修改请按3\n查询请按4\n");
     int temp_for_pm = 0;;
     temp_for_pm = getchar() - 48;
 
@@ -65,10 +88,6 @@ int person_manager() {									//添加·删除·修改·排序·查询
         break;
     }
     case 4: {
-        sort_passenger();         //排序旅客信息，按身份证号或年龄
-        break;
-    }
-    case 5: {
         seek_passenger();         //查询旅客信息
         break;
     }
@@ -77,7 +96,7 @@ int person_manager() {									//添加·删除·修改·排序·查询
     return 1;
 }
 
-//void read_passenger(void);          //读取旅客信息，要在对旅客信息进行操作前调用一次      已完成 
+//void read_passenger(void);          //读取旅客信息，要在对旅客信息进行操作前调用一次      
 void read_passenger(void) {
     FILE* frp;          //frp 即 file_read_passenger
 
@@ -120,76 +139,7 @@ void read_passenger(void) {
     }
 }
 
-//依据旅客姓名排序
-void name_sort() {
-    read_passenger;
-    FILE* f_name_sort;
-    f_name_sort = fopen("passenger.txt", "r");
-    int n = cp;
-    struct Passenger temp;
-    char get_arry[50][600];
-    fgets(get_arry, sizeof(Passenger), f_name_sort);
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - 1 - i; j++) {
-            if (strcmp(Passenger[j].pname, Passenger[j + 1].pname) > 0) {
-                temp = Passenger[j + 1];
-                Passenger[j + 1] = Passenger[j];
-                Passenger[j] = temp;
-            }
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        printf("姓名：     %s\n", Passenger[i + 1].pname);
-        printf("身份证号：     %s\n", Passenger[i + 1].pid);
-        printf("电话：     %s\n", Passenger[i + 1].tell);
-    }fclose(f_name_sort);
-}
 
-//依据旅客姓名及身份证号排序
-void mix_sort(void) {
-    FILE* f_name_sort;int n = 0;
-    f_name_sort = fopen("passenger.txt", "r");
-    
-    n = cp;
-    struct Passenger temp;
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - 1 - i; j++) {
-            if (strcmp(Passenger[j].pname, Passenger[j + 1].pname) > 0) {
-                temp = Passenger[j + 1];
-                Passenger[j + 1] = Passenger[j];
-                Passenger[j] = temp;
-            }
-        }
-    }
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - 1 - i; j++) {
-            if (strcmp(Passenger[j].pid, Passenger[j + 1].pid) > 0) {
-                temp = Passenger[j + 1];
-                Passenger[j + 1] = Passenger[j];
-                Passenger[j] = temp;
-            }
-        }
-    }
-    for (int i = 0; i < n; i++) {
-        printf("姓名：     %s\n", Passenger[i + 1].pname);
-        printf("身份证号：     %s\n", Passenger[i + 1].pid);
-        printf("电话：     %s\n", Passenger[i + 1].tell);
-    }
-    fclose(f_name_sort);
-
-}
-
-//void sort_passenger(void);         //排序旅客信息，按身份证号或加上年龄
-void sort_passenger(void) {
-    int flag_sort = 3;
-    printf("按姓名排序请按1.\n按姓名和年龄排序请按2\n");
-    scanf("%d", &flag_sort);
-    switch (flag_sort) {
-    case 1: name_sort; break;
-    case 2: mix_sort; break;
-    default:printf("非法输入！\n"); break;
-    }
-}
 
 //void mend_passenger(void);         //修改旅客信息
 void mend_passenger(void) {
@@ -259,15 +209,18 @@ void mend_passenger(void) {
 
 
 
-//void print_passenger(void)                        //输出旅客信息        
-void print_passenger(void) {                         //输出旅客信息        已完成
-    while (phead->pnext != NULL) {
-        phead = phead->pnext;
-        printf("姓名：     %s\n", phead->pname);
-        printf("身份证号：     %s\n", phead->pid);
-        printf("电话：     %s\n", phead->tell);
+//void print_passenger(void)                        //输出旅客信息        调用：printf_passenger();     
+void print_passenger(void) {                         //输出旅客信息
+    FILE *f_print=fopen("passenger.txt","r");
+    printf("每行四个数据，依次是英文姓名    身份证号    密码  电话\n");
+    for(int i=0;i<cp;i++){
+        char array_print[600]={0};
+        fgets(array_print,600,f_print);
+        printf("%s",array_print);
     }
+
 }
+
 
 //void seek_passenger(void);         //查询旅客信息      
 void seek_passenger(void) {
@@ -377,36 +330,35 @@ void add_passenger(void) {
     switch (j) {
     case 0: {printf("请输入旅客姓名：\n");
         char n[10]={ 0 };
-        scanf("%s", n);
+        scanf("%s",n);
+        fprintf(f_add,"%s   ", n);
         strcpy(Passenger[cp].pname, n);
         }
     case 1:{printf("请输入旅客身份证号：\n");
         char nq[20] = { 0 };
-        scanf("%s", nq);
+        scanf("%s",nq);
+        fprintf(f_add,"%s   ", nq);
         strcat(nq, " ");
         strcpy(Passenger[cp].pid, nq);
     }
     case 2: {printf("请输入旅客密码：\n");
         char nw[20] = { 0 };
-        scanf("%s", nw);
+        scanf("%s",nw);
+        fprintf(f_add,"%s   ", nw);
         strcat(nw, " ");
         strcpy(Passenger[cp].pid, nw);
     }
-    case 3: {printf("请输入旅客电话：\n");                  //这里有问题，调试到了这里就会线程退出
+    case 3: {printf("请输入旅客电话：\n");
         char ne[20] = { 0 };
-        scanf("%s", ne);
+        scanf("%s",ne);
+        fprintf(f_add,"%s   ", ne);
         strcpy(Passenger[cp].pid, ne);
         strcpy(Passenger[cp].count_num, count_passenger);
-        
-      
         break;
     }
     default: {printf("添加旅客信息过程中出现错误！\n");
         break; }
-    }
-
-    fclose(f_add);
-    
+    } fclose(f_add);
 }
 
 //void delete_passenger(void);       //删除旅客信息
@@ -420,9 +372,7 @@ void delete_passenger(void) {
             x++;
         }
     }
-    else  {
-        Passenger[x - 1].pnext = NULL;       
-    }
+    else  { Passenger[x - 1].pnext = NULL; }
 }
 
 //int search_passenger(void)       寻找对应的旅客,返回k值，对应Passenger[k]
@@ -430,14 +380,23 @@ int search_passenger() {
     FILE* f_search;
     f_search = fopen("passenger.txt", "r");
     printf("请输入要查询旅客的电话号码。\n");
-    int k;          char search_passenger_tell[15] = { 0 };
-    int qwe = 0;
+    int k;          
+    int qwe = 0;//储存返回值
+    char search_passenger_tell[25] = { 0 };            //储存输入的电话号
+    int flag = 0;           //判断是否查询匹配成功。进而跳出for循环
     scanf("%s", search_passenger_tell);
-    for (k = 0; k <= cp; k++) {
-        if (strcmp(Passenger[cp].pid, search_passenger_tell) == 0) {
-            qwe = k;
-            break;
-        }
+
+    for (k = 0; k <= cp; k++) {                        //注意k从0开始，同数组
+                                                      //读取一行  4次
+            char save_passenger_tell[600]={0};                                //读取文件数据，进行储存
+            fgets(save_passenger_tell,600,f_search);
+            if(strstr(save_passenger_tell,search_passenger_tell)!=NULL){
+                qwe=k;
+                flag=1;
+                break;}
+
+        if(flag==1)break;                                                   //跳出for循环
+
         if (k == cp) {
             printf("没有匹配的旅客电话号码！\n请重新来过\n");
             break;
@@ -445,47 +404,4 @@ int search_passenger() {
     }
     return qwe;
     fclose(f_search);
-
 }
-
-////判断输入，确定身份是旅客，管理员，或需要重新输入
-//int main() {
-//    printf("Please choose a number as 0 or 1!\n ");
-//    int flag_personid;
-//    flag_personid = getchar() - 48;
-//    switch (flag_personid) {
-//        //如果输入值为0，是旅客passenger 
-//    case 0: {
-//        getchar();
-//        person_passenger();
-//        break; }
-//          //如果输入值为1，是管理员manager 
-//    case 1: {
-//        getchar();
-//        person_manager();
-//        break; }
-//    default: printf("enter data error!please try again.\n");
-//    }
-//    return 0;
-//}
-
-////判断输入，确定身份是旅客，管理员，或需要重新输入
-//int main() {
-//    printf("Please choose a number as 0 or 1!\n ");
-//    int flag_personid;
-//    flag_personid = getchar() - 48;
-//    switch (flag_personid) {
-//        //如果输入值为0，是旅客passenger 
-//    case 0: {
-//        getchar();
-//        person_passenger();
-//        break; }
-//          //如果输入值为1，是管理员manager 
-//    case 1: {
-//        getchar();
-//        person_manager();
-//        break; }
-//    default: printf("enter data error!please try again.\n");
-//    }
-//    return 0;
-//}

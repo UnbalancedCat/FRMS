@@ -40,10 +40,11 @@ void manager()
 	printf("                                            1.飞 机 航 班\n");
 	printf("                                            2.旅 客 信 息\n");
 	printf("                                            3.管 理 员 信 息 修 改\n");
-	printf("                                            4.退 出\n");
+	printf("                                            4.数 据 管 理\n");
+	printf("                                            5.退 出\n");
 	line();
 	scanf_s("%d", &begin_manager);//等待输入
-	if (begin_manager == 1 || begin_manager == 2 || begin_manager == 3 || begin_manager == 4)
+	if (begin_manager == 1 || begin_manager == 2 || begin_manager == 3 || begin_manager == 4 || begin_manager == 5)
 	{
 		switch (begin_manager)
 		{
@@ -51,7 +52,8 @@ void manager()
 		case 1:system("cls"); manager_1(); break;
 		case 2: system("cls"); manager_2(); break;
 		case 3: system("cls"); manager_3(); break;
-		case 4: system("cls"); menu(); break;
+		case 4: system("cls"); wenjian(); break;
+		case 5: system("cls"); menu(); break;
 			}
 		}
 	}
@@ -65,22 +67,27 @@ void manager_1()
 	int begin_manager_1 = 0;//选项
 	show_FRMS_title();
 	show_manager_title();
+	show_flight_info_title();
+	show_flight_info(head_flight_global);
 	line();
-	printf("                                            1.添 加\n");
-	printf("                                            2.删 除\n");
-	printf("                                            3.修 改\n");
-	printf("                                            4.排 序\n");
-	printf("                                            5.查 询\n");
-	printf("                                            6.返 回\n");
+	printf("                                             飞 机 航 班\n");
 	line();
+	printf("                                               1.添 加\n");
+	printf("                                               2.删 除\n");
+	printf("                                               3.修 改\n");
+	printf("                                               4.排 序\n");
+	printf("                                               5.查 询\n");
+	printf("                                               6.返 回\n");
+	line();
+	printf("请输入对应序号访问功能（1-6）：");
 	scanf_s("%d", &begin_manager_1);//等待输入
 	if (begin_manager_1 == 1 || begin_manager_1 == 2 || begin_manager_1 == 3 || begin_manager_1 == 4 || begin_manager_1 == 5 || begin_manager_1 == 6)
 	{
 		switch (begin_manager_1)
 		{
-		case 1:system("cls"); break;
-		case 2:system("cls"); break;
-		case 3:system("cls"); break;
+		case 1:system("cls"); add_flight_info(); break;//航班信息 添加
+		case 2:system("cls"); delete_flight_info(); break;//航班信息 删除
+		case 3:system("cls"); modify_flight_info(); break;//航班信息 修改
 		case 4:system("cls"); break;
 		case 5:system("cls"); break;
 		case 6:system("cls"); manager(); break;
@@ -97,23 +104,23 @@ void manager_2()
 	show_FRMS_title();
 	show_manager_title();
 	line();
-	printf("                                            1.添 加\n");
-	printf("                                            2.删 除\n");
-	printf("                                            3.修 改\n");
-	printf("                                            4.排 序\n");
-	printf("                                            5.查 询\n");
-	printf("                                            6.返 回\n");
+	printf("                                             旅 客 信 息\n");
+	line();
+	printf("                                               1.添 加\n");
+	printf("                                               2.删 除\n");
+	printf("                                               3.修 改\n");
+	printf("                                               4.查 询\n");
+	printf("                                               5.返 回\n");
 	line();
 	scanf_s("%d", &begin_manager_2);//等待输入
-	if (begin_manager_2 == 1 || begin_manager_2 == 2 || begin_manager_2 == 3 || begin_manager_2 == 4 || begin_manager_2 == 5 || begin_manager_2 == 6)
+	if (begin_manager_2 == 1 || begin_manager_2 == 2 || begin_manager_2 == 3 || begin_manager_2 == 4 || begin_manager_2 == 5)
 		switch (begin_manager_2)
 		{
 		case 1:system("cls"); break;
 		case 2:system("cls"); break;
 		case 3:system("cls"); break;
 		case 4:system("cls"); break;
-		case 5:system("cls"); break;
-		case 6:system("cls"); manager(); break;
+		case 5:system("cls"); manager(); break;
 		}
 	else
 	{
@@ -148,6 +155,8 @@ void passenger()
 	int begin_passenger = 0;//选项
 	show_FRMS_title();
 	line();
+	printf("                                            乘 客 模 式\n");
+	line();
 	printf("                                            1.飞 机 航 班\n");
 	printf("                                            2.旅 客 信 息\n");
 	printf("                                            3.退 出\n");
@@ -171,6 +180,8 @@ void passenger_1()
 {
 	int begin_passenger_1 = 0;//选项
 	show_FRMS_title();
+	line();
+	printf("                                            乘 客 模 式\n");
 	line();
 	printf("                                            1.排 序\n");
 	printf("                                            2.查 询\n");
@@ -197,6 +208,8 @@ void passenger_2()
 {
 	int begin_passenger_2 = 0;//选项
 	show_FRMS_title();
+	line();
+	printf("                                            乘 客 模 式\n");
 	line();
 	printf("                                            1.添加\n");
 	printf("                                            2.删除\n");
@@ -243,6 +256,10 @@ void manager_login()
 		system("cls");
 		manager();
 	}
+	else if (strcmp("0", password_shuru) == 0)
+	{
+		system("cls"); menu();
+	}
 	else
 	{
 		system("cls"); printf("密码错误\n"); manager_login();
@@ -257,34 +274,44 @@ void manager_ch()
 	show_FRMS_title();
 	show_manager_title();
 	line();
-	printf("请输入新密码（6位数字或字符）：\n");
+	printf("                                            请输入新密码（6位数字或字符）：\n");
+	printf("                                            (按0返回)\n");
 	scanf("%s", password_new);
-	if (strlen(password_new) != 6)
+	if (strcmp("0", password_new) == 0)
 	{
-		system("cls"); printf("密码长度必须为六位\a\n"); manager_ch();
+		system("cls"); manager_3();
 	}
 	else
 	{
-		xiu = fopen("password_manager.txt", "w");
-		for (i3 = 0; password_new[i3] != '\0'; i3++)
+		if (strlen(password_new) != 6)
 		{
-			fputc(password_new[i3], xiu);
+			system("cls"); printf("密码长度必须为六位\a\n"); manager_ch();
 		}
-		printf("密码修改成功（按0返回）\n");
-		system("pause"); 
-		system("cls");
-		manager();
+		else
+		{
+			xiu = fopen("password_manager.txt", "w");
+			for (i3 = 0; password_new[i3] != '\0'; i3++)
+			{
+				fputc(password_new[i3], xiu);
+			}
+			printf("密码修改成功（按0返回）\n");
+			system("pause");
+			system("cls");
+			manager();
 
+		}
 	}
 }
 void wenjian()
 {
 	int choo;//选项
+	show_FRMS_title();
+	show_manager_title();
 	line();
-	printf("                                请选择对文件进行的的操作\n");
-	printf("                                       1.备 份\n");
-	printf("                                       2.恢 复\n");
-	printf("                                       3.返 回\n");
+	printf("                                        请选择对文件进行的的操作\n");
+	printf("                                               1.备 份\n");
+	printf("                                               2.恢 复\n");
+	printf("                                               3.返 回\n");
 	line();
 	scanf("%d", &choo);
 
@@ -294,7 +321,7 @@ void wenjian()
 		{
 		case 1:system("cls"); beifen(); break;
 		case 2: system("cls"); huifu(); break;
-		case 3:system("cls"); wenjian(); break;
+		case 3:system("cls"); manager(); break;
 		}
 	}
 	else
