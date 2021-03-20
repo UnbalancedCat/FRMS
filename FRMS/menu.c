@@ -78,7 +78,7 @@ void manager_1()
 	{
 		switch (begin_manager_1)
 		{
-		case 1:system("cls"); break;
+		case 1:system("cls"); break;//∫Ω∞‡–≈œ¢ ÃÌº”
 		case 2:system("cls"); break;
 		case 3:system("cls"); break;
 		case 4:system("cls"); break;
