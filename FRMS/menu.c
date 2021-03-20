@@ -44,7 +44,7 @@ void manager()
 	printf("                                            5.退 出\n");
 	line();
 	scanf_s("%d", &begin_manager);//等待输入
-	if (begin_manager == 1 || begin_manager == 2 || begin_manager == 3 || begin_manager == 4)
+	if (begin_manager == 1 || begin_manager == 2 || begin_manager == 3 || begin_manager == 4 || begin_manager == 5)
 	{
 		switch (begin_manager)
 		{
@@ -303,10 +303,10 @@ void wenjian()
 	show_FRMS_title();
 	show_manager_title();
 	line();
-	printf("                                请选择对文件进行的的操作\n");
-	printf("                                       1.备 份\n");
-	printf("                                       2.恢 复\n");
-	printf("                                       3.返 回\n");
+	printf("                                        请选择对文件进行的的操作\n");
+	printf("                                               1.备 份\n");
+	printf("                                               2.恢 复\n");
+	printf("                                               3.返 回\n");
 	line();
 	scanf("%d", &choo);
 
@@ -316,7 +316,7 @@ void wenjian()
 		{
 		case 1:system("cls"); beifen(); break;
 		case 2: system("cls"); huifu(); break;
-		case 3:system("cls"); ; break;
+		case 3:system("cls"); manager(); break;
 		}
 	}
 	else
