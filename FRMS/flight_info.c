@@ -144,7 +144,7 @@ void show_flight_info(flight* head)//需要 显示的链表的首地址
 
 //多关键字排序函数（不能接收head_flight_part）
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head)
-//需要 顺序倒叙标识字符 关键字对象个数 关键字对象数组首地址 排序的航班信息数量 排序的航班信息首地址 || 返回 排序后首地址 
+//需要 顺序倒叙标识字符 关键字对象个数 关键字对象数组首地址 排序的航班信息数量 排序的航班信息首地址 || 返回 排序后首地址
 {
 	int offset;//用于描述成员占用长度或总偏移量
 	int i, j;//定义循环变量
