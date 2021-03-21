@@ -17,6 +17,7 @@ void pull_flight_info(void);
 void push_flight_info(void);
 void show_flight_info(flight* head);
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head);
+void sort_flight_xianjie();//ÏÎ½Ósortº¯Êý
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
 void add_flight_info(void);
 void modify_flight_info();
