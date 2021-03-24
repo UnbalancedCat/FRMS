@@ -3,8 +3,10 @@
 
 int main()
 {
+	atexit(push_flight_info);
 	init();
 	menu();
+	//play_music();
 	return 0;
 }
 

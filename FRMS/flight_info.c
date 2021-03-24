@@ -10,7 +10,6 @@ void init(void)
 {
 	pull_flight_info();//读取航班信息;
 }
-
 //读取文件函数
 void pull_flight_info(void)
 {
@@ -81,7 +80,6 @@ void pull_flight_info(void)
 		}
 	}
 }
-
 //保存文件函数
 void push_flight_info(void)
 {
@@ -103,7 +101,6 @@ void push_flight_info(void)
 	}
 	fclose(fp);
 }
-
 //显示航班信息函数
 void show_flight_info(flight* head)//需要 显示的链表的首地址
 {
@@ -141,8 +138,7 @@ void show_flight_info(flight* head)//需要 显示的链表的首地址
 	}
 	line();
 }
-
-//多关键字排序函数（不能接收head_flight_part）
+//多关键字排序函数
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head)
 //需要 顺序倒叙标识字符 关键字对象个数 关键字对象数组首地址 排序的航班信息数量 排序的航班信息首地址 || 返回 排序后首地址
 {
@@ -155,8 +151,8 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	//判断排序顺序
 	switch (direction)
 	{
-	case 'A': bool_direction = 1; break;
-	case 'B': bool_direction = 0; break;
+	case 'D': bool_direction = 1; break;
+	case 'U': bool_direction = 0; break;
 	default : bool_direction = 1;
 	}
 
@@ -275,30 +271,68 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	}
 	return head;
 }
-//衔接函数
-/*void sort_flight_xianjie()
+//衔接排序函数
+void bridge_sort_flight_info()
 {
-	char direction;
-	int option_num; 
-	char* option_info;
-	int loop_num; 
-	flight* head;
-	
+	unsigned int i = 8;
+	char std_in = 0;
+	char direction[4] = { 0 };//顺序
+	char option_info[10] = { 0 };//存储关键字
+	int option_num = 0;//关键字个数
 
-		printf("请输入顺序倒叙标识字符\n");
-		gets_s(direction, 3);
-		printf("请输入关键字对象个数\n");
-		scanf_s("%d", &option_num);
-		printf("请输入关键字对象数组首地址\n");
-		scanf_s("%p", option_info);
-		printf("请输入排序的航班信息数量 \n");
-		scanf_s("%d", &loop_num);
-		printf("请输入排序的航班信息首地址\n");
-		scanf_s("%p", head);
-		flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight * head);
+	//处理排序标识符输入
+	printf("请选择排序顺序（D：顺序，U：倒叙）：");
+	{
+		rewind(stdin);
+		fgets(direction, 2, stdin);	
+		rewind(stdin);
+		if ('\n' == direction[strlen(direction) - 1]) direction[strlen(direction) - 1] = 0;
+	}
+	while (direction[0]!='D' && direction[0] !='U') 
+	{
+		printf("含有非法字符，请重新输入！\a\n");
+		printf("请选择排序顺序（D：顺序，U：倒叙）：");
+		{
+			rewind(stdin);
+			fgets(direction, 2, stdin);	
+			rewind(stdin);
+			if ('\n' == direction[strlen(direction) - 1]) direction[strlen(direction) - 1] = 0;
+		}
+	}
+	//处理排序关键字输入
+	printf("请选择排序关键字序号（如：ADH ）：");
+	{
+		rewind(stdin);
+		fgets(option_info, 8, stdin);
+		rewind(stdin);
+		if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+	}
+	i = (int)strlen(option_info);
+	while (i)
+	{
+		if (option_info[i-1] < 'A' || option_info[i] > 'H')
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请选择排序关键字序号（如：ADH ）：");
+			{
+				memset(option_info, 0, sizeof(option_info));
+				rewind(stdin);
+				fgets(option_info, 8, stdin);
+				rewind(stdin);
+				if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+			}
+			i = (int)strlen(option_info);
+		}
+		else i--;
+	}
+	//处理排序关键字个数
+	option_num = (int)strlen(option_info);
 	
-
-}*/
+	
+	head_flight_global = sort_flight_info(direction[0], option_num, option_info, flight_info_num, head_flight_global);
+	show_flight_info(head_flight_global);
+	return;
+}
 //多关键字精确查询函数（对数字查询为模糊查询）
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head)//需要 关键字个数 关键字对象数组首地址 提供关键字首地址 被查询链表首地址
 {
@@ -386,7 +420,68 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 	}
 	else if (search_flight_info_num == 0)head_flight_part = NULL;
 }
+//衔接查询函数
+void bridge_refine_search_sort_flight_info()
+{
+	//unsigned int i = 8;
+	//char std_in = 0;
+	//char direction[4] = { 0 };//顺序
+	//char option_info[10] = { 0 };//存储关键字
+	//int option_num = 0;//关键字个数
 
+	////处理排序标识符输入
+	//printf("请选择排序顺序（D：顺序，U：倒叙）：");
+	//{
+	//	rewind(stdin);
+	//	fgets(direction, 2, stdin);
+	//	rewind(stdin);
+	//	if ('\n' == direction[strlen(direction) - 1]) direction[strlen(direction) - 1] = 0;
+	//}
+	//while (direction[0] != 'D' && direction[0] != 'U')
+	//{
+	//	printf("含有非法字符，请重新输入！\a\n");
+	//	printf("请选择排序顺序（D：顺序，U：倒叙）：");
+	//	{
+	//		rewind(stdin);
+	//		fgets(direction, 2, stdin);
+	//		rewind(stdin);
+	//		if ('\n' == direction[strlen(direction) - 1]) direction[strlen(direction) - 1] = 0;
+	//	}
+	//}
+	////处理排序关键字输入
+	//printf("请选择排序关键字序号（如：ADH ）：");
+	//{
+	//	rewind(stdin);
+	//	fgets(option_info, 8, stdin);
+	//	rewind(stdin);
+	//	if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+	//}
+	//i = (int)strlen(option_info);
+	//while (i)
+	//{
+	//	if (option_info[i - 1] < 'A' || option_info[i] > 'H')
+	//	{
+	//		printf("含有非法字符，请重新输入！\a\n");
+	//		printf("请选择排序关键字序号（如：ADH ）：");
+	//		{
+	//			memset(option_info, 0, sizeof(option_info));
+	//			rewind(stdin);
+	//			fgets(option_info, 8, stdin);
+	//			rewind(stdin);
+	//			if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+	//		}
+	//		i = (int)strlen(option_info);
+	//	}
+	//	else i--;
+	//}
+	////处理排序关键字个数
+	//option_num = (int)strlen(option_info);
+
+
+	//refine_search_flight_info(option_num, char* option_info, char refer_info[][32], flight * head);
+	//show_flight_info(head_flight_global);
+	return;
+}
 //添加航班信息函数
 void add_flight_info(void)
 {
@@ -464,7 +559,6 @@ void add_flight_info(void)
 		}
 	}
 }
-
 //修改航班信息函数
 void modify_flight_info(void)
 {
@@ -521,7 +615,6 @@ void modify_flight_info(void)
 		}
 	}
 }
-
 //删除航班信息函数
 void delete_flight_info(void)
 {
@@ -592,45 +685,39 @@ void delete_flight_info(void)
 		}
 	}
 }
-
 //输出长横线
 void line(void)
 {
 	printf("-----------------------------------------------------------------------------------------------------\n");
 }
-
 //输出航班时刻表题头
 void show_flight_info_title(void)
 {
 	line();
 	printf("                                            航 班 时 刻 表\n");
 }
-
 //输出航班预定管理系统题头
 void show_FRMS_title(void)
 {
 	line();
 	printf("\n                      航      班      预      定      管      理      系      统\n\n");
 }
-
 //输出航班时刻表分类栏
 void show_flight_info_subtitle(void)
 {
 	line();
 	printf("|  |%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
 }
-
 //输出管理员标题
 void show_manager_title(void)
 {
 	line();
 	printf("                                            管 理 员 模 式\n");
 }
-
 #include <Windows.h>
 #pragma comment(lib,"Winmm.lib")
 //function plays music
-void music(void)
+void play_music(void)
 {
 	char* point;
 	int i = 0;
@@ -663,7 +750,7 @@ void music(void)
 		system("cls");
 	}
 
-	return;
+	exit(0);
 }
 
 //测试用主函数
