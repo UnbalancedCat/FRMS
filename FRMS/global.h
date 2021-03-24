@@ -12,12 +12,13 @@ void show_flight_info_title(void);
 void show_FRMS_title(void);
 void show_flight_info_subtitle(void);
 void show_manager_title(void);
+void play_music(void);
 
 void pull_flight_info(void);
 void push_flight_info(void);
 void show_flight_info(flight* head);
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head);
-void sort_flight_xianjie();//衔接sort函数
+void bridge_sort_flight_info();//排序函数衔接函数
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
 void add_flight_info(void);
 void modify_flight_info();
