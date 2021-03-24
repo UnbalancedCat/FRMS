@@ -275,7 +275,30 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	}
 	return head;
 }
+//衔接函数
+/*void sort_flight_xianjie()
+{
+	char direction;
+	int option_num; 
+	char* option_info;
+	int loop_num; 
+	flight* head;
+	
 
+		printf("请输入顺序倒叙标识字符\n");
+		gets_s(direction, 3);
+		printf("请输入关键字对象个数\n");
+		scanf_s("%d", &option_num);
+		printf("请输入关键字对象数组首地址\n");
+		scanf_s("%p", option_info);
+		printf("请输入排序的航班信息数量 \n");
+		scanf_s("%d", &loop_num);
+		printf("请输入排序的航班信息首地址\n");
+		scanf_s("%p", head);
+		flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight * head);
+	
+
+}*/
 //多关键字精确查询函数（对数字查询为模糊查询）
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head)//需要 关键字个数 关键字对象数组首地址 提供关键字首地址 被查询链表首地址
 {

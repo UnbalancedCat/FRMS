@@ -211,14 +211,18 @@ void manager_passager()
 		line();
 		scanf_s("%d", &begin_manager_passager);//等待输入
 		if (begin_manager_passager == 1 || begin_manager_passager == 2 || begin_manager_passager == 3 || begin_manager_passager == 4 || begin_manager_passager == 5)
+		{
 			switch (begin_manager_passager)
 			{
-			case 1:system("cls"); break;
-			case 2:system("cls"); break;
-			case 3:system("cls"); break;
-			case 4:system("cls"); break;
+			case 1:system("cls"); add_passenger(); break;
+			case 2:system("cls"); delete_passenger();  break;
+			case 3:system("cls"); mend_passenger();  break;
+			case 4:system("cls"); seek_passenger(); break;
 			case 5:system("cls"); return;
 			}
+		}
+
+
 		else
 		{
 			system("cls"); printf("请输入合法字符!\n");
@@ -433,7 +437,7 @@ void passenger_flight_info()
 		{
 			switch (begin_passenger_flight_info)
 			{
-			case 1:system("cls");  break;
+			case 1:system("cls"); break;
 			case 2:system("cls"); break;
 			case 3:system("cls"); break;
 			case 4:system("cls"); return;
@@ -465,11 +469,14 @@ void passenger_info()
 		{
 			switch (begin_passenger_info)
 			{
-			case 1:system("cls"); break;
-			case 2:system("cls"); break;
-			case 3:system("cls"); break;
+			case 1:system("cls"); add_passenger(); break;
+			case 2:system("cls"); delete_passenger(); break;
+			case 3:system("cls"); mend_passenger(); break;
 			case 4:system("cls"); return;
 			}
+
+
+
 		}
 		else
 		{
