@@ -25,7 +25,7 @@ void menu()
 			{
 			case 1:system("cls"); manager_login(); break;
 			case 2:system("cls"); passenger(); break;
-			case 3:exit(1);//退出程序
+			case 3:return;//退出程序
 			}
 		}
 		else
@@ -180,7 +180,7 @@ void manager_flight_info()
 			case '1':system("cls"); add_flight_info(); break;//航班信息 添加
 			case '2':system("cls"); delete_flight_info(); break;//航班信息 删除
 			case '3':system("cls"); modify_flight_info(); break;//航班信息 修改
-			case '4':system("cls"); break;//航班信息 排序
+			case '4':system("cls"); bridge_sort_flight_info(); break;//航班信息 排序
 			case '5':system("cls"); break;//航班信息 查询
 			case '6':system("cls"); return;
 			}
