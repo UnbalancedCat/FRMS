@@ -17,6 +17,7 @@ void pull_flight_info(void);
 void push_flight_info(void);
 void show_flight_info(flight* head);
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head);
+void sort_flight_xianjie();//衔接sort函数
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
 void add_flight_info(void);
 void modify_flight_info();
@@ -24,17 +25,17 @@ void delete_flight_info(void);
 
 void menu();//主菜单
 void manager();
-void manager_1();//飞机航班
-void manager_2();//旅客信息
-void manager_3();//管理员修改
+void manager_flight_info();//飞机航班
+void manager_passager();//旅客信息
+void manager_password();//管理员修改
 void manager_login();//管理员登录界面
-void manager_ch();//管理员密码修改
+void manager_password_change();//管理员密码修改
 void passenger();
-void passenger_1();//飞机航班
-void passenger_2();//旅客信息
-int beifen();
-int huifu();
-void wenjian();
+void passenger_flight_info();//飞机航班
+void passenger_info();//旅客信息
+int file_backup();
+int file_recover();
+void file();
 
 int person_passenger(void);
 int person_manager(void);
