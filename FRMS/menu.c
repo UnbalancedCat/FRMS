@@ -48,7 +48,6 @@ void menu()
 //管理员界面
 void manager_login()
 {
-	int i = 6;
 	char password_real[8];
 	char password_input[8];
 	FILE* fp;
@@ -72,24 +71,19 @@ void manager_login()
 			if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 		}
 		if (password_input[0] == '0' && password_input[1] == '\0')break;
-		while (i)
+		while (strcmp(password_input, password_real) != 0)
 		{
-			if (password_input[6] != '\0' || password_input[i - 1] != password_real[i - 1])
+			printf("密码错误！\a\n");
+			printf("请重新输入密码：");
 			{
-				if (password_input[0] == '0' && password_input[1] == '\0')break;
-				printf("密码错误！\a\n");
-				printf("请重新输入密码：");
-				{
-					rewind(stdin);
-					fgets(password_input, 8, stdin);
-					rewind(stdin);
-					if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
-				}
-				i = 6;
+				memset(password_input, 0, sizeof(password_input));
+				rewind(stdin);
+				fgets(password_input, 8, stdin);
+				rewind(stdin);
+				if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 			}
-			else i--;
+			if (password_input[0] == '0' && password_input[1] == '\0')break;
 		}
-		if (password_input[0] == '0' && password_input[1] == '\0')break;
 		{
 			fclose(fp);
 			printf("登录成功！\n");
