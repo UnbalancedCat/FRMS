@@ -48,23 +48,42 @@ void menu()
 //管理员界面
 void manager_login()
 {
-
-	char password_real[7];
-	char password_shuru[7];
+	char password_real[8];
+	char password_input[8];
 	FILE* fp;
-	fp = fopen("password_manager.txt", "r");
+	fp = fopen("data\\password_manager.txt", "r");
 	fgets(password_real, 7, fp);
 	while (1)
 	{
-		show_FRMS_title();
-		show_manager_title();
-		line();
-		printf("                                            管 理 员 登 录\n");
-		printf("                                            (按0返回)\n");
-		line();
+		{
+			show_FRMS_title();
+			show_manager_title();
+			line();
+			printf("                                            管 理 员 登 录\n");
+			printf("                                            (按0返回)\n");
+			line();
+		}
 		printf("请输入密码：");
-		scanf("%s", password_shuru);
-		if (strcmp(password_real, password_shuru) == 0)
+		{
+			rewind(stdin);
+			fgets(password_input, 8, stdin);
+			rewind(stdin);
+			if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
+		}
+		if (password_input[0] == '0' && password_input[1] == '\0')break;
+		while (strcmp(password_input, password_real) != 0)
+		{
+			printf("密码错误！\a\n");
+			printf("请重新输入密码：");
+			{
+				memset(password_input, 0, sizeof(password_input));
+				rewind(stdin);
+				fgets(password_input, 8, stdin);
+				rewind(stdin);
+				if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
+			}
+			if (password_input[0] == '0' && password_input[1] == '\0')break;
+		}
 		{
 			fclose(fp);
 			printf("登录成功！\n");
@@ -74,22 +93,12 @@ void manager_login()
 			manager();
 			return;
 		}
-		else
-			if (strcmp("0", password_shuru) == 0)
-			{
-				fclose(fp); system("cls"); return;
-			}
-			else
-			{
-				system("cls"); printf("密码错误\n");
-			}
 	}
 }
 void manager_password_change()
 {
 	int i3 = 0;
-	int choo_ma_ch;//返回选项
-	char password_new[7];
+	char password_new[11] = { 0 };
 	FILE* xiu;
 	while (1)
 	{
@@ -98,37 +107,52 @@ void manager_password_change()
 		line();
 		printf("                                            请输入新密码（6位数字或字符）：\n");
 		printf("                                            (按0返回)\n");
-		scanf("%s", password_new);
-		if (strcmp("0", password_new) == 0)
+		//{
+			//rewind(stdin);
+			//fgets(password_new, 8, stdin);
+			//rewind(stdin);
+			//if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
+		//}
+		if (strcmp("0", password_new) == 0)//返回
 		{
 			system("cls"); return;
 		}
 		else
 		{
-			if (strlen(password_new) != 6)
 			{
-				system("cls"); printf("密码长度必须为六位\a\n");
+				rewind(stdin);
+				fgets(password_new, 8, stdin);
+				rewind(stdin);
+				if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
 			}
-			else
-			{
-				xiu = fopen("password_manager.txt", "w");
-				for (i3 = 0; password_new[i3] != '\0'; i3++)
-				{
-					fputc(password_new[i3], xiu);
-				}
-				fclose(xiu);
-				printf("密码修改成功\n");
-				system("pause");
-				system("cls");
-				return;
 
+			while (strlen(password_new) != 6)
+			{
+				{
+					printf("密码长度必须为六位！\n");
+					rewind(stdin);
+					fgets(password_new, 8, stdin);//检查输入长度
+					rewind(stdin);
+					if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
+				}
 			}
-		}
+
+
+			xiu = fopen("data\\password_manager.txt", "w");
+
+			fputs(password_new, xiu);
+
+			fclose(xiu);
+			printf("密码修改成功\n");
+			system("pause");
+			system("cls");
+			return;
+		}	
 	}
 }
 void manager()
 {
-	char begin_manager[4];//选项
+	char begin_manager[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
@@ -174,7 +198,7 @@ void manager()
 void manager_flight_info()
 {
 	//选项
-	char begin_manager_flight_info[4];
+	char begin_manager_flight_info[4] = { 0 };
 	while(1)
 	{
 		show_FRMS_title();
@@ -216,7 +240,7 @@ void manager_flight_info()
 		case '2':system("cls"); delete_flight_info(); break;//航班信息 删除
 		case '3':system("cls"); modify_flight_info(); break;//航班信息 修改
 		case '4':system("cls"); bridge_sort_flight_info(); break;//航班信息 排序
-		case '5':system("cls"); break;//航班信息 查询
+		case '5':system("cls"); bridge_refine_search_sort_flight_info(); break;//航班信息 查询
 		case '0':system("cls"); return;
 		}
 		
@@ -224,7 +248,7 @@ void manager_flight_info()
 }
 void manager_passager()
 {
-	char begin_manager_passager[4];//选项
+	char begin_manager_passager[4] = { 0 };//选项
 	while (1)
 	{
 		
@@ -270,7 +294,7 @@ void manager_passager()
 }
 void manager_password()
 {
-    char begin_manager_password[4];//选项
+    char begin_manager_password[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
@@ -307,7 +331,7 @@ void manager_password()
 }
 void file()
 {
-	char choo[4];//选项
+	char choo[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
@@ -345,16 +369,24 @@ void file()
 		
 	}
 }
-int file_backup()
+void file_backup()
 {
-	int choo_backup;
-	char yuan_name[50];//源头文件名
-	char bei_name[50];//备份文件名
+	char yuan_name[155] = { 0 };//源头文件名
+	char bei_name[155] = { 0 };//备份文件名
 	char ch;
 	while (1)
 	{
-		printf("请输入要备份的文件名(按0返回）\n");
-		scanf("%s", yuan_name);
+		show_FRMS_title();
+		show_manager_title();
+		line();
+		printf("请输入所要备份的文件路径,包含扩展名(按0返回）\n");
+		printf("（示例：C:\\Users\\miku\\password_manager.txt）\n");
+		{
+			rewind(stdin);
+			fgets(yuan_name, 150, stdin);
+			rewind(stdin);
+			if ('\n' == yuan_name[strlen(yuan_name) - 1]) yuan_name[strlen(yuan_name) - 1] = 0;
+		}
 		if (strcmp(yuan_name, "0") == 0)
 		{
 			system("cls"); return;
@@ -362,7 +394,12 @@ int file_backup()
 		else
 		{
 			printf("请输入备份路径\n");
-			scanf("%s", bei_name);
+			{
+				rewind(stdin);
+				fgets(bei_name, 150, stdin);
+				rewind(stdin);
+				if ('\n' == bei_name[strlen(bei_name) - 1]) bei_name[strlen(bei_name) - 1] = 0;
+			}
 			FILE* fp1_1 = fopen(yuan_name, "r");//源文件名
 			FILE* fp2_1 = fopen(bei_name, "w");//目标文件名
 
@@ -391,20 +428,30 @@ int file_backup()
 			fclose(fp2_1);
 			printf("备份成功\n");
 			system("pause");
+			system("cls");
 			return;
 		}
 	}
 }
-int file_recover()
+void file_recover()
 {
-	int choo_file_recover;
-	char bei_ex_name[50];//文件备份名
-	char hui_name[50];//要恢复的文件
+	
+	char bei_ex_name[155] = {0};//文件备份名
+	char hui_name[155] = { 0 };//要恢复的文件
 	char ch;
 	while (1)
 	{
+		show_FRMS_title();
+		show_manager_title();
+		line();
 		printf("请输入文件备份名(按0返回)\n");
-		scanf("%s", bei_ex_name);
+		printf("（示例：C:\\Users\\miku\\password_manager.txt)\n");
+		{
+			rewind(stdin);
+			fgets(bei_ex_name, 150, stdin);
+			rewind(stdin);
+			if ('\n' == bei_ex_name[strlen(bei_ex_name) - 1]) bei_ex_name[strlen(bei_ex_name) - 1] = 0;
+		}
 		if (strcmp(bei_ex_name, "0") == 0)
 		{
 			system("cls"); return;
@@ -412,7 +459,12 @@ int file_recover()
 		else
 		{
 			printf("请输入要恢复的文件名\n");
-			scanf("%s", hui_name);
+			{
+				rewind(stdin);
+				fgets(hui_name, 150, stdin);
+				rewind(stdin);
+				if ('\n' == hui_name[strlen(hui_name) - 1]) hui_name[strlen(hui_name) - 1] = 0;
+			}
 
 			FILE* fp1 = fopen(bei_ex_name, "r");//文件备份名
 			FILE* fp2 = fopen(hui_name, "w");//要恢复的文件
@@ -440,6 +492,7 @@ int file_recover()
 			fclose(fp2);
 			printf("恢复成功\n");
 			system("pause");
+			system("cls");
 			return;
 		}
 	}
@@ -447,7 +500,7 @@ int file_recover()
 //旅客界面
 void passenger()
 {
-	char begin_passenger[4];//选项
+	char begin_passenger[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
@@ -487,7 +540,7 @@ void passenger()
 }
 void passenger_flight_info()
 {
-	char begin_passenger_flight_info[4];//选项
+	char begin_passenger_flight_info[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
@@ -519,8 +572,8 @@ void passenger_flight_info()
 		}
 		switch (begin_passenger_flight_info[0])
 		{
-		case '1':system("cls"); break;
-		case '2':system("cls"); break;
+		case '1':system("cls"); bridge_sort_flight_info(); break;
+		case '2':system("cls"); bridge_refine_search_sort_flight_info(); break;
 		case '3':system("cls"); break;
 		case '0':system("cls"); return;
 		}
@@ -529,7 +582,7 @@ void passenger_flight_info()
 }
 void passenger_info()
 {
-	char begin_passenger_info[4];//选项
+	char begin_passenger_info[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
