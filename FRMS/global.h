@@ -36,8 +36,6 @@ void file_backup();
 void file_recover();
 void file();
 
-int person_passenger(void);
-int person_manager(void);
 void add_passenger(void);          //添加旅客信息
 void delete_passenger(void);       //删除旅客信息
 void mend_passenger(void);         //修改旅客信息
@@ -46,5 +44,7 @@ void read_passenger(void);          //读取旅客信息
 void print_passenger(void);         //输出旅客信息
 void match_passenger(void);         //匹配旅客电话与密码
 int search_passenger(void);
+
+int flag_passenger_login;
 
 #endif	//OUTPUT_H_
