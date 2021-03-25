@@ -34,8 +34,8 @@ void manager_password_change();//管理员密码修改
 void passenger();
 void passenger_flight_info();//飞机航班
 void passenger_info();//旅客信息
-int file_backup();
-int file_recover();
+void file_backup();
+void file_recover();
 void file();
 
 int person_passenger(void);
