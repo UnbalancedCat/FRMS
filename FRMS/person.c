@@ -295,26 +295,55 @@ void seek_passenger(void) {
 
 
 //void match_passenger(void);         //匹配旅客电话与密码       
+/* show_FRMS_title();
+    line();
+    printf("                                            乘 客 登 录\n");
+    printf("                                            (按0返回)\n");
+    line();*/
 void match_passenger(void) {
     FILE* f_match;
     f_match = fopen("passenger.txt", "r");
-    printf("请输入要查询旅客的电话号码。\n");
-    int k;          char match_passenger_tell[15] = { 0 };
-    scanf("%s", match_passenger_tell);
-    for (k = 0; k <= cp; k++) {
-        if (strcmp(Passenger[cp].pid, match_passenger_tell) == 0) {
-            char match_passenger_password[20] = { 0 };
-            printf("请输入对应的旅客密码。\n");         
-            scanf("%s", match_passenger_password);
-            if (strcmp(Passenger[k + 1].password, match_passenger_password) == 0) {
-                printf("姓名：     %s\n", Passenger[k + 1].pname);
-                printf("身份证号：     %s\n", Passenger[k + 1].pid);
-                printf("电话：     %s\n", Passenger[k + 1].tell);
-            }
-            break;}
-        if (k == cp) { printf("没有匹配的旅客电话号码！\n请重新来过\n"); break; }
-    }
+    show_FRMS_title();
+    line();
+    printf("                                            乘 客 登 录\n");
+    printf("                                            (按0返回)\n");
+    line();
+    printf("请输入您的电话号码。\n");
+    int k;          
+    char match_passenger_tell[15] = { 0 };
+    //scanf("%s", match_passenger_tell);
     
+        rewind(stdin);
+         fgets(match_passenger_tell, 15, stdin);
+         rewind(stdin);
+       for (k = 0; k <= cp; k++) {
+        if (strcmp(Passenger[cp].pid, match_passenger_tell) == 0)
+        {
+            char match_passenger_password[20] = { 0 };
+            printf("请输入对应的旅客密码。\n");
+            //scanf("%s", match_passenger_password);
+            rewind(stdin);
+            fgets(match_passenger_password, 20, stdin);
+            rewind(stdin);
+            if (strcmp(Passenger[k + 1].password, match_passenger_password) == 0)
+            {
+                fclose(f_match);
+                printf("登录成功！\n");
+                line();
+                system("pause");
+                system("cls");
+                passenger();
+                return;
+                //printf("姓名：     %s\n", Passenger[k + 1].pname);
+                //printf("身份证号：     %s\n", Passenger[k + 1].pid);
+                //printf("电话：     %s\n", Passenger[k + 1].tell);
+            }
+            break;
+        }
+        else if (k == cp) { printf("没有匹配的旅客电话号码！\n请重新来过\n"); break; }
+    }
+        
+
     fclose(f_match);
 }
 
