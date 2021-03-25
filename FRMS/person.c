@@ -6,6 +6,8 @@
 #pragma warning(disable:6031)
 #define _CRT_SECURE_NO_WARNINGS
 
+
+
 //定义结构体_旅客
  struct Passenger{
     char pname[20];	           //姓名
@@ -20,81 +22,6 @@ struct Passenger *phead, *pnode, *pend;              //定义旅客类型结构�
 char count_passenger[60] = { 0 };      //旅客的总人数
 int cp = 0;                             //旅客的总人数
 
-
-////判断输入，确定身份是旅客，管理员，或需要重新输入
-//int main() {
-//    printf("Please choose a number as 0 or 1!\n ");
-//    int flag_personid;
-//    flag_personid = getchar() - 48;
-//        switch (flag_personid) {
-//            //如果输入值为0，是旅客passenger 
-//        case 0: {
-//            getchar();
-//            person_passenger();
-//                break;}
-//            //如果输入值为1，是管理员manager 
-//        case 1:{
-//            getchar();
-//            person_manager();
-//            break;}
-//        default: printf("enter data error!please try again.\n");
-//        }
-//        return 0;
-//}
-
-
-//身份为旅客
-int person_passenger() {                      //添加·删除·修改
-    printf("添加请按1\n删除请按2\n修改请按3\n");
-    int temp_for_pp ;
-    scanf("%d", &temp_for_pp);
-
-    switch (temp_for_pp) {
-    case 1: {
-        add_passenger();          //添加旅客信息
-        break;
-    }
-    case 2: {
-        delete_passenger();       //删除旅客信息
-        break;
-    }
-    case 3: {
-        mend_passenger();         //修改旅客信息
-        break;
-    }
-    default: {printf("You wrong ,try again!\n"); break;
-         }
-    }
-    return 1;
-}
-
-//身份为管理员
-int person_manager() {									//添加·删除·修改·查询
-    printf("添加请按1\n删除请按2\n修改请按3\n查询请按4\n");
-    int temp_for_pm = 0;;
-    temp_for_pm = getchar() - 48;
-
-    switch (temp_for_pm) {
-    case 1: {
-        add_passenger();          //添加旅客信息
-        break;
-    }
-    case 2: {
-        delete_passenger();       //删除旅客信息
-        break;
-    }
-    case 3: {
-        mend_passenger();         //修改旅客信息
-        break;
-    }
-    case 4: {
-        seek_passenger();         //查询旅客信息
-        break;
-    }
-    default:printf("You wrong ,try again!\n"); break;
-    }
-    return 1;
-}
 
 //void read_passenger(void);          //读取旅客信息，要在对旅客信息进行操作前调用一次      
 void read_passenger(void) {
@@ -295,58 +222,32 @@ void seek_passenger(void) {
 
 
 //void match_passenger(void);         //匹配旅客电话与密码       
-/* show_FRMS_title();
-    line();
-    printf("                                            乘 客 登 录\n");
-    printf("                                            (按0返回)\n");
-    line();*/
+//void match_passenger(void);         //匹配旅客电话与密码       
 void match_passenger(void) {
     FILE* f_match;
     f_match = fopen("passenger.txt", "r");
-    show_FRMS_title();
-    line();
-    printf("                                            乘 客 登 录\n");
-    printf("                                            (按0返回)\n");
-    line();
-    printf("请输入您的电话号码。\n");
-    int k;          
-    char match_passenger_tell[15] = { 0 };
-    //scanf("%s", match_passenger_tell);
+    printf("请输入要查询旅客的电话号码。\n");
+    int k;          char match_passenger_tell[15] = { 0 };
     
-        rewind(stdin);
-         fgets(match_passenger_tell, 15, stdin);
-         rewind(stdin);
-       for (k = 0; k <= cp; k++) {
-        if (strcmp(Passenger[cp].pid, match_passenger_tell) == 0)
-        {
+    scanf("%s", match_passenger_tell);
+    for (k = 0; k <= cp; k++) {
+        if (strcmp(Passenger[cp].pid, match_passenger_tell) == 0) {
             char match_passenger_password[20] = { 0 };
             printf("请输入对应的旅客密码。\n");
-            //scanf("%s", match_passenger_password);
-            rewind(stdin);
-            fgets(match_passenger_password, 20, stdin);
-            rewind(stdin);
-            if (strcmp(Passenger[k + 1].password, match_passenger_password) == 0)
-            {
-                fclose(f_match);
-                printf("登录成功！\n");
-                line();
-                system("pause");
-                system("cls");
-                passenger();
-                return;
-                //printf("姓名：     %s\n", Passenger[k + 1].pname);
-                //printf("身份证号：     %s\n", Passenger[k + 1].pid);
-                //printf("电话：     %s\n", Passenger[k + 1].tell);
+            scanf("%s", match_passenger_password);
+            if (strcmp(Passenger[k + 1].password, match_passenger_password) == 0) {
+                printf("姓名：     %s\n", Passenger[k + 1].pname);
+                printf("身份证号：     %s\n", Passenger[k + 1].pid);
+                printf("电话：     %s\n", Passenger[k + 1].tell);
+                flag_passenger_login = 1;
             }
             break;
         }
-        else if (k == cp) { printf("没有匹配的旅客电话号码！\n请重新来过\n"); break; }
+        if (k == cp) { printf("没有匹配的旅客电话号码！\n请重新来过\n"); flag_passenger_login = 0; break; }
     }
-        
 
     fclose(f_match);
 }
-
 
 //void add_passenger(void);          //添加旅客信息     
 void add_passenger(void) {
