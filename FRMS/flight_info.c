@@ -669,6 +669,15 @@ void delete_flight_info(void)
 		}
 	}
 }
+//订票函数
+void reserve_flight_ticket(void)
+{
+
+
+	show_flight_info(head_flight_global);
+	printf("请选择预定航班对应序号：");
+
+}
 //输出长横线
 void line(void)
 {
@@ -698,6 +707,7 @@ void show_manager_title(void)
 	line();
 	printf("                                            管 理 员 模 式\n");
 }
+
 #include <Windows.h>
 #pragma comment(lib,"Winmm.lib")
 //function plays music
