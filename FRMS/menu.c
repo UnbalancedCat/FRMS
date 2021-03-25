@@ -181,7 +181,7 @@ void manager_flight_info()
 			case '2':system("cls"); delete_flight_info(); break;//航班信息 删除
 			case '3':system("cls"); modify_flight_info(); break;//航班信息 修改
 			case '4':system("cls"); bridge_sort_flight_info(); break;//航班信息 排序
-			case '5':system("cls"); break;//航班信息 查询
+			case '5':system("cls"); bridge_refine_search_sort_flight_info(); break;//航班信息 查询
 			case '6':system("cls"); return;
 			}
 
