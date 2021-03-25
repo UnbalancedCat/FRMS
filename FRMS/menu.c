@@ -7,18 +7,45 @@
 //菜单函数
 void menu()
 {
-	int begin ;
+	char begin[4] ;
 	while (1)
 	{
-		begin = 0;
+		
 		show_FRMS_title();
 		line();
 		printf("                                            1.管 理 员 登 录\n");
 		printf("                                            2.乘 客 登 录\n");
-		printf("                                            3.退 出\n");
+		//快速查询界面
+		printf("                                            0.退 出\n");
 		line();
-		printf("请输入对应序号访问功能（1-3）：");
-		scanf_s("%d", &begin);//等待输入
+		printf("请输入对应序号访问功能（0-2）：");
+		{
+			rewind(stdin);
+			fgets(begin, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin[strlen(begin) - 1]) begin[strlen(begin) - 1] = 0;
+		}
+		while (begin[1]!='\0'||(begin[0] != '1' && begin[0] != '2' && begin[0] != '0'))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
+			{
+				rewind(stdin);
+				fgets(begin, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin[strlen(begin) - 1]) begin[strlen(begin) - 1] = 0;
+			}
+		}
+
+			switch (begin[0])
+			{
+			case '1':system("cls"); manager_login(); break;
+			case '2':system("cls"); match_passenger(); break;
+			case '0':return;//退出程序
+			}
+		
+
+		/*scanf_s("%d", &begin);//等待输入
 		if (begin == 1 || begin == 2 || begin == 3)
 		{
 			switch (begin)
@@ -31,7 +58,7 @@ void menu()
 		else
 		{
 			system("cls"); printf("请输入合法字符!\n"); 
-		}
+		}*/
 	}
 }
 //管理员界面
@@ -117,10 +144,9 @@ void manager_password_change()
 }
 void manager()
 {
-	int begin_manager;//选项
+	char begin_manager[4];//选项
 	while (1)
 	{
-		begin_manager = 0;
 		show_FRMS_title();
 		show_manager_title();
 		line();
@@ -128,32 +154,43 @@ void manager()
 		printf("                                            2.旅 客 信 息\n");
 		printf("                                            3.管 理 员 信 息 修 改\n");
 		printf("                                            4.数 据 管 理\n");
-		printf("                                            5.退 出\n");
+		printf("                                            0.退 出\n");
 		line();
-		scanf_s("%d", &begin_manager);//等待输入
-		if (begin_manager == 1 || begin_manager == 2 || begin_manager == 3 || begin_manager == 4 || begin_manager == 5)
+		printf("请输入对应序号访问功能（0-4）：");
 		{
-			switch (begin_manager)
+			rewind(stdin);
+			fgets(begin_manager, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_manager[strlen(begin_manager) - 1]) begin_manager[strlen(begin_manager) - 1] = 0;
+		}
+		while (begin_manager[1] != '\0' || (begin_manager[0] < '0' && begin_manager[0] >'4' ))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-				{
-			case 1:system("cls"); manager_flight_info(); break;
-			case 2: system("cls"); manager_passager(); break;
-			case 3: system("cls"); manager_password(); break;
-			case 4: system("cls"); file(); break;
-			case 5: system("cls"); return;
-				}
+				rewind(stdin);
+				fgets(begin_manager, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_manager[strlen(begin_manager) - 1]) begin_manager[strlen(begin_manager) - 1] = 0;
 			}
 		}
-		else
+		switch (begin_manager[0])
 		{
-			system("cls"); printf("请输入合法字符!\n"); 
+			
+		case '1':system("cls"); manager_flight_info(); break;
+		case '2': system("cls"); manager_passager(); break;
+		case '3': system("cls"); manager_password(); break;
+		case '4': system("cls"); file(); break;
+		case '0': system("cls"); return;
+			
 		}
+		
 	}
 }
 void manager_flight_info()
 {
-	//int begin_manager_flight_info = 0;//选项
-	char begin_manager_flight_info[3];
+	//选项
+	char begin_manager_flight_info[4];
 	while(1)
 	{
 		show_FRMS_title();
@@ -168,36 +205,45 @@ void manager_flight_info()
 		printf("                                               3.修 改\n");
 		printf("                                               4.排 序\n");
 		printf("                                               5.查 询\n");
-		printf("                                               6.返 回\n");
+		printf("                                               0.返 回\n");
 		line();
-		printf("请输入对应序号访问功能（1-6）：");
-		//scanf_s("%d", &begin_manager_flight_info);//等待输入
-		gets_s(begin_manager_flight_info, 3);
-		if (begin_manager_flight_info[0] == '1' || begin_manager_flight_info[0] == '2' || begin_manager_flight_info[0] == '3' || begin_manager_flight_info[0] == '4' || begin_manager_flight_info[0] == '5' || begin_manager_flight_info[0] == '6')
+		
+		printf("请输入对应序号访问功能（0-5）：");
 		{
-			switch (begin_manager_flight_info[0])
+			rewind(stdin);
+			fgets(begin_manager_flight_info, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_manager_flight_info[strlen(begin_manager_flight_info) - 1]) begin_manager_flight_info[strlen(begin_manager_flight_info) - 1] = 0;
+		}
+		while (begin_manager_flight_info[1] != '\0' || (begin_manager_flight_info[0] < '0' && begin_manager_flight_info[0] > '5'))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case '1':system("cls"); add_flight_info(); break;//航班信息 添加
-			case '2':system("cls"); delete_flight_info(); break;//航班信息 删除
-			case '3':system("cls"); modify_flight_info(); break;//航班信息 修改
-			case '4':system("cls"); bridge_sort_flight_info(); break;//航班信息 排序
-			case '5':system("cls"); break;//航班信息 查询
-			case '6':system("cls"); return;
+				rewind(stdin);
+				fgets(begin_manager_flight_info, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_manager_flight_info[strlen(begin_manager_flight_info) - 1]) begin_manager_flight_info[strlen(begin_manager_flight_info) - 1] = 0;
 			}
-
 		}
-		else
+		switch (begin_manager_flight_info[0])
 		{
-			system("cls"); printf("请输入合法字符!\n"); 
+		case '1':system("cls"); add_flight_info(); break;//航班信息 添加
+		case '2':system("cls"); delete_flight_info(); break;//航班信息 删除
+		case '3':system("cls"); modify_flight_info(); break;//航班信息 修改
+		case '4':system("cls"); bridge_sort_flight_info(); break;//航班信息 排序
+		case '5':system("cls"); break;//航班信息 查询
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
 void manager_passager()
 {
-	int begin_manager_passager;//选项
+	char begin_manager_passager[4];//选项
 	while (1)
 	{
-		begin_manager_passager = 0;
+		
 		show_FRMS_title();
 		show_manager_title();
 		line();
@@ -207,84 +253,112 @@ void manager_passager()
 		printf("                                               2.删 除\n");
 		printf("                                               3.修 改\n");
 		printf("                                               4.查 询\n");
-		printf("                                               5.返 回\n");
+		printf("                                               0.返 回\n");
 		line();
-		scanf_s("%d", &begin_manager_passager);//等待输入
-		if (begin_manager_passager == 1 || begin_manager_passager == 2 || begin_manager_passager == 3 || begin_manager_passager == 4 || begin_manager_passager == 5)
+		printf("请输入对应序号访问功能（0-4）：");
 		{
-			switch (begin_manager_passager)
+			rewind(stdin);
+			fgets(begin_manager_passager, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_manager_passager[strlen(begin_manager_passager) - 1]) begin_manager_passager[strlen(begin_manager_passager) - 1] = 0;
+		}
+		while (begin_manager_passager[1] != '\0' || (begin_manager_passager[0] < '0' && begin_manager_passager[0] > '4' ))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case 1:system("cls"); add_passenger(); break;
-			case 2:system("cls"); delete_passenger();  break;
-			case 3:system("cls"); mend_passenger();  break;
-			case 4:system("cls"); seek_passenger(); break;
-			case 5:system("cls"); return;
+				rewind(stdin);
+				fgets(begin_manager_passager, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_manager_passager[strlen(begin_manager_passager) - 1]) begin_manager_passager[strlen(begin_manager_passager) - 1] = 0;
 			}
 		}
-
-
-		else
+		switch (begin_manager_passager[0])
 		{
-			system("cls"); printf("请输入合法字符!\n");
+		case '1':system("cls"); add_passenger(); break;
+		case '2':system("cls"); delete_passenger();  break;
+		case '3':system("cls"); mend_passenger();  break;
+		case '4':system("cls"); seek_passenger(); break;
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
 void manager_password()
 {
-	int begin_manager_password;//选项
+    char begin_manager_password[4];//选项
 	while (1)
 	{
-		begin_manager_password = 0;
 		show_FRMS_title();
 		show_manager_title();
 		line();
 		printf("                                            1.密 码 修 改\n");
-		printf("                                            2.返 回\n");
+		printf("                                            0.返 回\n");
 		line();
-		scanf_s("%d", &begin_manager_password);//等待输入
-		if (begin_manager_password == 2 || begin_manager_password == 1)
+		printf("请输入对应序号访问功能（0-1）：");
 		{
-			switch (begin_manager_password)
+			rewind(stdin);
+			fgets(begin_manager_password, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_manager_password[strlen(begin_manager_password) - 1]) begin_manager_password[strlen(begin_manager_password) - 1] = 0;
+		}
+		while (begin_manager_password[1] != '\0' || (begin_manager_password[0] != '1' && begin_manager_password[0] != '0'))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case 1:system("cls"); manager_password_change(); break;
-			case 2:system("cls"); return;
+				rewind(stdin);
+				fgets(begin_manager_password, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_manager_password[strlen(begin_manager_password) - 1]) begin_manager_password[strlen(begin_manager_password) - 1] = 0;
 			}
 		}
-		else
+		switch (begin_manager_password[0])
 		{
-			system("cls"); printf("请输入合法字符!\n");
+		case '1':system("cls"); manager_password_change(); break;
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
 void file()
 {
-	int choo;//选项
+	char choo[4];//选项
 	while (1)
 	{
-		choo = 0;
 		show_FRMS_title();
 		show_manager_title();
 		line();
 		printf("                                        请选择对文件进行的的操作\n");
 		printf("                                               1.备 份\n");
 		printf("                                               2.恢 复\n");
-		printf("                                               3.返 回\n");
+		printf("                                               0.返 回\n");
 		line();
-		scanf("%d", &choo);
-
-		if (choo == 1 || choo == 2 || choo == 3)
+		printf("请输入对应序号访问功能（0-2）：");
 		{
-			switch (choo)
+			rewind(stdin);
+			fgets(choo, 3, stdin);
+			rewind(stdin);
+			if ('\n' == choo[strlen(choo) - 1]) choo[strlen(choo) - 1] = 0;
+		}
+		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' && choo[0] != '0'))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case 1:system("cls"); file_backup(); break;
-			case 2: system("cls"); file_recover(); break;
-			case 3:system("cls"); return;
+				rewind(stdin);
+				fgets(choo, 3, stdin);
+				rewind(stdin);
+				if ('\n' == choo[strlen(choo) - 1]) choo[strlen(choo) - 1] = 0;
 			}
 		}
-		else
+		switch (choo[0])
 		{
-			system("cls"); printf("请输入合法字符!\n");
+		case '1':system("cls"); file_backup(); break;
+		case '2': system("cls"); file_recover(); break;
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
 int file_backup()
@@ -389,40 +463,49 @@ int file_recover()
 //旅客界面
 void passenger()
 {
-	int begin_passenger;//选项
+	char begin_passenger[4];//选项
 	while (1)
 	{
-		begin_passenger = 0;
 		show_FRMS_title();
 		line();
 		printf("                                            乘 客 模 式\n");
 		line();
 		printf("                                            1.飞 机 航 班\n");
 		printf("                                            2.旅 客 信 息\n");
-		printf("                                            3.退 出\n");
+		printf("                                            0.退 出\n");
 		line();
-		scanf_s("%d", &begin_passenger);//等待输入
-		if (begin_passenger == 1 || begin_passenger == 2 || begin_passenger == 3)
+		printf("请输入对应序号访问功能（0-2）：");
 		{
-			switch (begin_passenger)
+			rewind(stdin);
+			fgets(begin_passenger, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_passenger[strlen(begin_passenger) - 1])  begin_passenger[strlen(begin_passenger) - 1] = 0;
+		}
+		while (begin_passenger[1] != '\0' || (begin_passenger[0] != '1' && begin_passenger[0] != '2' && begin_passenger[0] != '0'))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case 1:system("cls"); passenger_flight_info(); break;
-			case 2:system("cls"); passenger_info(); break;
-			case 3:system("cls"); return;
+				rewind(stdin);
+				fgets(begin_passenger, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_passenger[strlen(begin_passenger) - 1])  begin_passenger[strlen(begin_passenger) - 1] = 0;
 			}
 		}
-		else
+		switch (begin_passenger[0])
 		{
-			system("cls"); printf("请输入合法字符!\n");
+		case '1':system("cls"); passenger_flight_info(); break;
+		case '2':system("cls"); passenger_info(); break;
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
 void passenger_flight_info()
 {
-	int begin_passenger_flight_info;//选项
+	char begin_passenger_flight_info[4];//选项
 	while (1)
 	{
-		begin_passenger_flight_info = 0;
 		show_FRMS_title();
 		line();
 		printf("                                            乘 客 模 式\n");
@@ -430,31 +513,41 @@ void passenger_flight_info()
 		printf("                                            1.排 序\n");
 		printf("                                            2.查 询\n");
 		printf("                                            3.订 票\n");
-		printf("                                            4.返 回\n");
+		printf("                                            0.返 回\n");
 		line();
-		scanf_s("%d", &begin_passenger_flight_info);//等待输入
-		if (begin_passenger_flight_info == 1 || begin_passenger_flight_info == 2 || begin_passenger_flight_info == 3 || begin_passenger_flight_info == 4)
+		printf("请输入对应序号访问功能（0-3）：");
 		{
-			switch (begin_passenger_flight_info)
+			rewind(stdin);
+			fgets(begin_passenger_flight_info, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1]) begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1] = 0;
+		}
+		while (begin_passenger_flight_info[1] != '\0' || (begin_passenger_flight_info[0] < '0' && begin_passenger_flight_info[0] > '3' ))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case 1:system("cls"); break;
-			case 2:system("cls"); break;
-			case 3:system("cls"); break;
-			case 4:system("cls"); return;
+				rewind(stdin);
+				fgets(begin_passenger_flight_info, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1]) begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1] = 0;
 			}
 		}
-		else
+		switch (begin_passenger_flight_info[0])
 		{
-			system("cls");  printf("请输入合法字符!\n");
+		case '1':system("cls"); break;
+		case '2':system("cls"); break;
+		case '3':system("cls"); break;
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
 void passenger_info()
 {
-	int begin_passenger_info;//选项
+	char begin_passenger_info[4];//选项
 	while (1)
 	{
-		begin_passenger_info = 0;
 		show_FRMS_title();
 		line();
 		printf("                                            乘 客 模 式\n");
@@ -462,26 +555,34 @@ void passenger_info()
 		printf("                                            1.添加\n");
 		printf("                                            2.删除\n");
 		printf("                                            3.修改\n");
-		printf("                                            4.返 回\n");
+		printf("                                            0.返 回\n");
 		line();
-		scanf_s("%d", &begin_passenger_info);//等待输入
-		if (begin_passenger_info == 1 || begin_passenger_info == 2 || begin_passenger_info == 3 || begin_passenger_info == 4)
+		printf("请输入对应序号访问功能（0-3）：");
 		{
-			switch (begin_passenger_info)
+			rewind(stdin);
+			fgets(begin_passenger_info, 3, stdin);
+			rewind(stdin);
+			if ('\n' == begin_passenger_info[strlen(begin_passenger_info) - 1]) begin_passenger_info[strlen(begin_passenger_info) - 1] = 0;
+		}
+		while (begin_passenger_info[1] != '\0' || (begin_passenger_info[0]  <'0' && begin_passenger_info[0] > '3' ))
+		{
+			printf("含有非法字符，请重新输入！\a\n");
+			printf("请输入对应序号访问功能（0-2）：");
 			{
-			case 1:system("cls"); add_passenger(); break;
-			case 2:system("cls"); delete_passenger(); break;
-			case 3:system("cls"); mend_passenger(); break;
-			case 4:system("cls"); return;
+				rewind(stdin);
+				fgets(begin_passenger_info, 3, stdin);
+				rewind(stdin);
+				if ('\n' == begin_passenger_info[strlen(begin_passenger_info) - 1]) begin_passenger_info[strlen(begin_passenger_info) - 1] = 0;
 			}
-
-
-
 		}
-		else
+
+		switch (begin_passenger_info[0])
 		{
-			system("cls"); printf("请输入合法字符!\n"); 
+		case '1':system("cls"); add_passenger(); break;
+		case '2':system("cls"); delete_passenger(); break;
+		case '3':system("cls"); mend_passenger(); break;
+		case '0':system("cls"); return;
 		}
+		
 	}
 }
-
