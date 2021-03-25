@@ -48,23 +48,48 @@ void menu()
 //管理员界面
 void manager_login()
 {
-
-	char password_real[7];
-	char password_shuru[7];
+	int i = 6;
+	char password_real[8];
+	char password_input[8];
 	FILE* fp;
 	fp = fopen("password_manager.txt", "r");
 	fgets(password_real, 7, fp);
 	while (1)
 	{
-		show_FRMS_title();
-		show_manager_title();
-		line();
-		printf("                                            管 理 员 登 录\n");
-		printf("                                            (按0返回)\n");
-		line();
+		{
+			show_FRMS_title();
+			show_manager_title();
+			line();
+			printf("                                            管 理 员 登 录\n");
+			printf("                                            (按0返回)\n");
+			line();
+		}
 		printf("请输入密码：");
-		scanf("%s", password_shuru);
-		if (strcmp(password_real, password_shuru) == 0)
+		{
+			rewind(stdin);
+			fgets(password_input, 8, stdin);
+			rewind(stdin);
+			if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
+		}
+		if (password_input[0] == '0' && password_input[1] == '\0')break;
+		while (i)
+		{
+			if (password_input[6] != '\0' || password_input[i - 1] != password_real[i - 1])
+			{
+				if (password_input[0] == '0' && password_input[1] == '\0')break;
+				printf("密码错误！\a\n");
+				printf("请重新输入密码：");
+				{
+					rewind(stdin);
+					fgets(password_input, 8, stdin);
+					rewind(stdin);
+					if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
+				}
+				i = 6;
+			}
+			else i--;
+		}
+		if (password_input[0] == '0' && password_input[1] == '\0')break;
 		{
 			fclose(fp);
 			printf("登录成功！\n");
@@ -74,15 +99,6 @@ void manager_login()
 			manager();
 			return;
 		}
-		else
-			if (strcmp("0", password_shuru) == 0)
-			{
-				fclose(fp); system("cls"); return;
-			}
-			else
-			{
-				system("cls"); printf("密码错误\n");
-			}
 	}
 }
 void manager_password_change()
@@ -216,7 +232,7 @@ void manager_flight_info()
 		case '2':system("cls"); delete_flight_info(); break;//航班信息 删除
 		case '3':system("cls"); modify_flight_info(); break;//航班信息 修改
 		case '4':system("cls"); bridge_sort_flight_info(); break;//航班信息 排序
-		case '5':system("cls"); break;//航班信息 查询
+		case '5':system("cls"); bridge_refine_search_sort_flight_info(); break;//航班信息 查询
 		case '0':system("cls"); return;
 		}
 		
@@ -519,8 +535,8 @@ void passenger_flight_info()
 		}
 		switch (begin_passenger_flight_info[0])
 		{
-		case '1':system("cls"); break;
-		case '2':system("cls"); break;
+		case '1':system("cls"); bridge_sort_flight_info(); break;
+		case '2':system("cls"); bridge_refine_search_sort_flight_info(); break;
 		case '3':system("cls"); break;
 		case '0':system("cls"); return;
 		}

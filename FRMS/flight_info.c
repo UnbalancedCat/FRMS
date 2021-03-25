@@ -309,7 +309,7 @@ void bridge_sort_flight_info()
 	i = (int)strlen(option_info);
 	while (i)
 	{
-		if (option_info[9]!='\0'||(option_info[i-1] < 'A' || option_info[i] > 'H'))
+		if (option_info[9] != '\0' || (option_info[i - 1] < 'A' || option_info[i - 1] > 'H'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
 			printf("请选择排序关键字序号（如：ABH ）：");
@@ -434,18 +434,18 @@ void bridge_refine_search_sort_flight_info()
 		i = 8;
 		while (i)
 		{
-			printf("请选择查询关键词以及查询数据,输入q完成（如：A上海）：");
+			printf("请选择查询关键词以及查询数据,输入0完成（如：A上海）：");
 			{
 				rewind(stdin);
 				fgets(buffer, 23, stdin);
 				rewind(stdin);
 				if ('\n' == buffer[strlen(buffer) - 1]) buffer[strlen(buffer) - 1] = 0;
 			}
-			if (buffer[0] == 'q')break;
+			if (buffer[0] == '0' && buffer[1] == '\0')break;
 			while (buffer[21] != '\0' || (buffer[0] < 'A' || buffer[0] > 'H'))
 			{
 				printf("含有非法字符，请重新输入！\a\n");
-				printf("请选择查询关键词以及查询数据,输入q完成（如：A上海）：");
+				printf("请选择查询关键词以及查询数据,输入0完成（如：A上海）：");
 				{
 					rewind(stdin);
 					fgets(buffer, 23, stdin);
@@ -453,7 +453,7 @@ void bridge_refine_search_sort_flight_info()
 					if ('\n' == buffer[strlen(buffer) - 1]) buffer[strlen(buffer) - 1] = 0;
 				}
 			}
-			if (buffer[0] == 'q')break;
+			if (buffer[0] == '0' && buffer[1] == '\0')break;
 			option_info[8 - i] = buffer[0];
 			strcpy(refer_info[8 - i], buffer + 1);
 			i--;
