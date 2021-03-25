@@ -3,6 +3,8 @@ Debug/
 FRMS/Debug/
 Release/
 ignore/
+x64/
+FRMS/x64
 
 # Other files and folders
 .vs/

@@ -4,8 +4,6 @@
 
 #include"flight_info.h"
 
-
-
 void init(void);
 void line(void);
 void show_flight_info_title(void);
