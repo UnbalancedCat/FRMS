@@ -8,54 +8,54 @@
 
 
 
-//å®šä¹‰ç»“æ„ä½“_æ—…å®¢
+//¶¨Òå½á¹¹Ìå_ÂÃ¿Í
  struct Passenger{
-    char pname[20];	           //å§“å
-    char pid[20];	           //èº«ä»½è¯
-    char password[20];	       //å¯†ç 
-    char tell[15];	           //ç”µè¯
-    char count_num[50];        //è®°å½•è¿™æ˜¯ç¬¬å‡ ä¸ªæ—…å®¢
-    struct Passenger* pnext;	//ä¿å­˜ä¸‹ä¸€ä¸ªåœ°å€
+    char pname[20];	           //ĞÕÃû
+    char pid[20];	           //Éí·İÖ¤
+    char password[20];	       //ÃÜÂë
+    char tell[15];	           //µç»°
+    char count_num[50];        //¼ÇÂ¼ÕâÊÇµÚ¼¸¸öÂÃ¿Í
+    struct Passenger* pnext;	//±£´æÏÂÒ»¸öµØÖ·
 }; 
 struct Passenger Passenger[50];
-struct Passenger *phead, *pnode, *pend;              //å®šä¹‰æ—…å®¢ç±»å‹ç»“æ„ä½“ å¤´èŠ‚ç‚¹ã€æ™®é€šèŠ‚ç‚¹ã€å°¾èŠ‚ç‚¹
-char count_passenger[60] = { 0 };      //æ—…å®¢çš„æ€»äººæ•°
-int cp = 0;                             //æ—…å®¢çš„æ€»äººæ•°
+struct Passenger *phead, *pnode, *pend;              //¶¨ÒåÂÃ¿ÍÀàĞÍ½á¹¹Ìå Í·½Úµã¡¢ÆÕÍ¨½Úµã¡¢Î²½Úµã
+char count_passenger[60] = { 0 };      //ÂÃ¿ÍµÄ×ÜÈËÊı
+int cp = 0;                             //ÂÃ¿ÍµÄ×ÜÈËÊı
 
 
-//void read_passenger(void);          //è¯»å–æ—…å®¢ä¿¡æ¯ï¼Œè¦åœ¨å¯¹æ—…å®¢ä¿¡æ¯è¿›è¡Œæ“ä½œå‰è°ƒç”¨ä¸€æ¬¡      
+//void read_passenger(void);          //¶ÁÈ¡ÂÃ¿ÍĞÅÏ¢£¬ÒªÔÚ¶ÔÂÃ¿ÍĞÅÏ¢½øĞĞ²Ù×÷Ç°µ÷ÓÃÒ»´Î      
 void read_passenger(void) {
-    FILE* frp;          //frp å³ file_read_passenger
+    FILE* frp;          //frp ¼´ file_read_passenger
 
-    frp = fopen("passenger.txt", "r");
+    frp = fopen("data\\passenger.txt", "r");
     if (frp == NULL) {
-        printf("passenger.txt çš„æ—…å®¢æ–‡ä»¶æ‰“å¼€å¤±è´¥!\n"); exit(-1);
+        printf("passenger.txt µÄÂÃ¿ÍÎÄ¼ş´ò¿ªÊ§°Ü!\n"); exit(-1);
     }
     else {
-        pnode = (struct Passenger*)malloc(sizeof(struct Passenger));//åˆ†é…ç©ºé—´
-        phead = pnode;//ä¿å­˜é¦–èŠ‚ç‚¹
+        pnode = (struct Passenger*)malloc(sizeof(struct Passenger));//·ÖÅä¿Õ¼ä
+        phead = pnode;//±£´æÊ×½Úµã
         if (pnode == NULL) {
-            printf("æ—…å®¢å†…å­˜åˆ†é…ä¸è¶³ï¼\n");//æç¤ºç©ºé—´æ˜¯å¦åˆ†é…ä¸è¶³
+            printf("ÂÃ¿ÍÄÚ´æ·ÖÅä²»×ã£¡\n");//ÌáÊ¾¿Õ¼äÊÇ·ñ·ÖÅä²»×ã
             exit(1);
         }
         else {
             if (fscanf(frp, "%s %s %s %s", pnode->pid, pnode->pname, pnode->password, pnode->tell) != 4) {
-                printf("æ—…å®¢æ–‡ä»¶æ•°æ®è¯»å–é”™è¯¯ï¼\n");
+                printf("ÂÃ¿ÍÎÄ¼şÊı¾İ¶ÁÈ¡´íÎó£¡\n");
                 exit(1);
             }
             while (1) {
                 
                 cp=cp+1;
-                strcpy(Passenger[cp].count_num, count_passenger);  //ä»1å¼€å§‹ä¸ºæ—…å®¢è®¡æ•°
-                pnode->pnext = (struct Passenger*)malloc(sizeof(struct Passenger));//åˆ†é…ç©ºé—´
+                strcpy(Passenger[cp].count_num, count_passenger);  //´Ó1¿ªÊ¼ÎªÂÃ¿Í¼ÆÊı
+                pnode->pnext = (struct Passenger*)malloc(sizeof(struct Passenger));//·ÖÅä¿Õ¼ä
                 if (pnode->pnext == NULL) {
-                    printf("å†…å­˜åˆ†é…å¤±è´¥ï¼\n");//æç¤ºç©ºé—´æ˜¯å¦åˆ†é…ä¸è¶³
+                    printf("ÄÚ´æ·ÖÅäÊ§°Ü£¡\n");//ÌáÊ¾¿Õ¼äÊÇ·ñ·ÖÅä²»×ã
                     exit(1);
                 }
                 else {
-                    pend = pnode;//ä¿å­˜å°¾èŠ‚ç‚¹
-                    pnode = pnode->pnext;//å‘ä¸‹ç§»åŠ¨èŠ‚ç‚¹
-                    //è¯»å–ä¸€è¡Œæ•°æ®ä¿å­˜åœ¨å½“å‰èŠ‚ç‚¹,å¹¶åˆ¤æ–­æ˜¯å¦è¯»å†™å®Œæ¯•
+                    pend = pnode;//±£´æÎ²½Úµã
+                    pnode = pnode->pnext;//ÏòÏÂÒÆ¶¯½Úµã
+                    //¶ÁÈ¡Ò»ĞĞÊı¾İ±£´æÔÚµ±Ç°½Úµã,²¢ÅĞ¶ÏÊÇ·ñ¶ÁĞ´Íê±Ï
                     if (fscanf(frp, "%s %s %s %s", pnode->pid, pnode->pname, pnode->password, pnode->tell) != 4) {
                         pnode = NULL;
                         break;
@@ -68,21 +68,21 @@ void read_passenger(void) {
 
 
 
-//void mend_passenger(void);         //ä¿®æ”¹æ—…å®¢ä¿¡æ¯
+//void mend_passenger(void);         //ĞŞ¸ÄÂÃ¿ÍĞÅÏ¢
 void mend_passenger(void) {
     char linedata[100] = { 0 };
-    FILE* f_mend = fopen("passenger.txt", "r");
-    FILE* fpw = fopen("tmp.txt", "w");
+    FILE* f_mend = fopen("data\\passenger.txt", "r");
+    FILE* fpw = fopen("data\\tmp.txt", "w");
    int k = search_passenger;
 
-    printf("ä¿®æ”¹å§“åè¯·æŒ‰1\n  èº«ä»½è¯å·è¯·æŒ‰2\n  å¯†ç è¯·æŒ‰3\n  ç”µè¯è¯·æŒ‰4\n");
+    printf("ĞŞ¸ÄĞÕÃûÇë°´1\n  Éí·İÖ¤ºÅÇë°´2\n  ÃÜÂëÇë°´3\n  µç»°Çë°´4\n");
     int a=getchar() - 48;
     switch (a) {
     case 1:while (fgets(linedata, sizeof(linedata) - 1, f_mend)) {
         if (strcmp(linedata, Passenger[k].pname) == 0)
         {
             char x[100] = { 0 };
-            printf("è¯·è¾“å…¥ä½ æƒ³è¦ä¿®æ”¹åçš„æ•°æ®ï¼\n");
+            printf("ÇëÊäÈëÄãÏëÒªĞŞ¸ÄºóµÄÊı¾İ£¡\n");
             scanf("%s", x);
             fputs(x, fpw);
         }
@@ -93,7 +93,7 @@ void mend_passenger(void) {
         if (strcmp(linedata, Passenger[k].pid) == 0)
         {
             char x[100] = { 0 };
-            printf("è¯·è¾“å…¥ä½ æƒ³è¦ä¿®æ”¹åçš„æ•°æ®ï¼\n");
+            printf("ÇëÊäÈëÄãÏëÒªĞŞ¸ÄºóµÄÊı¾İ£¡\n");
             scanf("%s", x);
             fputs(x, fpw);
         }
@@ -104,7 +104,7 @@ void mend_passenger(void) {
         if (strcmp(linedata, Passenger[k].password) == 0)
         {
             char x[100] = { 0 };
-            printf("è¯·è¾“å…¥ä½ æƒ³è¦ä¿®æ”¹åçš„æ•°æ®ï¼\n");
+            printf("ÇëÊäÈëÄãÏëÒªĞŞ¸ÄºóµÄÊı¾İ£¡\n");
             scanf("%s", x);
             fputs(x, fpw);
         }
@@ -115,7 +115,7 @@ void mend_passenger(void) {
         if (strcmp(linedata, Passenger[k].tell) == 0)
         {
             char x[100];
-            printf("è¯·è¾“å…¥ä½ æƒ³è¦ä¿®æ”¹åçš„æ•°æ®ï¼\n");
+            printf("ÇëÊäÈëÄãÏëÒªĞŞ¸ÄºóµÄÊı¾İ£¡\n");
             scanf("%s", x);
             fputs(x, fpw);
         }
@@ -123,23 +123,23 @@ void mend_passenger(void) {
             fputs(linedata, fpw);
     }break;
 
-    default: {printf("ä½ è¾“å…¥äº†é”™è¯¯çš„æ•°å­—ï¼\n"); exit(1); }
+    default: {printf("ÄãÊäÈëÁË´íÎóµÄÊı×Ö£¡\n"); exit(1); }
 
     }
 
-    //å…³é—­æ–‡ä»¶å¹¶é‡å‘½å
+    //¹Ø±ÕÎÄ¼ş²¢ÖØÃüÃû
     fclose(f_mend);
     fclose(fpw);
-    system("del passenger.txt");            //åˆ é™¤åŸæ–‡ä»¶
+    system("del passenger.txt");            //É¾³ıÔ­ÎÄ¼ş
     system("rename tmp.txt passenger.txt");
 }
 
 
 
-//void print_passenger(void)                        //è¾“å‡ºæ—…å®¢ä¿¡æ¯        è°ƒç”¨ï¼šprintf_passenger();     
-void print_passenger(void) {                         //è¾“å‡ºæ—…å®¢ä¿¡æ¯
-    FILE *f_print=fopen("passenger.txt","r");
-    printf("æ¯è¡Œå››ä¸ªæ•°æ®ï¼Œä¾æ¬¡æ˜¯è‹±æ–‡å§“å    èº«ä»½è¯å·    å¯†ç   ç”µè¯\n");
+//void print_passenger(void)                        //Êä³öÂÃ¿ÍĞÅÏ¢        µ÷ÓÃ£ºprintf_passenger();     
+void print_passenger(void) {                         //Êä³öÂÃ¿ÍĞÅÏ¢
+    FILE *f_print=fopen("data\\passenger.txt","r");
+    printf("Ã¿ĞĞËÄ¸öÊı¾İ£¬ÒÀ´ÎÊÇÓ¢ÎÄĞÕÃû    Éí·İÖ¤ºÅ    ÃÜÂë  µç»°\n");
     for(int i=0;i<cp;i++){
         char array_print[600]={0};
         fgets(array_print,600,f_print);
@@ -149,136 +149,136 @@ void print_passenger(void) {                         //è¾“å‡ºæ—…å®¢ä¿¡æ¯
 }
 
 
-//void seek_passenger(void);         //æŸ¥è¯¢æ—…å®¢ä¿¡æ¯      
+//void seek_passenger(void);         //²éÑ¯ÂÃ¿ÍĞÅÏ¢      
 void seek_passenger(void) {
     int  flag_seek = 0;
     char seek_passenger_tell[13] = { 0 };
-    FILE* f_seek;            f_seek = fopen("passenger.txt", "r");
-    printf("æŸ¥è¯¢æ–¹å¼ï¼š\n1.èº«ä»½è¯å·è¯·æŒ‰1ã€‚\n2.ç”µè¯å·ç è¯·æŒ‰2ã€‚\nå§“è¯·æŒ‰3\nå§“åå’Œç”µè¯å·ç»„åˆæŸ¥è¯¢è¯·æŒ‰4\n");
+    FILE* f_seek;            f_seek = fopen("data\\passenger.txt", "r");
+    printf("²éÑ¯·½Ê½£º\n1.Éí·İÖ¤ºÅÇë°´1¡£\n2.µç»°ºÅÂëÇë°´2¡£\nĞÕÇë°´3\nĞÕÃûºÍµç»°ºÅ×éºÏ²éÑ¯Çë°´4\n");
     scanf("%d", &flag_seek);
     switch (flag_seek) {
     case 1: {
-        printf("è¯·è¾“å…¥èº«ä»½è¯å·ï¼š     \n");
+        printf("ÇëÊäÈëÉí·İÖ¤ºÅ£º     \n");
         char seek_passenger_id[19] = { 0 };
         scanf("%s", &seek_passenger_id);
         int i;
         for (i = 0; i <= cp; i++) {
             if (strcmp(Passenger[cp].pid, seek_passenger_id) == 0) {
-                printf("å§“åï¼š     %s\n", Passenger[i + 1].pname);
-                printf("èº«ä»½è¯å·ï¼š     %s\n", Passenger[i + 1].pid);
-                printf("ç”µè¯ï¼š     %s\n", Passenger[i + 1].tell);
+                printf("ĞÕÃû£º     %s\n", Passenger[i + 1].pname);
+                printf("Éí·İÖ¤ºÅ£º     %s\n", Passenger[i + 1].pid);
+                printf("µç»°£º     %s\n", Passenger[i + 1].tell);
                 break;
             }
-            if (i == cp) { printf("æ²¡æœ‰åŒ¹é…çš„æ—…å®¢èº«ä»½è¯å·ï¼\nè¯·é‡æ–°æ¥è¿‡\n"); break; }
+            if (i == cp) { printf("Ã»ÓĞÆ¥ÅäµÄÂÃ¿ÍÉí·İÖ¤ºÅ£¡\nÇëÖØĞÂÀ´¹ı\n"); break; }
         }break; }
     case 2: {
-        printf("è¯·è¾“å…¥ç”µè¯å·ç ï¼š        \n");
+        printf("ÇëÊäÈëµç»°ºÅÂë£º        \n");
         char seek_passenger_tell[15] = { 0 };
         scanf("%s", &seek_passenger_tell);
         int j;
         for (j = 0; j <= cp; j++) {
             if (strcmp(Passenger[cp].tell, seek_passenger_tell) == 0) {
-                printf("å§“åï¼š     %s\n", Passenger[j + 1].pname);
-                printf("èº«ä»½è¯å·ï¼š     %s\n", Passenger[j + 1].pid);
-                printf("ç”µè¯ï¼š     %s\n", Passenger[j + 1].tell);
+                printf("ĞÕÃû£º     %s\n", Passenger[j + 1].pname);
+                printf("Éí·İÖ¤ºÅ£º     %s\n", Passenger[j + 1].pid);
+                printf("µç»°£º     %s\n", Passenger[j + 1].tell);
                 break;
             }
-            if (j == cp) { printf("æ²¡æœ‰åŒ¹é…çš„æ—…å®¢ç”µè¯å·ç ï¼\nè¯·é‡æ–°æ¥è¿‡\n"); break; }
+            if (j == cp) { printf("Ã»ÓĞÆ¥ÅäµÄÂÃ¿Íµç»°ºÅÂë£¡\nÇëÖØĞÂÀ´¹ı\n"); break; }
         }break;}
     case 3: {
-        printf("è¯·è¾“å…¥å§“ï¼š        \n");
+        printf("ÇëÊäÈëĞÕ£º        \n");
         char seek_passenger_fname[15] = { 1 };
         scanf("%s", &seek_passenger_fname);
         int j;
         for (j = 0; j <= cp; j++) {
             if (strcmp(Passenger[cp].pname, seek_passenger_fname) == 0) {
-                printf("å§“åï¼š     %s\n", Passenger[j + 1].pname);
-                printf("èº«ä»½è¯å·ï¼š     %s\n", Passenger[j + 1].pid);
-                printf("ç”µè¯ï¼š     %s\n", Passenger[j + 1].tell);
+                printf("ĞÕÃû£º     %s\n", Passenger[j + 1].pname);
+                printf("Éí·İÖ¤ºÅ£º     %s\n", Passenger[j + 1].pid);
+                printf("µç»°£º     %s\n", Passenger[j + 1].tell);
                 break;
             }
-            if (j == cp) { printf("æ²¡æœ‰åŒ¹é…çš„æ—…å®¢çš„å§“ï¼\nè¯·é‡æ–°æ¥è¿‡\n"); break; }
+            if (j == cp) { printf("Ã»ÓĞÆ¥ÅäµÄÂÃ¿ÍµÄĞÕ£¡\nÇëÖØĞÂÀ´¹ı\n"); break; }
         }break;
 
     }
     case 4: {
-        printf("è¯·è¾“å…¥å§“åï¼š        \n");
+        printf("ÇëÊäÈëĞÕÃû£º        \n");
         char seek_passenger_name[15] = { 1 }; char seek_passenger_password[20] = { 1 };
         scanf("%s", &seek_passenger_name);
-        printf("è¯·è¾“å…¥å¯†ç ï¼š        \n");
+        printf("ÇëÊäÈëÃÜÂë£º        \n");
         scanf("%s", &seek_passenger_password);
         int j;
         for (j = 0; j <= cp; j++) {
             if (strcmp(Passenger[cp].pname, seek_passenger_name) == 0&& strcmp(Passenger[cp].password, seek_passenger_password) == 0) {
-                printf("å§“åï¼š     %s\n", Passenger[j + 1].pname);
-                printf("èº«ä»½è¯å·ï¼š     %s\n", Passenger[j + 1].pid);
-                printf("ç”µè¯ï¼š     %s\n", Passenger[j + 1].tell);
+                printf("ĞÕÃû£º     %s\n", Passenger[j + 1].pname);
+                printf("Éí·İÖ¤ºÅ£º     %s\n", Passenger[j + 1].pid);
+                printf("µç»°£º     %s\n", Passenger[j + 1].tell);
                 break;
             }
-            if (j == cp) { printf("æ²¡æœ‰åŒ¹é…çš„æ—…å®¢ç”µè¯å·ç ï¼\nè¯·é‡æ–°æ¥è¿‡\n"); break; }
+            if (j == cp) { printf("Ã»ÓĞÆ¥ÅäµÄÂÃ¿Íµç»°ºÅÂë£¡\nÇëÖØĞÂÀ´¹ı\n"); break; }
         }break; }
-    default:printf("éæ³•è¾“å…¥ï¼ï¼ï¼\n");
+    default:printf("·Ç·¨ÊäÈë£¡£¡£¡\n");
     }fclose(f_seek);}
 
 
-//void match_passenger(void);         //åŒ¹é…æ—…å®¢ç”µè¯ä¸å¯†ç        
-//void match_passenger(void);         //åŒ¹é…æ—…å®¢ç”µè¯ä¸å¯†ç        
+//void match_passenger(void);         //Æ¥ÅäÂÃ¿Íµç»°ÓëÃÜÂë       
+//void match_passenger(void);         //Æ¥ÅäÂÃ¿Íµç»°ÓëÃÜÂë       
 void match_passenger(void) {
     FILE* f_match;
-    f_match = fopen("passenger.txt", "r");
-    printf("è¯·è¾“å…¥è¦æŸ¥è¯¢æ—…å®¢çš„ç”µè¯å·ç ã€‚\n");
+    f_match = fopen("data\\passenger.txt", "r");
+    printf("ÇëÊäÈëÒª²éÑ¯ÂÃ¿ÍµÄµç»°ºÅÂë¡£\n");
     int k;          char match_passenger_tell[15] = { 0 };
     
     scanf("%s", match_passenger_tell);
     for (k = 0; k <= cp; k++) {
         if (strcmp(Passenger[cp].pid, match_passenger_tell) == 0) {
             char match_passenger_password[20] = { 0 };
-            printf("è¯·è¾“å…¥å¯¹åº”çš„æ—…å®¢å¯†ç ã€‚\n");
+            printf("ÇëÊäÈë¶ÔÓ¦µÄÂÃ¿ÍÃÜÂë¡£\n");
             scanf("%s", match_passenger_password);
             if (strcmp(Passenger[k + 1].password, match_passenger_password) == 0) {
-                printf("å§“åï¼š     %s\n", Passenger[k + 1].pname);
-                printf("èº«ä»½è¯å·ï¼š     %s\n", Passenger[k + 1].pid);
-                printf("ç”µè¯ï¼š     %s\n", Passenger[k + 1].tell);
+                printf("ĞÕÃû£º     %s\n", Passenger[k + 1].pname);
+                printf("Éí·İÖ¤ºÅ£º     %s\n", Passenger[k + 1].pid);
+                printf("µç»°£º     %s\n", Passenger[k + 1].tell);
                 flag_passenger_login = 1;
             }
             break;
         }
-        if (k == cp) { printf("æ²¡æœ‰åŒ¹é…çš„æ—…å®¢ç”µè¯å·ç ï¼\nè¯·é‡æ–°æ¥è¿‡\n"); flag_passenger_login = 0; break; }
+        if (k == cp) { printf("Ã»ÓĞÆ¥ÅäµÄÂÃ¿Íµç»°ºÅÂë£¡\nÇëÖØĞÂÀ´¹ı\n"); flag_passenger_login = 0; break; }
     }
 
     fclose(f_match);
 }
 
-//void add_passenger(void);          //æ·»åŠ æ—…å®¢ä¿¡æ¯     
+//void add_passenger(void);          //Ìí¼ÓÂÃ¿ÍĞÅÏ¢     
 void add_passenger(void) {
     cp=cp+1;
     FILE* f_add;
-    f_add = fopen("passenger.txt", "a");
+    f_add = fopen("data\\passenger.txt", "a");
     char a[5] = { "\n" };
     fwrite(a, 1, strlen(a), f_add);
     int j = 0;
     switch (j) {
-    case 0: {printf("è¯·è¾“å…¥æ—…å®¢å§“åï¼š\n");
+    case 0: {printf("ÇëÊäÈëÂÃ¿ÍĞÕÃû£º\n");
         char n[10]={ 0 };
         scanf("%s",n);
         fprintf(f_add,"%s   ", n);
         strcpy(Passenger[cp].pname, n);
         }
-    case 1:{printf("è¯·è¾“å…¥æ—…å®¢èº«ä»½è¯å·ï¼š\n");
+    case 1:{printf("ÇëÊäÈëÂÃ¿ÍÉí·İÖ¤ºÅ£º\n");
         char nq[20] = { 0 };
         scanf("%s",nq);
         fprintf(f_add,"%s   ", nq);
         strcat(nq, " ");
         strcpy(Passenger[cp].pid, nq);
     }
-    case 2: {printf("è¯·è¾“å…¥æ—…å®¢å¯†ç ï¼š\n");
+    case 2: {printf("ÇëÊäÈëÂÃ¿ÍÃÜÂë£º\n");
         char nw[20] = { 0 };
         scanf("%s",nw);
         fprintf(f_add,"%s   ", nw);
         strcat(nw, " ");
         strcpy(Passenger[cp].pid, nw);
     }
-    case 3: {printf("è¯·è¾“å…¥æ—…å®¢ç”µè¯ï¼š\n");
+    case 3: {printf("ÇëÊäÈëÂÃ¿Íµç»°£º\n");
         char ne[20] = { 0 };
         scanf("%s",ne);
         fprintf(f_add,"%s   ", ne);
@@ -286,12 +286,12 @@ void add_passenger(void) {
         strcpy(Passenger[cp].count_num, count_passenger);
         break;
     }
-    default: {printf("æ·»åŠ æ—…å®¢ä¿¡æ¯è¿‡ç¨‹ä¸­å‡ºç°é”™è¯¯ï¼\n");
+    default: {printf("Ìí¼ÓÂÃ¿ÍĞÅÏ¢¹ı³ÌÖĞ³öÏÖ´íÎó£¡\n");
         break; }
     } fclose(f_add);
 }
 
-//void delete_passenger(void);       //åˆ é™¤æ—…å®¢ä¿¡æ¯
+//void delete_passenger(void);       //É¾³ıÂÃ¿ÍĞÅÏ¢
 void delete_passenger(void) {
     cp=cp-1;
     int x;
@@ -305,30 +305,30 @@ void delete_passenger(void) {
     else  { Passenger[x - 1].pnext = NULL; }
 }
 
-//int search_passenger(void)       å¯»æ‰¾å¯¹åº”çš„æ—…å®¢,è¿”å›kå€¼ï¼Œå¯¹åº”Passenger[k]
+//int search_passenger(void)       Ñ°ÕÒ¶ÔÓ¦µÄÂÃ¿Í,·µ»ØkÖµ£¬¶ÔÓ¦Passenger[k]
 int search_passenger() {
     FILE* f_search;
-    f_search = fopen("passenger.txt", "r");
-    printf("è¯·è¾“å…¥è¦æŸ¥è¯¢æ—…å®¢çš„ç”µè¯å·ç ã€‚\n");
+    f_search = fopen("data\\passenger.txt", "r");
+    printf("ÇëÊäÈëÒª²éÑ¯ÂÃ¿ÍµÄµç»°ºÅÂë¡£\n");
     int k;          
-    int qwe = 0;//å‚¨å­˜è¿”å›å€¼
-    char search_passenger_tell[25] = { 0 };            //å‚¨å­˜è¾“å…¥çš„ç”µè¯å·
-    int flag = 0;           //åˆ¤æ–­æ˜¯å¦æŸ¥è¯¢åŒ¹é…æˆåŠŸã€‚è¿›è€Œè·³å‡ºforå¾ªç¯
+    int qwe = 0;//´¢´æ·µ»ØÖµ
+    char search_passenger_tell[25] = { 0 };            //´¢´æÊäÈëµÄµç»°ºÅ
+    int flag = 0;           //ÅĞ¶ÏÊÇ·ñ²éÑ¯Æ¥Åä³É¹¦¡£½ø¶øÌø³öforÑ­»·
     scanf("%s", search_passenger_tell);
 
-    for (k = 0; k <= cp; k++) {                        //æ³¨æ„kä»0å¼€å§‹ï¼ŒåŒæ•°ç»„
-                                                      //è¯»å–ä¸€è¡Œ  4æ¬¡
-            char save_passenger_tell[600]={0};                                //è¯»å–æ–‡ä»¶æ•°æ®ï¼Œè¿›è¡Œå‚¨å­˜
+    for (k = 0; k <= cp; k++) {                        //×¢Òâk´Ó0¿ªÊ¼£¬Í¬Êı×é
+                                                      //¶ÁÈ¡Ò»ĞĞ  4´Î
+            char save_passenger_tell[600]={0};                                //¶ÁÈ¡ÎÄ¼şÊı¾İ£¬½øĞĞ´¢´æ
             fgets(save_passenger_tell,600,f_search);
             if(strstr(save_passenger_tell,search_passenger_tell)!=NULL){
                 qwe=k;
                 flag=1;
                 break;}
 
-        if(flag==1)break;                                                   //è·³å‡ºforå¾ªç¯
+        if(flag==1)break;                                                   //Ìø³öforÑ­»·
 
         if (k == cp) {
-            printf("æ²¡æœ‰åŒ¹é…çš„æ—…å®¢ç”µè¯å·ç ï¼\nè¯·é‡æ–°æ¥è¿‡\n");
+            printf("Ã»ÓĞÆ¥ÅäµÄÂÃ¿Íµç»°ºÅÂë£¡\nÇëÖØĞÂÀ´¹ı\n");
             break;
         }
     }

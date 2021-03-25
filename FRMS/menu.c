@@ -51,7 +51,7 @@ void manager_login()
 	char password_real[8];
 	char password_input[8];
 	FILE* fp;
-	fp = fopen("password_manager.txt", "r");
+	fp = fopen("data\\password_manager.txt", "r");
 	fgets(password_real, 7, fp);
 	while (1)
 	{
@@ -138,7 +138,7 @@ void manager_password_change()
 			}
 
 
-			xiu = fopen("password_manager.txt", "w");
+			xiu = fopen("data\\password_manager.txt", "w");
 
 			fputs(password_new, xiu);
 

@@ -17,7 +17,7 @@ void pull_flight_info(void)
 	flight_info_num = 0;//初始化航班信息数量
 	FILE* fp;//定义文件指针
 
-	fp = fopen("flight_info.txt", "r");//打开flight_info.txt文件
+	fp = fopen("data\\flight_info.txt", "r");//打开flight_info.txt文件
 
 	if (fp == NULL)
 	{
@@ -86,7 +86,7 @@ void push_flight_info(void)
 {
 	flight* node = head_flight_global;
 	FILE* fp;//定义文件指针
-	fp = fopen("flight_info.output", "w");//打开并覆盖清楚flight_info.txt文件内容
+	fp = fopen("data\\flight_info.output", "w");//打开并覆盖清楚flight_info.txt文件内容
 	if (fp == NULL)
 	{
 		printf("文件输出错误！\a\n");//提示fopen是否成功返回指针
