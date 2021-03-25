@@ -9,6 +9,7 @@
 void init(void)
 {
 	pull_flight_info();//读取航班信息;
+	read_passenger();
 }
 //读取文件函数
 void pull_flight_info(void)
