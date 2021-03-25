@@ -299,7 +299,7 @@ void bridge_sort_flight_info()
 		}
 	}
 	//处理排序关键字输入
-	printf("请选择排序关键字序号（如：ADH ）：");
+	printf("请选择排序关键字序号（如：ABH ）：");
 	{
 		rewind(stdin);
 		fgets(option_info, 10, stdin);
@@ -312,7 +312,7 @@ void bridge_sort_flight_info()
 		if (option_info[9]!='\0'||(option_info[i-1] < 'A' || option_info[i] > 'H'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
-			printf("请选择排序关键字序号（如：ADH ）：");
+			printf("请选择排序关键字序号（如：ABH ）：");
 			{
 				memset(option_info, 0, sizeof(option_info));
 				rewind(stdin);
@@ -419,7 +419,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 	}
 	else if (search_flight_info_num == 0)head_flight_part = NULL;
 }
-//衔接查询函数 进行中
+//衔接查询函数
 void bridge_refine_search_sort_flight_info()
 {
 	int i = 0;//处理关键字个数
@@ -434,7 +434,7 @@ void bridge_refine_search_sort_flight_info()
 		i = 8;
 		while (i)
 		{
-			printf("请选择查询关键词以及查询数据（如：A上海）：");
+			printf("请选择查询关键词以及查询数据,输入q完成（如：A上海）：");
 			{
 				rewind(stdin);
 				fgets(buffer, 23, stdin);
@@ -445,7 +445,7 @@ void bridge_refine_search_sort_flight_info()
 			while (buffer[21] != '\0' || (buffer[0] < 'A' || buffer[0] > 'H'))
 			{
 				printf("含有非法字符，请重新输入！\a\n");
-				printf("请选择查询关键词以及查询数据（如：A上海）：");
+				printf("请选择查询关键词以及查询数据,输入q完成（如：A上海）：");
 				{
 					rewind(stdin);
 					fgets(buffer, 23, stdin);
