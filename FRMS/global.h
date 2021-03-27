@@ -16,34 +16,35 @@ void pull_flight_info(void);
 void push_flight_info(void);
 void show_flight_info(flight* head);
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head);
-void bridge_sort_flight_info();//ÅÅĞòº¯ÊıÏÎ½Óº¯Êı
+void bridge_sort_flight_info();//æ’åºå‡½æ•°è¡”æ¥å‡½æ•°
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
 void add_flight_info(void);
 void modify_flight_info();
 void delete_flight_info(void);
 
-void menu();//Ö÷²Ëµ¥
+void menu();//ä¸»èœå•
 void manager();
-void manager_flight_info();//·É»úº½°à
-void manager_passager();//ÂÃ¿ÍĞÅÏ¢
-void manager_password();//¹ÜÀíÔ±ĞŞ¸Ä
-void manager_login();//¹ÜÀíÔ±µÇÂ¼½çÃæ
-void manager_password_change();//¹ÜÀíÔ±ÃÜÂëĞŞ¸Ä
+void manager_flight_info();//é£æœºèˆªç­
+void manager_passager();//æ—…å®¢ä¿¡æ¯
+void manager_password();//ç®¡ç†å‘˜ä¿®æ”¹
+void manager_login();//ç®¡ç†å‘˜ç™»å½•ç•Œé¢
+void manager_password_change();//ç®¡ç†å‘˜å¯†ç ä¿®æ”¹
 void passenger();
-void passenger_flight_info();//·É»úº½°à
-void passenger_info();//ÂÃ¿ÍĞÅÏ¢
+void passenger_flight_info();//é£æœºèˆªç­
+void passenger_info();//æ—…å®¢ä¿¡æ¯
 void file_backup();
 void file_recover();
 void file();
 
-void add_passenger(void);          //Ìí¼ÓÂÃ¿ÍĞÅÏ¢
-void delete_passenger(void);       //É¾³ıÂÃ¿ÍĞÅÏ¢
-void mend_passenger(void);         //ĞŞ¸ÄÂÃ¿ÍĞÅÏ¢
-void seek_passenger(void);         //²éÑ¯ÂÃ¿ÍĞÅÏ¢
-void read_passenger(void);          //¶ÁÈ¡ÂÃ¿ÍĞÅÏ¢
-void print_passenger(void);         //Êä³öÂÃ¿ÍĞÅÏ¢
-void match_passenger(void);         //Æ¥ÅäÂÃ¿Íµç»°ÓëÃÜÂë
-int search_passenger(void);
+void add_passenger(void);          //æ·»åŠ æ—…å®¢ä¿¡æ¯
+void delete_passenger(void);       //åˆ é™¤æ—…å®¢ä¿¡æ¯
+void mend_passenger(void);         //ä¿®æ”¹æ—…å®¢ä¿¡æ¯
+void seek_passenger(void);         //æŸ¥è¯¢æ—…å®¢ä¿¡æ¯
+void read_passenger(void);          //è¯»å–æ—…å®¢ä¿¡æ¯
+void print_passenger(void);         //è¾“å‡ºæ—…å®¢ä¿¡æ¯
+void match_passenger(void);         //åŒ¹é…æ—…å®¢ç”µè¯ä¸å¯†ç 
+int search_passenger(void);			//å¯»æ‰¾å¯¹åº”çš„æ—…å®¢,è¿”å›kå€¼ï¼Œå¯¹åº”Passenger[k]
+void passenger_login(void);			//æ—…å®¢ç™»å½•
 
 int flag_passenger_login;
 
