@@ -622,7 +622,6 @@ void passenger_info()
 		case '3':system("cls"); mend_passenger(); break;
 		case '0':system("cls"); return;
 		}
-
 	}
 }
 
