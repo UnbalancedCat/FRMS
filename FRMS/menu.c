@@ -2,11 +2,11 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include"global.h"//è¾“å‡ºç±»å¤´æ–‡ä»¶
+#include"global.h"//Êä³öÀàÍ·ÎÄ¼ş
 
 extern struct Passenger Passenger[50];
 
-//èœå•å‡½æ•°
+//²Ëµ¥º¯Êı
 void menu()
 {
 	char begin[4];
@@ -15,12 +15,12 @@ void menu()
 
 		show_FRMS_title();
 		line();
-		printf("                                            1.ç®¡ ç† å‘˜ ç™» å½•\n");
-		printf("                                            2.ä¹˜ å®¢ ç™» å½•\n");
-		//å¿«é€ŸæŸ¥è¯¢ç•Œé¢
-		printf("                                            0.é€€ å‡º\n");
+		printf("                                            1.¹Ü Àí Ô± µÇ Â¼\n");
+		printf("                                            2.³Ë ¿Í µÇ Â¼\n");
+		//¿ìËÙ²éÑ¯½çÃæ
+		printf("                                            0.ÍË ³ö\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 		{
 			rewind(stdin);
 			fgets(begin, 3, stdin);
@@ -29,8 +29,8 @@ void menu()
 		}
 		while (begin[1] != '\0' || (begin[0] != '1' && begin[0] != '2' && begin[0] != '0'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin, 3, stdin);
@@ -43,11 +43,11 @@ void menu()
 		{
 		case '1':system("cls"); manager_login(); break;
 		case '2':system("cls"); passenger_login(); break;
-		case '0':return;//é€€å‡ºç¨‹åº
+		case '0':return;//ÍË³ö³ÌĞò
 		}
 	}
 }
-//ç®¡ç†å‘˜ç•Œé¢
+//¹ÜÀíÔ±½çÃæ
 void manager_login()
 {
 	char password_real[8];
@@ -61,11 +61,11 @@ void manager_login()
 			show_FRMS_title();
 			show_manager_title();
 			line();
-			printf("                                            ç®¡ ç† å‘˜ ç™» å½•\n");
-			printf("                                            (æŒ‰0è¿”å›)\n");
+			printf("                                            ¹Ü Àí Ô± µÇ Â¼\n");
+			printf("                                            (°´0·µ»Ø)\n");
 			line();
 		}
-		printf("è¯·è¾“å…¥å¯†ç ï¼š");
+		printf("ÇëÊäÈëÃÜÂë£º");
 		{
 			rewind(stdin);
 			fgets(password_input, 8, stdin);
@@ -75,8 +75,8 @@ void manager_login()
 		if (password_input[0] == '0' && password_input[1] == '\0')break;
 		while (strcmp(password_input, password_real) != 0)
 		{
-			printf("å¯†ç é”™è¯¯ï¼\a\n");
-			printf("è¯·é‡æ–°è¾“å…¥å¯†ç ï¼š");
+			printf("ÃÜÂë´íÎó£¡\a\n");
+			printf("ÇëÖØĞÂÊäÈëÃÜÂë£º");
 			{
 				memset(password_input, 0, sizeof(password_input));
 				rewind(stdin);
@@ -88,7 +88,7 @@ void manager_login()
 		}
 		{
 			fclose(fp);
-			printf("ç™»å½•æˆåŠŸï¼\n");
+			printf("µÇÂ¼³É¹¦£¡\n");
 			line();
 			system("pause");
 			system("cls");
@@ -107,15 +107,15 @@ void manager_password_change()
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                            è¯·è¾“å…¥æ–°å¯†ç ï¼ˆ6ä½æ•°å­—æˆ–å­—ç¬¦ï¼‰ï¼š\n");
-		printf("                                            (æŒ‰0è¿”å›)\n");
+		printf("                                            ÇëÊäÈëĞÂÃÜÂë£¨6Î»Êı×Ö»ò×Ö·û£©£º\n");
+		printf("                                            (°´0·µ»Ø)\n");
 		//{
 			//rewind(stdin);
 			//fgets(password_new, 8, stdin);
 			//rewind(stdin);
 			//if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
 		//}
-		if (strcmp("0", password_new) == 0)//è¿”å›
+		if (strcmp("0", password_new) == 0)//·µ»Ø
 		{
 			system("cls"); return;
 		}
@@ -131,9 +131,9 @@ void manager_password_change()
 			while (strlen(password_new) != 6)
 			{
 				{
-					printf("å¯†ç é•¿åº¦å¿…é¡»ä¸ºå…­ä½ï¼\n");
+					printf("ÃÜÂë³¤¶È±ØĞëÎªÁùÎ»£¡\n");
 					rewind(stdin);
-					fgets(password_new, 8, stdin);//æ£€æŸ¥è¾“å…¥é•¿åº¦
+					fgets(password_new, 8, stdin);//¼ì²éÊäÈë³¤¶È
 					rewind(stdin);
 					if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
 				}
@@ -145,7 +145,7 @@ void manager_password_change()
 			fputs(password_new, xiu);
 
 			fclose(xiu);
-			printf("å¯†ç ä¿®æ”¹æˆåŠŸ\n");
+			printf("ÃÜÂëĞŞ¸Ä³É¹¦\n");
 			system("pause");
 			system("cls");
 			return;
@@ -154,19 +154,19 @@ void manager_password_change()
 }
 void manager()
 {
-	char begin_manager[4] = { 0 };//é€‰é¡¹
+	char begin_manager[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                            1.é£ æœº èˆª ç­\n");
-		printf("                                            2.æ—… å®¢ ä¿¡ æ¯\n");
-		printf("                                            3.ç®¡ ç† å‘˜ ä¿¡ æ¯ ä¿® æ”¹\n");
-		printf("                                            4.æ•° æ® ç®¡ ç†\n");
-		printf("                                            0.é€€ å‡º\n");
+		printf("                                            1.·É »ú º½ °à\n");
+		printf("                                            2.ÂÃ ¿Í ĞÅ Ï¢\n");
+		printf("                                            3.¹Ü Àí Ô± ĞÅ Ï¢ ĞŞ ¸Ä\n");
+		printf("                                            4.Êı ¾İ ¹Ü Àí\n");
+		printf("                                            0.ÍË ³ö\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-4ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-4£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_manager, 3, stdin);
@@ -175,8 +175,8 @@ void manager()
 		}
 		while (begin_manager[1] != '\0' || (begin_manager[0] < '0' && begin_manager[0] >'4'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_manager, 3, stdin);
@@ -199,7 +199,7 @@ void manager()
 }
 void manager_flight_info()
 {
-	//é€‰é¡¹
+	//Ñ¡Ïî
 	char begin_manager_flight_info[4] = { 0 };
 	while (1)
 	{
@@ -208,17 +208,17 @@ void manager_flight_info()
 		show_flight_info_title();
 		show_flight_info(head_flight_global);
 		line();
-		printf("                                             é£ æœº èˆª ç­\n");
+		printf("                                             ·É »ú º½ °à\n");
 		line();
-		printf("                                               1.æ·» åŠ \n");
-		printf("                                               2.åˆ  é™¤\n");
-		printf("                                               3.ä¿® æ”¹\n");
-		printf("                                               4.æ’ åº\n");
-		printf("                                               5.æŸ¥ è¯¢\n");
-		printf("                                               0.è¿” å›\n");
+		printf("                                               1.Ìí ¼Ó\n");
+		printf("                                               2.É¾ ³ı\n");
+		printf("                                               3.ĞŞ ¸Ä\n");
+		printf("                                               4.ÅÅ Ğò\n");
+		printf("                                               5.²é Ñ¯\n");
+		printf("                                               0.·µ »Ø\n");
 		line();
 
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-5ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-5£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_manager_flight_info, 3, stdin);
@@ -227,8 +227,8 @@ void manager_flight_info()
 		}
 		while (begin_manager_flight_info[1] != '\0' || (begin_manager_flight_info[0] < '0' && begin_manager_flight_info[0] > '5'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_manager_flight_info, 3, stdin);
@@ -238,11 +238,11 @@ void manager_flight_info()
 		}
 		switch (begin_manager_flight_info[0])
 		{
-		case '1':system("cls"); add_flight_info(); break;//èˆªç­ä¿¡æ¯ æ·»åŠ 
-		case '2':system("cls"); delete_flight_info(); break;//èˆªç­ä¿¡æ¯ åˆ é™¤
-		case '3':system("cls"); modify_flight_info(); break;//èˆªç­ä¿¡æ¯ ä¿®æ”¹
-		case '4':system("cls"); bridge_sort_flight_info(); break;//èˆªç­ä¿¡æ¯ æ’åº
-		case '5':system("cls"); bridge_refine_search_sort_flight_info(); break;//èˆªç­ä¿¡æ¯ æŸ¥è¯¢
+		case '1':system("cls"); add_flight_info(); break;//º½°àĞÅÏ¢ Ìí¼Ó
+		case '2':system("cls"); delete_flight_info(); break;//º½°àĞÅÏ¢ É¾³ı
+		case '3':system("cls"); modify_flight_info(); break;//º½°àĞÅÏ¢ ĞŞ¸Ä
+		case '4':system("cls"); bridge_sort_flight_info(); break;//º½°àĞÅÏ¢ ÅÅĞò
+		case '5':system("cls"); bridge_refine_search_sort_flight_info(); break;//º½°àĞÅÏ¢ ²éÑ¯
 		case '0':system("cls"); return;
 		}
 
@@ -250,22 +250,22 @@ void manager_flight_info()
 }
 void manager_passager()
 {
-	char begin_manager_passager[4] = { 0 };//é€‰é¡¹
+	char begin_manager_passager[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                             æ—… å®¢ ä¿¡ æ¯\n");
+		printf("                                             ÂÃ ¿Í ĞÅ Ï¢\n");
 		line();
-		printf("                                               1.æ·» åŠ \n");
-		printf("                                               2.åˆ  é™¤\n");
-		printf("                                               3.ä¿® æ”¹\n");
-		printf("                                               4.æŸ¥ è¯¢\n");
-		printf("                                               0.è¿” å›\n");
+		printf("                                               1.Ìí ¼Ó\n");
+		printf("                                               2.É¾ ³ı\n");
+		printf("                                               3.ĞŞ ¸Ä\n");
+		printf("                                               4.²é Ñ¯\n");
+		printf("                                               0.·µ »Ø\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-4ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-4£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_manager_passager, 3, stdin);
@@ -274,8 +274,8 @@ void manager_passager()
 		}
 		while (begin_manager_passager[1] != '\0' || (begin_manager_passager[0] < '0' && begin_manager_passager[0] > '4'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_manager_passager, 3, stdin);
@@ -296,16 +296,16 @@ void manager_passager()
 }
 void manager_password()
 {
-	char begin_manager_password[4] = { 0 };//é€‰é¡¹
+	char begin_manager_password[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                            1.å¯† ç  ä¿® æ”¹\n");
-		printf("                                            0.è¿” å›\n");
+		printf("                                            1.ÃÜ Âë ĞŞ ¸Ä\n");
+		printf("                                            0.·µ »Ø\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-1ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-1£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_manager_password, 3, stdin);
@@ -314,8 +314,8 @@ void manager_password()
 		}
 		while (begin_manager_password[1] != '\0' || (begin_manager_password[0] != '1' && begin_manager_password[0] != '0'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_manager_password, 3, stdin);
@@ -333,18 +333,18 @@ void manager_password()
 }
 void file()
 {
-	char choo[4] = { 0 };//é€‰é¡¹
+	char choo[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                        è¯·é€‰æ‹©å¯¹æ–‡ä»¶è¿›è¡Œçš„çš„æ“ä½œ\n");
-		printf("                                               1.å¤‡ ä»½\n");
-		printf("                                               2.æ¢ å¤\n");
-		printf("                                               0.è¿” å›\n");
+		printf("                                        ÇëÑ¡Ôñ¶ÔÎÄ¼ş½øĞĞµÄµÄ²Ù×÷\n");
+		printf("                                               1.±¸ ·İ\n");
+		printf("                                               2.»Ö ¸´\n");
+		printf("                                               0.·µ »Ø\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 		{
 			rewind(stdin);
 			fgets(choo, 3, stdin);
@@ -353,8 +353,8 @@ void file()
 		}
 		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' && choo[0] != '0'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(choo, 3, stdin);
@@ -373,16 +373,16 @@ void file()
 }
 void file_backup()
 {
-	char yuan_name[155] = { 0 };//æºå¤´æ–‡ä»¶å
-	char bei_name[155] = { 0 };//å¤‡ä»½æ–‡ä»¶å
+	char yuan_name[155] = { 0 };//Ô´Í·ÎÄ¼şÃû
+	char bei_name[155] = { 0 };//±¸·İÎÄ¼şÃû
 	char ch;
 	while (1)
 	{
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("è¯·è¾“å…¥æ‰€è¦å¤‡ä»½çš„æ–‡ä»¶è·¯å¾„,åŒ…å«æ‰©å±•å(æŒ‰0è¿”å›ï¼‰\n");
-		printf("ï¼ˆç¤ºä¾‹ï¼šC:\\Users\\miku\\password_manager.txtï¼‰\n");
+		printf("ÇëÊäÈëËùÒª±¸·İµÄÎÄ¼şÂ·¾¶,°üº¬À©Õ¹Ãû(°´0·µ»Ø£©\n");
+		printf("£¨Ê¾Àı£ºC:\\Users\\miku\\password_manager.txt£©\n");
 		{
 			rewind(stdin);
 			fgets(yuan_name, 150, stdin);
@@ -395,40 +395,40 @@ void file_backup()
 		}
 		else
 		{
-			printf("è¯·è¾“å…¥å¤‡ä»½è·¯å¾„\n");
+			printf("ÇëÊäÈë±¸·İÂ·¾¶\n");
 			{
 				rewind(stdin);
 				fgets(bei_name, 150, stdin);
 				rewind(stdin);
 				if ('\n' == bei_name[strlen(bei_name) - 1]) bei_name[strlen(bei_name) - 1] = 0;
 			}
-			FILE* fp1_1 = fopen(yuan_name, "r");//æºæ–‡ä»¶å
-			FILE* fp2_1 = fopen(bei_name, "w");//ç›®æ ‡æ–‡ä»¶å
+			FILE* fp1_1 = fopen(yuan_name, "r");//Ô´ÎÄ¼şÃû
+			FILE* fp2_1 = fopen(bei_name, "w");//Ä¿±êÎÄ¼şÃû
 
 			if (fp1_1 == NULL)
 			{
 				system("cls");
-				printf("æ‰¾ä¸åˆ°æŒ‡å®šæ–‡ä»¶\n");
+				printf("ÕÒ²»µ½Ö¸¶¨ÎÄ¼ş\n");
 				return;
 
 			}
 			if (fp2_1 == NULL)
 			{
 				system("cls");
-				printf("æ‰¾ä¸åˆ°æŒ‡å®šæ–‡ä»¶\n");//æ£€æŸ¥æ–‡ä»¶æ˜¯å¦ä¸ºç©º
+				printf("ÕÒ²»µ½Ö¸¶¨ÎÄ¼ş\n");//¼ì²éÎÄ¼şÊÇ·ñÎª¿Õ
 				return;
 
 			}
 
-			//ä¸æ–­çš„ä»æºæ–‡ä»¶ä¸­è¯»å–å­—ç¬¦å¹¶å†™å…¥ç›®çš„æ–‡ä»¶ä¸­ï¼Œç›´åˆ°é‡åˆ°EOFç»“æŸè¿™ä¸ªè¿‡ç¨‹
-			while ((ch = fgetc(fp1_1)) != EOF)//EOFæ˜¯æ–‡ä»¶ç»“æŸæ ‡å¿—
+			//²»¶ÏµÄ´ÓÔ´ÎÄ¼şÖĞ¶ÁÈ¡×Ö·û²¢Ğ´ÈëÄ¿µÄÎÄ¼şÖĞ£¬Ö±µ½Óöµ½EOF½áÊøÕâ¸ö¹ı³Ì
+			while ((ch = fgetc(fp1_1)) != EOF)//EOFÊÇÎÄ¼ş½áÊø±êÖ¾
 			{
 				fputc(ch, fp2_1);
 			}
-			//å…³é—­æµï¼Œä½¿ç”¨å®Œæµåè®°å¾—å…³é—­ï¼Œé¿å…å ç”¨èµ„æº
+			//¹Ø±ÕÁ÷£¬Ê¹ÓÃÍêÁ÷ºó¼ÇµÃ¹Ø±Õ£¬±ÜÃâÕ¼ÓÃ×ÊÔ´
 			fclose(fp1_1);
 			fclose(fp2_1);
-			printf("å¤‡ä»½æˆåŠŸ\n");
+			printf("±¸·İ³É¹¦\n");
 			system("pause");
 			system("cls");
 			return;
@@ -438,16 +438,16 @@ void file_backup()
 void file_recover()
 {
 
-	char bei_ex_name[155] = { 0 };//æ–‡ä»¶å¤‡ä»½å
-	char hui_name[155] = { 0 };//è¦æ¢å¤çš„æ–‡ä»¶
+	char bei_ex_name[155] = { 0 };//ÎÄ¼ş±¸·İÃû
+	char hui_name[155] = { 0 };//Òª»Ö¸´µÄÎÄ¼ş
 	char ch;
 	while (1)
 	{
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("è¯·è¾“å…¥æ–‡ä»¶å¤‡ä»½å(æŒ‰0è¿”å›)\n");
-		printf("ï¼ˆç¤ºä¾‹ï¼šC:\\Users\\miku\\password_manager.txt)\n");
+		printf("ÇëÊäÈëÎÄ¼ş±¸·İÃû(°´0·µ»Ø)\n");
+		printf("£¨Ê¾Àı£ºC:\\Users\\miku\\password_manager.txt)\n");
 		{
 			rewind(stdin);
 			fgets(bei_ex_name, 150, stdin);
@@ -460,7 +460,7 @@ void file_recover()
 		}
 		else
 		{
-			printf("è¯·è¾“å…¥è¦æ¢å¤çš„æ–‡ä»¶å\n");
+			printf("ÇëÊäÈëÒª»Ö¸´µÄÎÄ¼şÃû\n");
 			{
 				rewind(stdin);
 				fgets(hui_name, 150, stdin);
@@ -468,52 +468,52 @@ void file_recover()
 				if ('\n' == hui_name[strlen(hui_name) - 1]) hui_name[strlen(hui_name) - 1] = 0;
 			}
 
-			FILE* fp1 = fopen(bei_ex_name, "r");//æ–‡ä»¶å¤‡ä»½å
-			FILE* fp2 = fopen(hui_name, "w");//è¦æ¢å¤çš„æ–‡ä»¶
+			FILE* fp1 = fopen(bei_ex_name, "r");//ÎÄ¼ş±¸·İÃû
+			FILE* fp2 = fopen(hui_name, "w");//Òª»Ö¸´µÄÎÄ¼ş
 
 			if (fp1 == NULL)
 			{
 				system("cls");
-				printf("æ‰¾ä¸åˆ°æŒ‡å®šæ–‡ä»¶\n");
+				printf("ÕÒ²»µ½Ö¸¶¨ÎÄ¼ş\n");
 				return;
 			}
 			if (fp2 == NULL)
 			{
 				system("cls");
-				printf("æ‰¾ä¸åˆ°æŒ‡å®šæ–‡ä»¶\n");
+				printf("ÕÒ²»µ½Ö¸¶¨ÎÄ¼ş\n");
 				return;
 			}
 
-			//ä¸æ–­çš„ä»æºæ–‡ä»¶ä¸­è¯»å–å­—ç¬¦å¹¶å†™å…¥ç›®çš„æ–‡ä»¶ä¸­ï¼Œç›´åˆ°é‡åˆ°EOFç»“æŸè¿™ä¸ªè¿‡ç¨‹
-			while ((ch = fgetc(fp1)) != EOF)//EOFæ˜¯æ–‡ä»¶ç»“æŸæ ‡å¿—
+			//²»¶ÏµÄ´ÓÔ´ÎÄ¼şÖĞ¶ÁÈ¡×Ö·û²¢Ğ´ÈëÄ¿µÄÎÄ¼şÖĞ£¬Ö±µ½Óöµ½EOF½áÊøÕâ¸ö¹ı³Ì
+			while ((ch = fgetc(fp1)) != EOF)//EOFÊÇÎÄ¼ş½áÊø±êÖ¾
 			{
 				fputc(ch, fp2);
 			}
-			//å…³é—­æµï¼Œä½¿ç”¨å®Œæµåè®°å¾—å…³é—­ï¼Œé¿å…å ç”¨èµ„æº
+			//¹Ø±ÕÁ÷£¬Ê¹ÓÃÍêÁ÷ºó¼ÇµÃ¹Ø±Õ£¬±ÜÃâÕ¼ÓÃ×ÊÔ´
 			fclose(fp1);
 			fclose(fp2);
-			printf("æ¢å¤æˆåŠŸ\n");
+			printf("»Ö¸´³É¹¦\n");
 			system("pause");
 			system("cls");
 			return;
 		}
 	}
 }
-//æ—…å®¢ç•Œé¢
+//ÂÃ¿Í½çÃæ
 void passenger()
 {
-	char begin_passenger[4] = { 0 };//é€‰é¡¹
+	char begin_passenger[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 		show_FRMS_title();
 		line();
-		printf("                                            ä¹˜ å®¢ æ¨¡ å¼\n");
+		printf("                                            ³Ë ¿Í Ä£ Ê½\n");
 		line();
-		printf("                                            1.é£ æœº èˆª ç­\n");
-		printf("                                            2.æ—… å®¢ ä¿¡ æ¯\n");
-		printf("                                            0.é€€ å‡º\n");
+		printf("                                            1.·É »ú º½ °à\n");
+		printf("                                            2.ÂÃ ¿Í ĞÅ Ï¢\n");
+		printf("                                            0.ÍË ³ö\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_passenger, 3, stdin);
@@ -522,8 +522,8 @@ void passenger()
 		}
 		while (begin_passenger[1] != '\0' || (begin_passenger[0] != '1' && begin_passenger[0] != '2' && begin_passenger[0] != '0'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_passenger, 3, stdin);
@@ -542,19 +542,19 @@ void passenger()
 }
 void passenger_flight_info()
 {
-	char begin_passenger_flight_info[4] = { 0 };//é€‰é¡¹
+	char begin_passenger_flight_info[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 		show_FRMS_title();
 		line();
-		printf("                                            ä¹˜ å®¢ æ¨¡ å¼\n");
+		printf("                                            ³Ë ¿Í Ä£ Ê½\n");
 		line();
-		printf("                                            1.æ’ åº\n");
-		printf("                                            2.æŸ¥ è¯¢\n");
-		printf("                                            3.è®¢ ç¥¨\n");
-		printf("                                            0.è¿” å›\n");
+		printf("                                            1.ÅÅ Ğò\n");
+		printf("                                            2.²é Ñ¯\n");
+		printf("                                            3.¶© Æ±\n");
+		printf("                                            0.·µ »Ø\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-3ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-3£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_passenger_flight_info, 3, stdin);
@@ -563,8 +563,8 @@ void passenger_flight_info()
 		}
 		while (begin_passenger_flight_info[1] != '\0' || (begin_passenger_flight_info[0] < '0' && begin_passenger_flight_info[0] > '3'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_passenger_flight_info, 3, stdin);
@@ -584,19 +584,19 @@ void passenger_flight_info()
 }
 void passenger_info()
 {
-	char begin_passenger_info[4] = { 0 };//é€‰é¡¹
+	char begin_passenger_info[4] = { 0 };//Ñ¡Ïî
 	while (1)
 	{
 		show_FRMS_title();
 		line();
-		printf("                                            ä¹˜ å®¢ æ¨¡ å¼\n");
+		printf("                                            ³Ë ¿Í Ä£ Ê½\n");
 		line();
-		printf("                                            1.æ·»åŠ \n");
-		printf("                                            2.åˆ é™¤\n");
-		printf("                                            3.ä¿®æ”¹\n");
-		printf("                                            0.è¿” å›\n");
+		printf("                                            1.Ìí¼Ó\n");
+		printf("                                            2.É¾³ı\n");
+		printf("                                            3.ĞŞ¸Ä\n");
+		printf("                                            0.·µ »Ø\n");
 		line();
-		printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-3ï¼‰ï¼š");
+		printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-3£©£º");
 		{
 			rewind(stdin);
 			fgets(begin_passenger_info, 3, stdin);
@@ -605,8 +605,8 @@ void passenger_info()
 		}
 		while (begin_passenger_info[1] != '\0' || (begin_passenger_info[0] < '0' && begin_passenger_info[0] > '3'))
 		{
-			printf("å«æœ‰éæ³•å­—ç¬¦ï¼Œè¯·é‡æ–°è¾“å…¥ï¼\a\n");
-			printf("è¯·è¾“å…¥å¯¹åº”åºå·è®¿é—®åŠŸèƒ½ï¼ˆ0-2ï¼‰ï¼š");
+			printf("º¬ÓĞ·Ç·¨×Ö·û£¬ÇëÖØĞÂÊäÈë£¡\a\n");
+			printf("ÇëÊäÈë¶ÔÓ¦ĞòºÅ·ÃÎÊ¹¦ÄÜ£¨0-2£©£º");
 			{
 				rewind(stdin);
 				fgets(begin_passenger_info, 3, stdin);
