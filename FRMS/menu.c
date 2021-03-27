@@ -98,6 +98,7 @@ void manager_login()
 void manager_password_change()
 {
 	int i3 = 0;
+	int i4 = 0,j1=0;//检查输入
 	char password_new[11] = { 0 };
 	FILE* xiu;
 	while (1)
@@ -107,46 +108,65 @@ void manager_password_change()
 		line();
 		printf("                                            请输入新密码（6位数字或字符）：\n");
 		printf("                                            (按0返回)\n");
-		//{
-			//rewind(stdin);
-			//fgets(password_new, 8, stdin);
-			//rewind(stdin);
-			//if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
-		//}
+		{
+			rewind(stdin);
+			fgets(password_new, 8, stdin);
+		    rewind(stdin);
+			if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
+		}
+		
 		if (strcmp("0", password_new) == 0)//返回
 		{
 			system("cls"); return;
 		}
 		else
 		{
+			
+			for (i4 = 0; i4 < 6; i4++)
 			{
-				rewind(stdin);
-				fgets(password_new, 8, stdin);
-				rewind(stdin);
-				if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
+			
+				if (password_new[i4] < '0' || password_new[i4] > '9')
+				{
+					j1++;
+				}
 			}
 
-			while (strlen(password_new) != 6)
+			while (strlen(password_new) != 6 || j1 != 0)
 			{
 				{
-					printf("密码长度必须为六位！\n");
+					printf("密码长度必须为六位！且只含数字\n");
 					rewind(stdin);
 					fgets(password_new, 8, stdin);//检查输入长度
 					rewind(stdin);
 					if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
 				}
+				if (strcmp("0", password_new) == 0)//返回
+				{
+					system("cls"); return;
+				}
+				j1 = 0;
+				for (i4 = 0; i4 < 6; i4++)
+				{
+					
+					if (password_new[i4] < '0' || password_new[i4] > '9')
+					{
+						j1++;
+					}
+				}
 			}
+			
+			{
 
+				xiu = fopen("data\\password_manager.txt", "w");
 
-			xiu = fopen("data\\password_manager.txt", "w");
+			    fputs(password_new, xiu);
 
-			fputs(password_new, xiu);
-
-			fclose(xiu);
-			printf("密码修改成功\n");
-			system("pause");
-			system("cls");
-			return;
+			    fclose(xiu);
+			    printf("密码修改成功\n");
+			    system("pause");
+			    system("cls");
+			    return;
+		     }
 		}	
 	}
 }
@@ -323,7 +343,7 @@ void manager_password()
 		}
 		switch (begin_manager_password[0])
 		{
-		case '1':system("cls"); manager_password_change(); break;
+		case '1':system("cls");manager_password_change(); break;
 		case '0':system("cls"); return;
 		}
 		
