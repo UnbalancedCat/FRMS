@@ -7,10 +7,10 @@
 //菜单函数
 void menu()
 {
-	char begin[4] ;
+	char begin[4];
 	while (1)
 	{
-		
+
 		show_FRMS_title();
 		line();
 		printf("                                            1.管 理 员 登 录\n");
@@ -25,7 +25,7 @@ void menu()
 			rewind(stdin);
 			if ('\n' == begin[strlen(begin) - 1]) begin[strlen(begin) - 1] = 0;
 		}
-		while (begin[1]!='\0'||(begin[0] != '1' && begin[0] != '2' && begin[0] != '0'))
+		while (begin[1] != '\0' || (begin[0] != '1' && begin[0] != '2' && begin[0] != '0'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
 			printf("请输入对应序号访问功能（0-2）：");
@@ -37,12 +37,12 @@ void menu()
 			}
 		}
 
-			switch (begin[0])
-			{
-			case '1':system("cls"); manager_login(); break;
-			case '2':system("cls"); match_passenger(); break;
-			case '0':return;//退出程序
-			}
+		switch (begin[0])
+		{
+		case '1':system("cls"); manager_login(); break;
+		case '2':system("cls"); passenger_login(); break;
+		case '0':return;//退出程序
+		}
 	}
 }
 //管理员界面
@@ -98,6 +98,7 @@ void manager_login()
 void manager_password_change()
 {
 	int i3 = 0;
+	int i4 = 0,j1=0;//检查输入
 	char password_new[11] = { 0 };
 	FILE* xiu;
 	while (1)
@@ -107,46 +108,65 @@ void manager_password_change()
 		line();
 		printf("                                            请输入新密码（6位数字或字符）：\n");
 		printf("                                            (按0返回)\n");
-		//{
-			//rewind(stdin);
-			//fgets(password_new, 8, stdin);
-			//rewind(stdin);
-			//if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
-		//}
+		{
+			rewind(stdin);
+			fgets(password_new, 8, stdin);
+		    rewind(stdin);
+			if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
+		}
+		
 		if (strcmp("0", password_new) == 0)//返回
 		{
 			system("cls"); return;
 		}
 		else
 		{
+			
+			for (i4 = 0; i4 < 6; i4++)
 			{
-				rewind(stdin);
-				fgets(password_new, 8, stdin);
-				rewind(stdin);
-				if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
+			
+				if (password_new[i4] < '0' || password_new[i4] > '9')
+				{
+					j1++;
+				}
 			}
 
-			while (strlen(password_new) != 6)
+			while (strlen(password_new) != 6 || j1 != 0)
 			{
 				{
-					printf("密码长度必须为六位！\n");
+					printf("密码长度必须为六位！且只含数字\n");
 					rewind(stdin);
 					fgets(password_new, 8, stdin);//检查输入长度
 					rewind(stdin);
 					if ('\n' == password_new[strlen(password_new) - 1]) password_new[strlen(password_new) - 1] = 0;
 				}
+				if (strcmp("0", password_new) == 0)//返回
+				{
+					system("cls"); return;
+				}
+				j1 = 0;
+				for (i4 = 0; i4 < 6; i4++)
+				{
+					
+					if (password_new[i4] < '0' || password_new[i4] > '9')
+					{
+						j1++;
+					}
+				}
 			}
+			
+			{
 
+				xiu = fopen("data\\password_manager.txt", "w");
 
-			xiu = fopen("data\\password_manager.txt", "w");
+			    fputs(password_new, xiu);
 
-			fputs(password_new, xiu);
-
-			fclose(xiu);
-			printf("密码修改成功\n");
-			system("pause");
-			system("cls");
-			return;
+			    fclose(xiu);
+			    printf("密码修改成功\n");
+			    system("pause");
+			    system("cls");
+			    return;
+		     }
 		}	
 	}
 }
@@ -171,7 +191,7 @@ void manager()
 			rewind(stdin);
 			if ('\n' == begin_manager[strlen(begin_manager) - 1]) begin_manager[strlen(begin_manager) - 1] = 0;
 		}
-		while (begin_manager[1] != '\0' || (begin_manager[0] < '0' && begin_manager[0] >'4' ))
+		while (begin_manager[1] != '\0' || (begin_manager[0] < '0' && begin_manager[0] >'4'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
 			printf("请输入对应序号访问功能（0-2）：");
@@ -184,22 +204,22 @@ void manager()
 		}
 		switch (begin_manager[0])
 		{
-			
+
 		case '1':system("cls"); manager_flight_info(); break;
 		case '2': system("cls"); manager_passager(); break;
 		case '3': system("cls"); manager_password(); break;
 		case '4': system("cls"); file(); break;
 		case '0': system("cls"); return;
-			
+
 		}
-		
+
 	}
 }
 void manager_flight_info()
 {
 	//选项
 	char begin_manager_flight_info[4] = { 0 };
-	while(1)
+	while (1)
 	{
 		show_FRMS_title();
 		show_manager_title();
@@ -215,7 +235,7 @@ void manager_flight_info()
 		printf("                                               5.查 询\n");
 		printf("                                               0.返 回\n");
 		line();
-		
+
 		printf("请输入对应序号访问功能（0-5）：");
 		{
 			rewind(stdin);
@@ -243,7 +263,7 @@ void manager_flight_info()
 		case '5':system("cls"); bridge_refine_search_sort_flight_info(); break;//航班信息 查询
 		case '0':system("cls"); return;
 		}
-		
+
 	}
 }
 void manager_passager()
@@ -251,7 +271,7 @@ void manager_passager()
 	char begin_manager_passager[4] = { 0 };//选项
 	while (1)
 	{
-		
+
 		show_FRMS_title();
 		show_manager_title();
 		line();
@@ -270,7 +290,7 @@ void manager_passager()
 			rewind(stdin);
 			if ('\n' == begin_manager_passager[strlen(begin_manager_passager) - 1]) begin_manager_passager[strlen(begin_manager_passager) - 1] = 0;
 		}
-		while (begin_manager_passager[1] != '\0' || (begin_manager_passager[0] < '0' && begin_manager_passager[0] > '4' ))
+		while (begin_manager_passager[1] != '\0' || (begin_manager_passager[0] < '0' && begin_manager_passager[0] > '4'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
 			printf("请输入对应序号访问功能（0-2）：");
@@ -289,12 +309,12 @@ void manager_passager()
 		case '4':system("cls"); seek_passenger(); break;
 		case '0':system("cls"); return;
 		}
-		
+
 	}
 }
 void manager_password()
 {
-    char begin_manager_password[4] = { 0 };//选项
+	char begin_manager_password[4] = { 0 };//选项
 	while (1)
 	{
 		show_FRMS_title();
@@ -323,10 +343,10 @@ void manager_password()
 		}
 		switch (begin_manager_password[0])
 		{
-		case '1':system("cls"); manager_password_change(); break;
+		case '1':system("cls");manager_password_change(); break;
 		case '0':system("cls"); return;
 		}
-		
+
 	}
 }
 void file()
@@ -338,21 +358,22 @@ void file()
 		show_manager_title();
 		line();
 		printf("                                        请选择对文件进行的的操作\n");
-		printf("                                               1.备 份\n");
-		printf("                                               2.恢 复\n");
-		printf("                                               0.返 回\n");
+		printf("                                               1.备份文件到backup文件夹\n");
+		printf("                                               2.备份文件到指定路径\n");
+		printf("                                               3.恢  复\n");
+		printf("                                               0.返  回\n");
 		line();
-		printf("请输入对应序号访问功能（0-2）：");
+		printf("请输入对应序号访问功能（0-3）：");
 		{
 			rewind(stdin);
 			fgets(choo, 3, stdin);
 			rewind(stdin);
 			if ('\n' == choo[strlen(choo) - 1]) choo[strlen(choo) - 1] = 0;
 		}
-		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' && choo[0] != '0'))
+		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' &&choo[0] != '3' && choo[0] != '0'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
-			printf("请输入对应序号访问功能（0-2）：");
+			printf("请输入对应序号访问功能（0-3）：");
 			{
 				rewind(stdin);
 				fgets(choo, 3, stdin);
@@ -363,13 +384,14 @@ void file()
 		switch (choo[0])
 		{
 		case '1':system("cls"); file_backup(); break;
-		case '2': system("cls"); file_recover(); break;
+		case '2': system("cls"); file_backup_to(); break;
+		case '3':system("cls"); file_recover(); break;
 		case '0':system("cls"); return;
 		}
-		
+
 	}
 }
-void file_backup()
+void file_backup_to()
 {
 	char yuan_name[155] = { 0 };//源头文件名
 	char bei_name[155] = { 0 };//备份文件名
@@ -433,10 +455,117 @@ void file_backup()
 		}
 	}
 }
+void file_backup()
+{
+	push_flight_info();
+	char ch;
+	while(1)
+	{
+		
+		show_FRMS_title();
+		show_manager_title();
+		line();
+		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
+		FILE* fp1_2 = fopen("data\\passenger.txt", "r");
+		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
+		
+		if (fp1_1 == NULL|| fp1_2 == NULL|| fp1_3 == NULL )
+		{
+			system("cls");
+			printf("找不到指定文件\n");
+			return;
+
+		}
+		else
+		{
+			
+			FILE* fp2_1 = fopen("backup\\flight_info.txt", "w");
+			while ((ch = fgetc(fp1_1)) != EOF)//1
+			{
+				fputc(ch, fp2_1);
+			}
+			fclose(fp1_1);
+			fclose(fp2_1);
+
+			FILE* fp2_2 = fopen("backup\\passenger.txt", "w");
+			while ((ch = fgetc(fp1_2)) != EOF)//2
+			{
+				fputc(ch, fp2_2);
+			}
+			fclose(fp1_2);
+			fclose(fp2_2);
+
+			FILE* fp2_3 = fopen("backup\\password_manager.txt", "w");
+			while ((ch = fgetc(fp1_3)) != EOF)//3
+			{
+				fputc(ch, fp2_3);
+			}
+			fclose(fp1_3);
+			fclose(fp2_3);
+
+			printf("已备份至backup文件夹!\n");
+			system("pause");
+			system("cls");
+			return;
+		}
+		
+	}
+	
+}
+void file_backup_auto()
+{
+	push_flight_info();
+	char ch;
+	while (1)
+	{
+		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
+		FILE* fp1_2 = fopen("data\\passenger.txt", "r");
+		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
+
+		if (fp1_1 == NULL || fp1_2 == NULL || fp1_3 == NULL)
+		{
+			printf("自动备份失败！\a\n");
+			return;
+		}
+		else
+		{
+
+			FILE* fp2_1 = fopen("backup\\flight_info.txt", "w");
+			while ((ch = fgetc(fp1_1)) != EOF)//1
+			{
+				fputc(ch, fp2_1);
+			}
+			fclose(fp1_1);
+			fclose(fp2_1);
+
+			FILE* fp2_2 = fopen("backup\\passenger.txt", "w");
+			while ((ch = fgetc(fp1_2)) != EOF)//2
+			{
+				fputc(ch, fp2_2);
+			}
+			fclose(fp1_2);
+			fclose(fp2_2);
+
+			FILE* fp2_3 = fopen("backup\\password_manager.txt", "w");
+			while ((ch = fgetc(fp1_3)) != EOF)//3
+			{
+				fputc(ch, fp2_3);
+			}
+			fclose(fp1_3);
+			fclose(fp2_3);
+
+			printf("自动备份成功!\n");
+			return;
+		}
+
+	}
+
+}
+
 void file_recover()
 {
-	
-	char bei_ex_name[155] = {0};//文件备份名
+
+	char bei_ex_name[155] = { 0 };//文件备份名
 	char hui_name[155] = { 0 };//要恢复的文件
 	char ch;
 	while (1)
@@ -535,7 +664,7 @@ void passenger()
 		case '2':system("cls"); passenger_info(); break;
 		case '0':system("cls"); return;
 		}
-		
+
 	}
 }
 void passenger_flight_info()
@@ -559,7 +688,7 @@ void passenger_flight_info()
 			rewind(stdin);
 			if ('\n' == begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1]) begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1] = 0;
 		}
-		while (begin_passenger_flight_info[1] != '\0' || (begin_passenger_flight_info[0] < '0' && begin_passenger_flight_info[0] > '3' ))
+		while (begin_passenger_flight_info[1] != '\0' || (begin_passenger_flight_info[0] < '0' && begin_passenger_flight_info[0] > '3'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
 			printf("请输入对应序号访问功能（0-2）：");
@@ -577,7 +706,7 @@ void passenger_flight_info()
 		case '3':system("cls"); break;
 		case '0':system("cls"); return;
 		}
-		
+
 	}
 }
 void passenger_info()
@@ -601,7 +730,7 @@ void passenger_info()
 			rewind(stdin);
 			if ('\n' == begin_passenger_info[strlen(begin_passenger_info) - 1]) begin_passenger_info[strlen(begin_passenger_info) - 1] = 0;
 		}
-		while (begin_passenger_info[1] != '\0' || (begin_passenger_info[0]  <'0' && begin_passenger_info[0] > '3' ))
+		while (begin_passenger_info[1] != '\0' || (begin_passenger_info[0] < '0' && begin_passenger_info[0] > '3'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
 			printf("请输入对应序号访问功能（0-2）：");
@@ -620,6 +749,6 @@ void passenger_info()
 		case '3':system("cls"); mend_passenger(); break;
 		case '0':system("cls"); return;
 		}
-		
 	}
 }
+
