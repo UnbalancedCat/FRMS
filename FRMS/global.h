@@ -48,4 +48,5 @@ void passenger_login(void);			//旅客登录
 
 int flag_passenger_login;
 
+int located_passenger;
 #endif	//OUTPUT_H_
