@@ -300,6 +300,7 @@ void passenger_login() {                                /*旅客登录*/
         char passenger_password[21] = { 0 };
         char passenger_log_password[21] = { 0 };
         int flag = search_passenger();
+        located_passenger = flag;
         strncpy(passenger_password, Passenger[flag].password, 20);
         printf("请输入对应的密码\n");
         scanf_s("%s", passenger_log_password, 20);
