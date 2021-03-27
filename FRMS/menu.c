@@ -614,7 +614,6 @@ void passenger_info()
 				if ('\n' == begin_passenger_info[strlen(begin_passenger_info) - 1]) begin_passenger_info[strlen(begin_passenger_info) - 1] = 0;
 			}
 		}
-
 		switch (begin_passenger_info[0])
 		{
 		case '1':system("cls"); add_passenger(); break;
