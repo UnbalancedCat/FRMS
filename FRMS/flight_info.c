@@ -5,11 +5,17 @@
 #include<malloc.h>
 #include"global.h"
 #include"flight_info.h"
-//初始化
+//程序启动时读取文件
 void init(void)
 {
 	pull_flight_info();//读取航班信息;
 	read_passenger();
+}
+//程序关闭时保存并自动备份文件
+void backup_files()
+{
+	push_flight_info();
+
 }
 //读取文件函数
 void pull_flight_info(void)

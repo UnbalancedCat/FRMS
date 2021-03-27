@@ -3,7 +3,7 @@
 
 int main()
 {
-	atexit(push_flight_info);
+	atexit(backup_files);
 	init();
 	menu();
 	//play_music();
