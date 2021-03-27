@@ -34,6 +34,7 @@ void passenger();
 void passenger_flight_info();//飞机航班
 void passenger_info();//旅客信息
 void file_backup();
+void file_backup_auto();
 void file_backup_to();
 void file_recover();
 void file();

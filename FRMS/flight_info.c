@@ -15,7 +15,7 @@ void init(void)
 void backup_files()
 {
 	push_flight_info();
-
+	file_backup_auto();
 }
 //读取文件函数
 void pull_flight_info(void)

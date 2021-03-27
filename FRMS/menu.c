@@ -358,10 +358,10 @@ void file()
 		show_manager_title();
 		line();
 		printf("                                        请选择对文件进行的的操作\n");
-		printf("                                               1.备 份 文 件 到 backup 文件夹\n");
-		printf("                                               2.备 份 文 件 到 任 意 路 径\n");
-		printf("                                               3.恢 复\n");
-		printf("                                               0.返 回\n");
+		printf("                                               1.备份文件到backup文件夹\n");
+		printf("                                               2.备份文件到指定路径\n");
+		printf("                                               3.恢  复\n");
+		printf("                                               0.返  回\n");
 		line();
 		printf("请输入对应序号访问功能（0-3）：");
 		{
@@ -373,7 +373,7 @@ void file()
 		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' &&choo[0] != '3' && choo[0] != '0'))
 		{
 			printf("含有非法字符，请重新输入！\a\n");
-			printf("请输入对应序号访问功能（0-2）：");
+			printf("请输入对应序号访问功能（0-3）：");
 			{
 				rewind(stdin);
 				fgets(choo, 3, stdin);
@@ -383,15 +383,15 @@ void file()
 		}
 		switch (choo[0])
 		{
-		case '1':system("cls"); file_backup_to(); break;
-		case '2': system("cls"); file_backup(); break;
+		case '1':system("cls"); file_backup(); break;
+		case '2': system("cls"); file_backup_to(); break;
 		case '3':system("cls"); file_recover(); break;
 		case '0':system("cls"); return;
 		}
 		
 	}
 }
-void file_backup()
+void file_backup_to()
 {
 	char yuan_name[155] = { 0 };//源头文件名
 	char bei_name[155] = { 0 };//备份文件名
@@ -455,9 +455,9 @@ void file_backup()
 		}
 	}
 }
-
-void file_backup_to()
+void file_backup()
 {
+	push_flight_info();
 	char ch;
 	while(1)
 	{
@@ -511,6 +511,55 @@ void file_backup_to()
 		
 	}
 	
+}
+void file_backup_auto()
+{
+	push_flight_info();
+	char ch;
+	while (1)
+	{
+		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
+		FILE* fp1_2 = fopen("data\\passenger.txt", "r");
+		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
+
+		if (fp1_1 == NULL || fp1_2 == NULL || fp1_3 == NULL)
+		{
+			printf("自动备份失败！\a\n");
+			return;
+		}
+		else
+		{
+
+			FILE* fp2_1 = fopen("backup\\flight_info.txt", "w");
+			while ((ch = fgetc(fp1_1)) != EOF)//1
+			{
+				fputc(ch, fp2_1);
+			}
+			fclose(fp1_1);
+			fclose(fp2_1);
+
+			FILE* fp2_2 = fopen("backup\\passenger.txt", "w");
+			while ((ch = fgetc(fp1_2)) != EOF)//2
+			{
+				fputc(ch, fp2_2);
+			}
+			fclose(fp1_2);
+			fclose(fp2_2);
+
+			FILE* fp2_3 = fopen("backup\\password_manager.txt", "w");
+			while ((ch = fgetc(fp1_3)) != EOF)//3
+			{
+				fputc(ch, fp2_3);
+			}
+			fclose(fp1_3);
+			fclose(fp2_3);
+
+			printf("自动备份成功!\n");
+			return;
+		}
+
+	}
+
 }
 
 void file_recover()
