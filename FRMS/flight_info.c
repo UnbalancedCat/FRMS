@@ -11,7 +11,7 @@ void init(void)
 	read_passenger();
 }
 //程序关闭时保存并自动备份文件
-void backup_files()
+void backup_files(void)
 {
 	push_flight_info();
 	file_backup_auto();
@@ -275,7 +275,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	return head;
 }
 //衔接排序函数
-void bridge_sort_flight_info()
+void bridge_sort_flight_info(void)
 {
 	int i = 8;
 	char direction[4] = { 0 };//顺序
@@ -425,7 +425,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 	else if (search_flight_info_num == 0)head_flight_part = NULL;
 }
 //衔接查询函数
-void bridge_refine_search_sort_flight_info()
+void bridge_refine_search_sort_flight_info(void)
 {
 	int i = 0;//处理关键字个数
 	int j = 0;

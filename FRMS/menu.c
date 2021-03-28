@@ -5,7 +5,7 @@
 #include"global.h"
 
 //菜单函数
-void menu()
+void menu(void)
 {
 	char begin[4];
 	while (1)
@@ -46,7 +46,7 @@ void menu()
 	}
 }
 //管理员界面
-void manager_login()
+void manager_login(void)
 {
 	char password_real[8];
 	char password_input[8];
@@ -95,7 +95,7 @@ void manager_login()
 		}
 	}
 }
-void manager_password_change()
+void manager_password_change(void)
 {
 	int i3 = 0;
 	int i4 = 0,j1=0;//检查输入
@@ -170,7 +170,7 @@ void manager_password_change()
 		}	
 	}
 }
-void manager()
+void manager(void)
 {
 	char begin_manager[4] = { 0 };//选项
 	while (1)
@@ -215,7 +215,7 @@ void manager()
 
 	}
 }
-void manager_flight_info()
+void manager_flight_info(void)
 {
 	//选项
 	char begin_manager_flight_info[4] = { 0 };
@@ -266,7 +266,7 @@ void manager_flight_info()
 
 	}
 }
-void manager_passager()
+void manager_passager(void)
 {
 	char begin_manager_passager[4] = { 0 };//选项
 	while (1)
@@ -312,7 +312,7 @@ void manager_passager()
 
 	}
 }
-void manager_password()
+void manager_password(void)
 {
 	char begin_manager_password[4] = { 0 };//选项
 	while (1)
@@ -349,7 +349,7 @@ void manager_password()
 
 	}
 }
-void file()
+void file(void)
 {
 	char choo[4] = { 0 };//选项
 	while (1)
@@ -391,7 +391,7 @@ void file()
 
 	}
 }
-void file_backup_to()
+void file_backup_to(void)
 {
 	char yuan_name[155] = { 0 };//源头文件名
 	char bei_name[155] = { 0 };//备份文件名
@@ -455,7 +455,7 @@ void file_backup_to()
 		}
 	}
 }
-void file_backup()
+void file_backup(void)
 {
 	push_flight_info();
 	char ch;
@@ -512,7 +512,7 @@ void file_backup()
 	}
 	
 }
-void file_backup_auto()
+void file_backup_auto(void)
 {
 	push_flight_info();
 	char ch;
@@ -561,7 +561,7 @@ void file_backup_auto()
 	}
 
 }
-void file_recover()
+void file_recover(void)
 {
 
 	char bei_ex_name[155] = { 0 };//文件备份名
@@ -626,7 +626,7 @@ void file_recover()
 	}
 }
 //旅客界面
-void passenger()
+void passenger(void)
 {
 	char begin_passenger[4] = { 0 };//选项
 	while (1)
@@ -666,7 +666,7 @@ void passenger()
 
 	}
 }
-void passenger_flight_info()
+void passenger_flight_info(void)
 {
 	char begin_passenger_flight_info[4] = { 0 };//选项
 	while (1)
@@ -708,7 +708,7 @@ void passenger_flight_info()
 
 	}
 }
-void passenger_info()
+void passenger_info(void)
 {
 	char begin_passenger_info[4] = { 0 };//选项
 	while (1)
@@ -750,7 +750,7 @@ void passenger_info()
 		}
 	}
 }
-void passenger_pull()
+void passenger_pull(void)
 {
 	char he[13] = { "data\\users\\" };//名尾巴
 	char tail[8] = { "\.txt\0" };//名头

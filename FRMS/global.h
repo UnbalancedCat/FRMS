@@ -60,22 +60,22 @@ void modify_flight_info();
 void delete_flight_info(void);
 void passenger_histroy(void);
 
-void menu();//主菜单
-void manager();
-void manager_flight_info();//飞机航班
-void manager_passager();//旅客信息
-void manager_password();//管理员修改
-void manager_login();//管理员登录界面
-void manager_password_change();//管理员密码修改
-void passenger();
-void passenger_flight_info();//飞机航班
-void passenger_info();//旅客信息
-void file_backup();
-void file_backup_auto();
-void file_backup_to();
-void file_recover();
-void file();
-void passenger_pull();
+void menu(void);//主菜单
+void manager(void);
+void manager_flight_info(void);//飞机航班
+void manager_passager(void);//旅客信息
+void manager_password(void);//管理员修改
+void manager_login(void);//管理员登录界面
+void manager_password_change(void);//管理员密码修改
+void passenger(void);
+void passenger_flight_info(void);//飞机航班
+void passenger_info(void);//旅客信息
+void file_backup(void);
+void file_backup_auto(void);
+void file_backup_to(void);
+void file_recover(void);
+void file(void);
+void passenger_pull(void);
 
 void add_passenger(void);          //添加旅客信息
 void delete_passenger(void);       //删除旅客信息
