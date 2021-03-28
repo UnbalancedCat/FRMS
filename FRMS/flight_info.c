@@ -110,12 +110,9 @@ void push_flight_info(void)
 //显示航班信息函数
 void show_flight_info(flight* head)//需要 显示的链表的首地址
 {
-	system("cls");
 	int i = 0;//定义循环变量
 	flight* node = head;//定义并初始化普通节点
 
-	show_FRMS_title();//调用输出航班预定管理系统题头函数
-	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info_subtitle();//调用输出航班时刻表分类栏函数
 
 	line();
@@ -335,6 +332,8 @@ void bridge_sort_flight_info()
 	
 	
 	head_flight_global = sort_flight_info(direction[0], option_num, option_info, flight_info_num, head_flight_global);
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 	return;
 }
@@ -467,6 +466,9 @@ void bridge_refine_search_sort_flight_info()
 	//} while (refer_info[8 - i][0]!='\0');
 		option_num = 8 - i;
 	refine_search_flight_info(option_num, option_info, refer_info, head_flight_global);
+	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_part);
 	system("pause");
 	return;
@@ -699,6 +701,8 @@ void modify_flight_info(void)
 	char located_flight_info[32];
 
 	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 
 	printf("请选择要修改的航班信息对应序号：");
@@ -797,6 +801,8 @@ void delete_flight_info(void)
 
 
 	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 
 	printf("请选择要删除的航班信息对应序号：");
@@ -922,6 +928,8 @@ void reserve_flight_ticket(void)
 	char located_flight_info[32];
 
 	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 
 	printf("请选择预定航班对应序号：");
@@ -1005,7 +1013,7 @@ char passenger_item(flight* fp_person)//订票明细
 	strcat(total_file, tail);//接尾
 	FILE* fp = fopen(total_file, "a+");
 	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//指针改为全局变量
-	printf("订票成功！/n");
+	printf("订票成功！\n");
 	return 0;
 }
 
@@ -1037,6 +1045,12 @@ void show_manager_title(void)
 {
 	line();
 	printf("                                            管 理 员 模 式\n");
+}
+//输出历史记录标题
+void show_passenger_histroy_title(void)
+{
+	line();
+	printf("                                              历 史 记 录\n");
 }
 
 #include <Windows.h>

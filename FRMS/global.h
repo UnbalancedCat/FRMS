@@ -35,7 +35,6 @@ struct Passenger Passenger[50];
 int flag_passenger_login;
 int located_passenger;
 
-int passenger_flight_info_num;
 flight* head_flight_passenger;
 
 //函数
@@ -46,6 +45,7 @@ void show_flight_info_title(void);
 void show_FRMS_title(void);
 void show_flight_info_subtitle(void);
 void show_manager_title(void);
+void show_passenger_histroy_title(void);
 void play_music(void);
 
 void pull_flight_info(void);
@@ -58,6 +58,7 @@ char passenger_item(flight* fp_person);
 void add_flight_info(void);
 void modify_flight_info();
 void delete_flight_info(void);
+void passenger_histroy(void);
 
 void menu();//主菜单
 void manager();
@@ -74,7 +75,7 @@ void file_backup_auto();
 void file_backup_to();
 void file_recover();
 void file();
-void passenger_show();
+void passenger_pull();
 
 void add_passenger(void);          //添加旅客信息
 void delete_passenger(void);       //删除旅客信息

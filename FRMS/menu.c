@@ -205,7 +205,7 @@ void manager()
 		switch (begin_manager[0])
 		{
 
-		case '1':system("cls"); manager_flight_info(); break;
+		case '1':system("cls");  manager_flight_info(); break;
 		case '2': system("cls"); manager_passager(); break;
 		case '3': system("cls"); manager_password(); break;
 		case '4': system("cls"); file(); break;
@@ -561,7 +561,6 @@ void file_backup_auto()
 	}
 
 }
-
 void file_recover()
 {
 
@@ -751,16 +750,16 @@ void passenger_info()
 		}
 	}
 }
-void passenger_show()
+void passenger_pull()
 {
 	char he[13] = { "data\\users\\" };//名尾巴
 	char tail[8] = { "\.txt\0" };//名头
 	char total_file[120] = { 0 };//文件名，大点
 	strcat(total_file, he);//接头
-	strcat(total_file, Passenger[located_passenger].tell);//中间
+	//strcat(total_file, Passenger[located_passenger].tell);//中间
+	strcat(total_file, "BHK");
 	strcat(total_file, tail);//接尾
 	FILE* fp = fopen(total_file, "r");//file pointer
-	passenger_flight_info_num = 0;//初始化航班信息数量
 
 	if (fp == NULL)
 	{
@@ -789,7 +788,6 @@ void passenger_show()
 			//剩余录入
 			while (1)
 			{
-				passenger_flight_info_num++;//航班信息数量自增
 				node->next_global = (flight*)malloc(sizeof(flight));//分配空间
 				node->next_part = node->next_global;
 				if (node->next_global == NULL)
@@ -825,6 +823,14 @@ void passenger_show()
 	}
 
 
+}
+void passenger_histroy(void)
+{
+	passenger_pull(); 
+	show_FRMS_title();
+	show_passenger_histroy_title();
+	show_flight_info(head_flight_passenger);
+	system("pause");
 }
 
 
