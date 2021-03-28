@@ -6,16 +6,6 @@
 #pragma warning(disable:6031)
 #define _CRT_SECURE_NO_WARNINGS
 
-//定义结构体_旅客
-struct Passenger {
-    char pname[20];	           //姓名
-    char pid[20];	           //身份证
-    char password[20];	       //密码
-    char tell[15];	           //电话
-    char count_num[50];        //记录这是第几个旅客
-    struct Passenger* pnext;	//保存下一个地址
-};
-struct Passenger Passenger[50];
 struct Passenger* phead, * pnode, * pend;              //定义旅客类型结构体 头节点、普通节点、尾节点
 char count_passenger[60] = { 0 };      //旅客的总人数
 int cp = 0;                             //旅客的总人数

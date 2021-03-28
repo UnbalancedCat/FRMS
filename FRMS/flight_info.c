@@ -4,7 +4,6 @@
 #include<string.h>
 #include<malloc.h>
 #include"global.h"
-#include"flight_info.h"
 //程序启动时读取文件
 void init(void)
 {
@@ -996,6 +995,7 @@ void reserve_flight_ticket(void)
 	}//插入记录订票的函数
 
 }
+//订票函数附属函数
 char passenger_item(flight* fp_person)//订票明细
 {
 	char he[13] = { "data\\users\\" };//名尾巴
@@ -1003,8 +1003,8 @@ char passenger_item(flight* fp_person)//订票明细
 	char total_file[120] = { 0 };//文件名，大点
 	flight* node = fp_person;
 	strcat(total_file, he);//接头
-	strcat(total_file, Passenger[located_passenger].tell);//中间
-	//strcat(total_file, "BHK");//测试用包焕垲备份
+	//strcat(total_file, Passenger[located_passenger].tell);//中间
+	strcat(total_file, "BHK");//测试用BHK备份
 	strcat(total_file, tail);//接尾
 	FILE* fp = fopen(total_file, "a+");
 	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//指针改为全局变量

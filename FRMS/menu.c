@@ -2,7 +2,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include"global.h"//输出类头文件
+#include"global.h"
 
 //菜单函数
 void menu()

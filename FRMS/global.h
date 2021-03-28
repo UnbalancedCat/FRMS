@@ -3,7 +3,40 @@
 #define OUTPUT_H_
 
 #include"flight_info.h"
+//变量
+typedef struct flight_info//航班信息结构体
+{
 
+	char start_place[32];	//始发地
+	char end_place[32];		//目的地
+	char company[16];		//航空公司
+	char flight_num[8];		//航班号
+	char start_time[8];		//起飞时间
+	char end_time[8];		//到达时间
+	char people_num[6];			//载客
+	char price[6];				//价格
+	//变量部分大小112
+	struct flight_info* next_global;	//保存整体的链表下一个成员的地址
+	struct flight_info* next_part;		//保存查询后链表下一个成员的地址
+	//实际测试大小120个字节
+}flight;
+flight* head_flight_global, * head_flight_part, * secret;//全局变量全局头节点和部分头节点
+int flight_info_num, search_flight_info_num;//全局变量航班信息数量
+
+struct Passenger //定义结构体_旅客
+{
+	char pname[20];	           //姓名
+	char pid[20];	           //身份证
+	char password[20];	       //密码
+	char tell[15];	           //电话
+	char count_num[50];        //记录这是第几个旅客
+	struct Passenger* pnext;	//保存下一个地址
+};
+struct Passenger Passenger[50];
+int flag_passenger_login;
+int located_passenger;
+
+//函数
 void init(void);
 void backup_files(void);
 void line(void);
@@ -49,10 +82,5 @@ void print_passenger(void);         //输出旅客信息
 void match_passenger(void);         //匹配旅客电话与密码
 int search_passenger(void);			//寻找对应的旅客,返回k值，对应Passenger[k]
 void passenger_login(void);			//旅客登录
-
-int flag_passenger_login;
-
-int located_passenger;
-
 
 #endif	//OUTPUT_H_
