@@ -1045,6 +1045,12 @@ void show_passenger_info_title(void)
 	line();
 	printf("                                            旅 客 信 息 表\n");
 }
+//输出旅客模式题头
+void show_passenger_title(void)
+{
+	line();
+	printf("                                             旅 客  模 式 \n");
+}
 //输出旅客信息分类栏
 void show_passenger_info_subtitle(void)
 {

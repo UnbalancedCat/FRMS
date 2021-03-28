@@ -815,3 +815,127 @@ void delete_passenger_info(void)
 		else printf("未进行删除操作\n");
 	}
 }
+
+//旅客登录函数
+void login_passenger(void)
+{
+	passenger* node = head_passenger_global;
+	char input_passenger_username[25] = { 0 };
+	char input_passenger_password[25] = { 0 };
+	char judge[4] = { 0 };
+	int i;
+
+	system("cls");
+	show_FRMS_title();
+	show_passenger_title();
+	line();
+	printf("请输入旅客用户名：");
+	{
+		rewind(stdin);
+		fgets(input_passenger_username, 25, stdin);
+		rewind(stdin);
+		if ('\n' == input_passenger_username[strlen(input_passenger_username) - 1]) input_passenger_username[strlen(input_passenger_username) - 1] = 0;
+	}
+	while (input_passenger_username[24] != '\0')
+	{
+		printf("超出字符限制长度！\a\n");
+		printf("请输入旅客用户名或身份证号码：");
+		{
+			memset(input_passenger_username, 0, sizeof(input_passenger_username));
+			rewind(stdin);
+			fgets(input_passenger_username, 25, stdin);
+			rewind(stdin);
+			if ('\n' == input_passenger_username[strlen(input_passenger_username) - 1]) input_passenger_username[strlen(input_passenger_username) - 1] = 0;
+		}
+	}
+	for (i = 0; i < passenger_info_num; i++)
+	{
+		if ((strcmp(input_passenger_username, node->nickname) == 0) || (strcmp(input_passenger_username, node->id_num) == 0))
+		{
+			located_passenger_info_global = node;
+			break;
+		}
+		if (i == passenger_info_num - 1)
+		{
+			printf("用户名或身份证号码不存在！\a\n");
+			system("pause");
+			return;
+		}
+		node = node->next_global;
+	}
+	system("cls");
+	show_FRMS_title();
+	show_passenger_title();
+	line();
+	printf("登陆账户：%s\n", input_passenger_username);
+	printf("请输入密码：");
+	{
+		rewind(stdin);
+		fgets(input_passenger_password, 22, stdin);
+		rewind(stdin);
+		if ('\n' == input_passenger_password[strlen(input_passenger_password) - 1]) input_passenger_password[strlen(input_passenger_password) - 1] = 0;
+	}
+	while (input_passenger_password[21] != '\0')
+	{
+		printf("超出字符限制长度！\a\n");
+		printf("请输入密码：");
+		{
+			memset(input_passenger_password, 0, sizeof(input_passenger_password));
+			rewind(stdin);
+			fgets(input_passenger_password, 22, stdin);
+			rewind(stdin);
+			if ('\n' == input_passenger_password[strlen(input_passenger_password) - 1]) input_passenger_password[strlen(input_passenger_password) - 1] = 0;
+		}
+	}
+	if (strcmp(input_passenger_password, node->password) != 0)
+	{
+		printf("密码错误！\a\n");
+		system("pause");
+		return;
+	}
+	else
+	{
+		line();
+		printf("登录成功，欢迎您 %s！\n", node->name);
+		system("pause");
+		system("cls");
+		while (1)
+		{
+			menu_passenger();
+			system("cls");
+			show_FRMS_title();
+			show_passenger_title();
+			line();
+			printf("%s，您是否要退出登录？（y or n）：", node->name);
+			{
+				rewind(stdin);
+				fgets(judge, 3, stdin);
+				rewind(stdin);
+				if ('\n' == judge[strlen(judge) - 1]) judge[strlen(judge) - 1] = 0;
+			}
+			while (judge[1] != '\0' || (judge[0] != 'y' && judge[0] != 'n'))
+			{
+				printf("含有非法字符！\a\n");
+				printf("%s，您是否要退出登录？（y or n）：", node->name);
+				{
+					rewind(stdin);
+					fgets(judge, 3, stdin);
+					rewind(stdin);
+				}
+			}
+			if (judge[0] == 'y')
+			{
+				line();
+				printf("注销成功！欢迎再次使用本系统！\n");
+				system("pause");
+				system("cls");
+				return;
+			}
+			else
+			{
+				printf("返回旅客菜单\n");
+				system("pause");
+			}
+		}
+	}
+}

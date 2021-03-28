@@ -21,7 +21,7 @@ typedef struct flight_info//航班信息结构体
 }flight;
 flight* head_flight_global, * head_flight_part, * secret_flight_info;//全局变量全局头节点和部分头节点
 int flight_info_num, search_flight_info_num;//全局变量航班信息数量
-flight* head_flight_passenger;
+flight* located_flight_info_global;
 
 typedef struct passenger_info//航班信息结构体
 {
@@ -38,6 +38,7 @@ typedef struct passenger_info//航班信息结构体
 }passenger;
 passenger* head_passenger_global, * head_passenger_part, * secret_passenger_info;//全局变量全局头节点和部分头节点
 int passenger_info_num, search_passenger_info_num;//全局变量航班信息数量
+passenger* located_passenger_info_global;
 
 //函数
 void init(void);
@@ -48,6 +49,7 @@ void show_FRMS_title(void);
 void show_flight_info_subtitle(void);
 void show_manager_title(void);
 void show_passenger_histroy_title(void);
+void show_passenger_title(void);
 void show_passenger_info_title(void);
 void show_passenger_info_subtitle(void);
 void play_music(void);
@@ -65,6 +67,7 @@ void modify_flight_info();
 void delete_flight_info(void);
 void passenger_histroy(void);
 
+void login_passenger(void);
 void pull_passenger_info(void);
 void push_passenger_info(void);
 void show_passenger_info(passenger* head);

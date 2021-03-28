@@ -40,7 +40,7 @@ void menu(void)
 		switch (begin[0])
 		{
 		case '1':system("cls"); menu_manager_login(); break;
-		case '2':system("cls");; break;
+		case '2':system("cls"); login_passenger(); break;
 		case '0':return;//退出程序
 		}
 	}
@@ -771,7 +771,7 @@ void menu_passenger_pull(void)
 	{
 		flight* node;//定义普通节点
 		node = (flight*)malloc(sizeof(flight));//分配空间
-		head_flight_passenger = node;//保存头节点
+		located_flight_info_global = node;//保存节点
 
 		if (node == NULL)
 		{
@@ -830,7 +830,7 @@ void menu_passenger_histroy(void)
 	menu_passenger_pull();
 	show_FRMS_title();
 	show_passenger_histroy_title();
-	show_flight_info(head_flight_passenger);
+	show_flight_info(located_flight_info_global);
 	system("pause");
 }
 
