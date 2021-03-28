@@ -751,4 +751,80 @@ void passenger_info()
 		}
 	}
 }
+void passenger_show()
+{
+	char he[13] = { "data\\users\\" };//名尾巴
+	char tail[8] = { "\.txt\0" };//名头
+	char total_file[120] = { 0 };//文件名，大点
+	strcat(total_file, he);//接头
+	strcat(total_file, Passenger[located_passenger].tell);//中间
+	strcat(total_file, tail);//接尾
+	FILE* fp = fopen(total_file, "r");//file pointer
+	passenger_flight_info_num = 0;//初始化航班信息数量
+
+	if (fp == NULL)
+	{
+		printf("用户历史订票信息文件缺失！\a\n");//提示文件是否缺失
+		return;
+	}
+	else
+	{
+		flight* node;//定义普通节点
+		node = (flight*)malloc(sizeof(flight));//分配空间
+		head_flight_passenger = node;//保存头节点
+
+		if (node == NULL)
+		{
+			printf("内存分配失败！\a\n");//提示空间是否分配不足
+			return;//中止函数
+		}
+		else
+		{
+			//第一次录入
+			if (fscanf(fp, "%s %s %s %s %s %s %s %s", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price) != 8)
+			{
+				printf("文件读写失败！\a\n");//提示文件是否读写成功
+				return;//中止函数
+			}
+			//剩余录入
+			while (1)
+			{
+				passenger_flight_info_num++;//航班信息数量自增
+				node->next_global = (flight*)malloc(sizeof(flight));//分配空间
+				node->next_part = node->next_global;
+				if (node->next_global == NULL)
+				{
+					printf("内存分配失败！\a\n");//提示空间是否分配不足
+					return;//中止函数
+				}
+				else
+				{
+					node = node->next_global;//向下移动节点
+
+					if (fscanf(fp, "%s %s %s %s %s %s %s %s", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price) != 8)//读取一行数据保存在当前节点,并判断是否读写完毕
+					{
+						{	//初始化无用空间
+							strcpy(node->start_place, "Airport muggle can not found");
+							strcpy(node->end_place, "Airport can not be landed at");
+							strcpy(node->company, "Hogwarts Co.");
+							strcpy(node->flight_num, "HE5972");
+							strcpy(node->start_time, "notoday");
+							strcpy(node->end_time, "anytime");
+							strcpy(node->people_num, "0");
+							strcpy(node->price, "0");
+							node->next_global = NULL;
+							node->next_part = NULL;
+							secret = node;//保存最后成员的地址
+						}
+						break;
+					}
+				}
+			}
+			fclose(fp);//关闭文件
+		}
+	}
+
+
+}
+
 

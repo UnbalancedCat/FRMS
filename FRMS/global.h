@@ -35,6 +35,9 @@ struct Passenger Passenger[50];
 int flag_passenger_login;
 int located_passenger;
 
+int passenger_flight_info_num;
+flight* head_flight_passenger;
+
 //函数
 void init(void);
 void backup_files(void);
@@ -71,6 +74,7 @@ void file_backup_auto();
 void file_backup_to();
 void file_recover();
 void file();
+void passenger_show();
 
 void add_passenger(void);          //添加旅客信息
 void delete_passenger(void);       //删除旅客信息
