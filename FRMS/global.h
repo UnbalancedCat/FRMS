@@ -2,42 +2,44 @@
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
 
-//å˜é‡
-typedef struct flight_info//èˆªç­ä¿¡æ¯ç»“æ„ä½“
+//±äÁ¿
+typedef struct flight_info//º½°àĞÅÏ¢½á¹¹Ìå
 {
 
-	char start_place[32];	//å§‹å‘åœ°
-	char end_place[32];		//ç›®çš„åœ°
-	char company[16];		//èˆªç©ºå…¬å¸
-	char flight_num[8];		//èˆªç­å·
-	char start_time[8];		//èµ·é£æ—¶é—´
-	char end_time[8];		//åˆ°è¾¾æ—¶é—´
-	char people_num[6];			//è½½å®¢
-	char price[6];				//ä»·æ ¼
-	//å˜é‡éƒ¨åˆ†å¤§å°112
-	struct flight_info* next_global;	//ä¿å­˜æ•´ä½“çš„é“¾è¡¨ä¸‹ä¸€ä¸ªæˆå‘˜çš„åœ°å€
-	struct flight_info* next_part;		//ä¿å­˜æŸ¥è¯¢åé“¾è¡¨ä¸‹ä¸€ä¸ªæˆå‘˜çš„åœ°å€
-	//å®é™…æµ‹è¯•å¤§å°120ä¸ªå­—èŠ‚
+	char start_place[32];	//Ê¼·¢µØ
+	char end_place[32];		//Ä¿µÄµØ
+	char company[16];		//º½¿Õ¹«Ë¾
+	char flight_num[8];		//º½°àºÅ
+	char start_time[8];		//Æğ·ÉÊ±¼ä
+	char end_time[8];		//µ½´ïÊ±¼ä
+	char people_num[6];			//ÔØ¿Í
+	char price[6];				//¼Û¸ñ
+	//±äÁ¿²¿·Ö´óĞ¡112
+	struct flight_info* next_global;	//±£´æÕûÌåµÄÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
+	struct flight_info* next_part;		//±£´æ²éÑ¯ºóÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
+	//Êµ¼Ê²âÊÔ´óĞ¡120¸ö×Ö½Ú
 }flight;
-flight* head_flight_global, * head_flight_part, * secret;//å…¨å±€å˜é‡å…¨å±€å¤´èŠ‚ç‚¹å’Œéƒ¨åˆ†å¤´èŠ‚ç‚¹
-int flight_info_num, search_flight_info_num;//å…¨å±€å˜é‡èˆªç­ä¿¡æ¯æ•°é‡
-
-struct Passenger //å®šä¹‰ç»“æ„ä½“_æ—…å®¢
-{
-	char pname[20];	           //å§“å
-	char pid[20];	           //èº«ä»½è¯
-	char password[20];	       //å¯†ç 
-	char tell[15];	           //ç”µè¯
-	char count_num[50];        //è®°å½•è¿™æ˜¯ç¬¬å‡ ä¸ªæ—…å®¢
-	struct Passenger* pnext;	//ä¿å­˜ä¸‹ä¸€ä¸ªåœ°å€
-};
-struct Passenger Passenger[50];
-int flag_passenger_login;
-int located_passenger;
-
+flight* head_flight_global, * head_flight_part, * secret_flight_info;//È«¾Ö±äÁ¿È«¾ÖÍ·½ÚµãºÍ²¿·ÖÍ·½Úµã
+int flight_info_num, search_flight_info_num;//È«¾Ö±äÁ¿º½°àĞÅÏ¢ÊıÁ¿
 flight* head_flight_passenger;
 
-//å‡½æ•°
+typedef struct passenger_info//º½°àĞÅÏ¢½á¹¹Ìå
+{
+
+	char nickname[50];	//ÓÃ»§êÇ³Æ
+	char password[50];	//ÓÃ»§ÃÜÂë
+	char name[50];		//ĞÕÃû
+	char id_num[30];	//Éí·İÖ¤ºÅ
+	char phone_num[30];	//ÁªÏµ·½Ê½
+	//±äÁ¿²¿·Ö´óĞ¡210
+	struct passenger_info* next_global;	//±£´æÕûÌåµÄÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
+	struct passenger_info* next_part;		//±£´æ²éÑ¯ºóÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
+	//Êµ¼Ê²âÊÔ´óĞ¡Î´²âÊÔ
+}passenger;
+passenger* head_passenger_global, * head_passenger_part, * secret_passenger_info;//È«¾Ö±äÁ¿È«¾ÖÍ·½ÚµãºÍ²¿·ÖÍ·½Úµã
+int passenger_info_num, search_passenger_info_num;//È«¾Ö±äÁ¿º½°àĞÅÏ¢ÊıÁ¿
+
+//º¯Êı
 void init(void);
 void backup_files(void);
 void line(void);
@@ -46,45 +48,59 @@ void show_FRMS_title(void);
 void show_flight_info_subtitle(void);
 void show_manager_title(void);
 void show_passenger_histroy_title(void);
+void show_passenger_info_title(void);
+void show_passenger_info_subtitle(void);
 void play_music(void);
 
 void pull_flight_info(void);
 void push_flight_info(void);
 void show_flight_info(flight* head);
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head);
-void bridge_sort_flight_info();//æ’åºå‡½æ•°è¡”æ¥å‡½æ•°
+void bridge_sort_flight_info();//ÅÅĞòº¯ÊıÏÎ½Óº¯Êı
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
+void bridge_refine_search_sort_flight_info(void);
 char passenger_item(flight* fp_person);
 void add_flight_info(void);
 void modify_flight_info();
 void delete_flight_info(void);
 void passenger_histroy(void);
 
-void menu(void);//ä¸»èœå•
-void manager(void);
-void manager_flight_info(void);//é£æœºèˆªç­
-void manager_passager(void);//æ—…å®¢ä¿¡æ¯
-void manager_password(void);//ç®¡ç†å‘˜ä¿®æ”¹
-void manager_login(void);//ç®¡ç†å‘˜ç™»å½•ç•Œé¢
-void manager_password_change(void);//ç®¡ç†å‘˜å¯†ç ä¿®æ”¹
-void passenger(void);
-void passenger_flight_info(void);//é£æœºèˆªç­
-void passenger_info(void);//æ—…å®¢ä¿¡æ¯
-void file_backup(void);
-void file_backup_auto(void);
-void file_backup_to(void);
-void file_recover(void);
-void file(void);
-void passenger_pull(void);
+void pull_passenger_info(void);
+void push_passenger_info(void);
+void show_passenger_info(passenger* head);
+passenger* sort_passenger_info(char direction, int option_num, char* option_info, int loop_num, passenger* head);
+void bridge_sort_passenger_info(void);
+void refine_search_passenger_info(int option_num, char* option_info, char refer_info[][50], passenger* head);
+void bridge_refine_search_sort_passenger_info(void);
+void add_passenger_info(void);
+void modify_passenger_info(void);
+void delete_passenger_info(void);
 
-void add_passenger(void);          //æ·»åŠ æ—…å®¢ä¿¡æ¯
-void delete_passenger(void);       //åˆ é™¤æ—…å®¢ä¿¡æ¯
-void mend_passenger(void);         //ä¿®æ”¹æ—…å®¢ä¿¡æ¯
-void seek_passenger(void);         //æŸ¥è¯¢æ—…å®¢ä¿¡æ¯
-void read_passenger(void);          //è¯»å–æ—…å®¢ä¿¡æ¯
-void print_passenger(void);         //è¾“å‡ºæ—…å®¢ä¿¡æ¯
-void match_passenger(void);         //åŒ¹é…æ—…å®¢ç”µè¯ä¸å¯†ç 
-int search_passenger(void);			//å¯»æ‰¾å¯¹åº”çš„æ—…å®¢,è¿”å›kå€¼ï¼Œå¯¹åº”Passenger[k]
-void passenger_login(void);			//æ—…å®¢ç™»å½•
+void menu(void);//Ö÷²Ëµ¥
+void menu_manager(void);
+void menu_manager_flight_info(void);//·É»úº½°à
+void menu_manager_passager(void);//ÂÃ¿ÍĞÅÏ¢
+void menu_manager_password(void);//¹ÜÀíÔ±ĞŞ¸Ä
+void menu_manager_login(void);//¹ÜÀíÔ±µÇÂ¼½çÃæ
+void menu_manager_password_change(void);//¹ÜÀíÔ±ÃÜÂëĞŞ¸Ä
+void menu_passenger(void);
+void menu_passenger_flight_info(void);//·É»úº½°à
+void menu_passenger_info(void);//ÂÃ¿ÍĞÅÏ¢
+void menu_file_backup(void);
+void menu_file_backup_auto(void);
+void menu_file_backup_to(void);
+void menu_file_recover(void);
+void menu_file(void);
+void menu_passenger_pull(void);
+
+//void add_passenger(void);          //Ìí¼ÓÂÃ¿ÍĞÅÏ¢
+//void delete_passenger(void);       //É¾³ıÂÃ¿ÍĞÅÏ¢
+//void mend_passenger(void);         //ĞŞ¸ÄÂÃ¿ÍĞÅÏ¢
+//void seek_passenger(void);         //²éÑ¯ÂÃ¿ÍĞÅÏ¢
+//void read_passenger(void);          //¶ÁÈ¡ÂÃ¿ÍĞÅÏ¢
+//void print_passenger(void);         //Êä³öÂÃ¿ÍĞÅÏ¢
+//void match_passenger(void);         //Æ¥ÅäÂÃ¿Íµç»°ÓëÃÜÂë
+//int search_passenger(void);			//Ñ°ÕÒ¶ÔÓ¦µÄÂÃ¿Í,·µ»ØkÖµ£¬¶ÔÓ¦Passenger[k]
+//void passenger_login(void);			//ÂÃ¿ÍµÇÂ¼
 
 #endif	//OUTPUT_H_

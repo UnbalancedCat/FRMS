@@ -39,14 +39,14 @@ void menu(void)
 
 		switch (begin[0])
 		{
-		case '1':system("cls"); manager_login(); break;
-		case '2':system("cls"); passenger_login(); break;
+		case '1':system("cls"); menu_manager_login(); break;
+		case '2':system("cls");; break;
 		case '0':return;//退出程序
 		}
 	}
 }
 //管理员界面
-void manager_login(void)
+void menu_manager_login(void)
 {
 	char password_real[8];
 	char password_input[8];
@@ -90,12 +90,12 @@ void manager_login(void)
 			line();
 			system("pause");
 			system("cls");
-			manager();
+			menu_manager();
 			return;
 		}
 	}
 }
-void manager_password_change(void)
+void menu_manager_password_change(void)
 {
 	int i3 = 0;
 	int i4 = 0,j1=0;//检查输入
@@ -170,7 +170,7 @@ void manager_password_change(void)
 		}	
 	}
 }
-void manager(void)
+void menu_manager(void)
 {
 	char begin_manager[4] = { 0 };//选项
 	while (1)
@@ -205,17 +205,17 @@ void manager(void)
 		switch (begin_manager[0])
 		{
 
-		case '1':system("cls");  manager_flight_info(); break;
-		case '2': system("cls"); manager_passager(); break;
-		case '3': system("cls"); manager_password(); break;
-		case '4': system("cls"); file(); break;
+		case '1':system("cls");  menu_manager_flight_info(); break;
+		case '2': system("cls"); menu_manager_passager(); break;
+		case '3': system("cls"); menu_manager_password(); break;
+		case '4': system("cls"); menu_file(); break;
 		case '0': system("cls"); return;
 
 		}
 
 	}
 }
-void manager_flight_info(void)
+void menu_manager_flight_info(void)
 {
 	//选项
 	char begin_manager_flight_info[4] = { 0 };
@@ -266,7 +266,7 @@ void manager_flight_info(void)
 
 	}
 }
-void manager_passager(void)
+void menu_manager_passager(void)
 {
 	char begin_manager_passager[4] = { 0 };//选项
 	while (1)
@@ -274,6 +274,7 @@ void manager_passager(void)
 
 		show_FRMS_title();
 		show_manager_title();
+		show_passenger_info(head_passenger_global);
 		line();
 		printf("                                             旅 客 信 息\n");
 		line();
@@ -303,16 +304,16 @@ void manager_passager(void)
 		}
 		switch (begin_manager_passager[0])
 		{
-		case '1':system("cls"); add_passenger(); break;
-		case '2':system("cls"); delete_passenger();  break;
-		case '3':system("cls"); mend_passenger();  break;
-		case '4':system("cls"); seek_passenger(); break;
+		case '1':system("cls"); add_passenger_info(); break;
+		case '2':system("cls"); delete_passenger_info();  break;
+		case '3':system("cls"); modify_passenger_info();  break;
+		case '4':system("cls"); bridge_refine_search_sort_passenger_info(); break;
 		case '0':system("cls"); return;
 		}
 
 	}
 }
-void manager_password(void)
+void menu_manager_password(void)
 {
 	char begin_manager_password[4] = { 0 };//选项
 	while (1)
@@ -343,13 +344,13 @@ void manager_password(void)
 		}
 		switch (begin_manager_password[0])
 		{
-		case '1':system("cls");manager_password_change(); break;
+		case '1':system("cls");	menu_manager_password_change(); break;
 		case '0':system("cls"); return;
 		}
 
 	}
 }
-void file(void)
+void menu_file(void)
 {
 	char choo[4] = { 0 };//选项
 	while (1)
@@ -383,15 +384,15 @@ void file(void)
 		}
 		switch (choo[0])
 		{
-		case '1':system("cls"); file_backup(); break;
-		case '2': system("cls"); file_backup_to(); break;
-		case '3':system("cls"); file_recover(); break;
+		case '1':system("cls"); menu_file_backup(); break;
+		case '2': system("cls"); menu_file_backup_to(); break;
+		case '3':system("cls"); menu_file_recover(); break;
 		case '0':system("cls"); return;
 		}
 
 	}
 }
-void file_backup_to(void)
+void menu_file_backup_to(void)
 {
 	char yuan_name[155] = { 0 };//源头文件名
 	char bei_name[155] = { 0 };//备份文件名
@@ -455,7 +456,7 @@ void file_backup_to(void)
 		}
 	}
 }
-void file_backup(void)
+void menu_file_backup(void)
 {
 	push_flight_info();
 	char ch;
@@ -512,14 +513,14 @@ void file_backup(void)
 	}
 	
 }
-void file_backup_auto(void)
+void menu_file_backup_auto(void)
 {
 	push_flight_info();
 	char ch;
 	while (1)
 	{
 		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
-		FILE* fp1_2 = fopen("data\\passenger.txt", "r");
+		FILE* fp1_2 = fopen("data\\passenger_info.txt", "r");
 		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
 
 		if (fp1_1 == NULL || fp1_2 == NULL || fp1_3 == NULL)
@@ -538,7 +539,7 @@ void file_backup_auto(void)
 			fclose(fp1_1);
 			fclose(fp2_1);
 
-			FILE* fp2_2 = fopen("backup\\passenger.txt", "w");
+			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
 				fputc(ch, fp2_2);
@@ -561,7 +562,7 @@ void file_backup_auto(void)
 	}
 
 }
-void file_recover(void)
+void menu_file_recover(void)
 {
 
 	char bei_ex_name[155] = { 0 };//文件备份名
@@ -626,7 +627,7 @@ void file_recover(void)
 	}
 }
 //旅客界面
-void passenger(void)
+void menu_passenger(void)
 {
 	char begin_passenger[4] = { 0 };//选项
 	while (1)
@@ -659,14 +660,14 @@ void passenger(void)
 		}
 		switch (begin_passenger[0])
 		{
-		case '1':system("cls"); passenger_flight_info(); break;
-		case '2':system("cls"); passenger_info(); break;
+		case '1':system("cls"); menu_passenger_flight_info(); break;
+		case '2':system("cls"); menu_passenger_info(); break;
 		case '0':system("cls"); return;
 		}
 
 	}
 }
-void passenger_flight_info(void)
+void menu_passenger_flight_info(void)
 {
 	char begin_passenger_flight_info[4] = { 0 };//选项
 	while (1)
@@ -708,7 +709,7 @@ void passenger_flight_info(void)
 
 	}
 }
-void passenger_info(void)
+void menu_passenger_info(void)
 {
 	char begin_passenger_info[4] = { 0 };//选项
 	while (1)
@@ -743,17 +744,17 @@ void passenger_info(void)
 
 		switch (begin_passenger_info[0])
 		{
-		case '1':system("cls"); add_passenger(); break;
-		case '2':system("cls"); delete_passenger(); break;
-		case '3':system("cls"); mend_passenger(); break;
+		case '1':system("cls"); add_passenger_info(); break;
+		case '2':system("cls"); delete_passenger_info; break;
+		case '3':system("cls");  modify_passenger_info(); break;
 		case '0':system("cls"); return;
 		}
 	}
 }
-void passenger_pull(void)
+void menu_passenger_pull(void)
 {
 	char he[13] = { "data\\users\\" };//名尾巴
-	char tail[8] = { "\.txt\0" };//名头
+	char tail[8] = { ".txt" };//名头
 	char total_file[120] = { 0 };//文件名，大点
 	strcat(total_file, he);//接头
 	//strcat(total_file, Passenger[located_passenger].tell);//中间
@@ -812,7 +813,7 @@ void passenger_pull(void)
 							strcpy(node->price, "0");
 							node->next_global = NULL;
 							node->next_part = NULL;
-							secret = node;//保存最后成员的地址
+							secret_flight_info = node;//保存最后成员的地址
 						}
 						break;
 					}
@@ -824,9 +825,9 @@ void passenger_pull(void)
 
 
 }
-void passenger_histroy(void)
+void menu_passenger_histroy(void)
 {
-	passenger_pull(); 
+	menu_passenger_pull();
 	show_FRMS_title();
 	show_passenger_histroy_title();
 	show_flight_info(head_flight_passenger);

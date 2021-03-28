@@ -8,13 +8,14 @@
 void init(void)
 {
 	pull_flight_info();//读取航班信息;
-	read_passenger();
+	pull_passenger_info();
 }
 //程序关闭时保存并自动备份文件
 void backup_files(void)
 {
 	push_flight_info();
-	file_backup_auto();
+	push_passenger_info();
+	menu_file_backup_auto();
 }
 //读取文件函数
 void pull_flight_info(void)
@@ -76,7 +77,7 @@ void pull_flight_info(void)
 							strcpy(node->price, "0");
 							node->next_global = NULL;
 							node->next_part = NULL;
-							secret = node;//保存最后成员的地址
+							secret_flight_info = node;//保存最后成员的地址
 						}
 						break;
 					}				
@@ -389,7 +390,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 			}
 			node = node->next_global;
 		}
-		buffer->next_part = secret;
+		buffer->next_part = secret_flight_info;
 	}
 	else//获取的首地址为查询链表地址
 	{
@@ -412,7 +413,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 			}
 			node = node->next_part;
 		}
-		buffer->next_part = secret;
+		buffer->next_part = secret_flight_info;
 	}
 
 	head_flight_part = head ;
@@ -486,7 +487,7 @@ void add_flight_info(void)
 	else
 	{
 		flight* node;
-		node = secret;
+		node = secret_flight_info;
 
 		{
 			line();
@@ -689,7 +690,7 @@ void add_flight_info(void)
 			strcpy(node->price, "0");
 			node->next_global = NULL;
 			node->next_part = NULL;
-			secret = node;//保存最后成员的地址
+			secret_flight_info = node;//保存最后成员的地址
 		}
 	}
 }
@@ -921,8 +922,6 @@ void delete_flight_info(void)
 //订票函数
 void reserve_flight_ticket(void)
 {
-	char a3[65];//存乘客名
-	char a5[80];//存整个文件名
 	int i;
 	flight* node;
 	char located_flight_info[32];
@@ -1004,7 +1003,7 @@ void reserve_flight_ticket(void)
 char passenger_item(flight* fp_person)//订票明细
 {
 	char he[13] = { "data\\users\\" };//名尾巴
-	char tail[8] = { "\.txt\0" };//名头
+	char tail[8] = { ".txt" };//名头
 	char total_file[120] = { 0 };//文件名，大点
 	flight* node = fp_person;
 	strcat(total_file, he);//接头
@@ -1022,23 +1021,35 @@ void line(void)
 {
 	printf("-----------------------------------------------------------------------------------------------------\n");
 }
-//输出航班时刻表题头
-void show_flight_info_title(void)
-{
-	line();
-	printf("                                            航 班 时 刻 表\n");
-}
 //输出航班预定管理系统题头
 void show_FRMS_title(void)
 {
 	line();
 	printf("\n                      航      班      预      定      管      理      系      统\n\n");
 }
+//输出航班时刻表题头
+void show_flight_info_title(void)
+{
+	line();
+	printf("                                            航 班 时 刻 表\n");
+}
 //输出航班时刻表分类栏
 void show_flight_info_subtitle(void)
 {
 	line();
 	printf("|  |%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
+}
+//输出旅客信息表题头
+void show_passenger_info_title(void)
+{
+	line();
+	printf("                                            旅 客 信 息 表\n");
+}
+//输出旅客信息分类栏
+void show_passenger_info_subtitle(void)
+{
+	line();
+	printf("|  |%20s|%20s|%12s|%23s|%17s|\n", "A用户昵称", "B用户密码", "C姓名", "D身份证号", "E联系方式");
 }
 //输出管理员标题
 void show_manager_title(void)
@@ -1091,77 +1102,3 @@ void play_music(void)
 
 	exit(0);
 }
-
-//测试用主函数
-//int main()
-//{
-//	int i = 0;;
-//	//char option_sort[9] = { 'B','A','C','D','E','F','G','B' };
-//	char option_sort[9] = { 'A','H','C','B'};
-//	char refer_info[8][32] = { "上海","2","大韩" ,"MI"};
-//	int option_num = 3;
-//	char direction = 'A';
-//
-//	//music();//careful!
-//
-//	//测试函数
-//	{
-//		printf("读取全局数据...\n");
-//		pull_flight_info();
-//		printf("数据读写成功\n\n");
-//
-//		printf("输出全局数据...\n");
-//		show_flight_info(head_flight_global);
-//		printf("数据输出成功\n\n");
-//
-//		modify_flight_info();
-//
-//		delete_flight_info();
-//
-//		printf("查询数据...\n");
-//		refine_search_flight_info(option_num, option_sort, refer_info, head_flight_global);
-//		printf("查询关键字:%s\n", option_sort);
-//		printf("查询关键词:");
-//		while(refer_info[i][0]!='\0')
-//		{
-//			printf("%s ", refer_info[i]);
-//			i++;
-//		}
-//		printf("\n");
-//		printf("数据查询成功\n\n");
-//		system("pause");
-//
-//		printf("输出查询数据...\n");
-//		show_flight_info(head_flight_part);
-//		printf("数据输出成功\n\n");
-//		system("pause");
-//
-//		printf("排序全局数据...\n");
-//		head_flight_global = sort_flight_info(direction, option_num, option_sort, flight_info_num, head_flight_global);
-//		printf("排序关键字:%s\n", option_sort);
-//		printf("数据排序成功\n\n");
-//
-//
-//		printf("添加全局数据...\n");
-//		add_flight_info();
-//		printf("数据添加成功\n\n");
-//		system("pause");
-//		
-//
-//		printf("输出全局数据...\n");
-//		show_flight_info(head_flight_global);
-//		printf("数据输出成功\n\n");
-//		system("pause");
-//
-//		printf("保存全局数据...\n");
-//		push_flight_info();
-//		printf("数据保存成功\n\n");
-//		system("pause");
-//
-//	}
-//
-//
-//	printf("Done\n");
-//
-//	return 0;
-//}
