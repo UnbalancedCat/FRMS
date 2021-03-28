@@ -19,6 +19,7 @@ void show_flight_info(flight* head);
 flight* sort_flight_info(char direction, int option_num, char* option_info, int loop_num, flight* head);
 void bridge_sort_flight_info();//排序函数衔接函数
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
+char passenger_item(flight* fp_person);
 void add_flight_info(void);
 void modify_flight_info();
 void delete_flight_info(void);
@@ -52,4 +53,6 @@ void passenger_login(void);			//旅客登录
 int flag_passenger_login;
 
 int located_passenger;
+
+
 #endif	//OUTPUT_H_
