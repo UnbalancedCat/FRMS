@@ -2,7 +2,6 @@
 #ifndef OUTPUT_H_
 #define OUTPUT_H_
 
-#include"flight_info.h"
 //变量
 typedef struct flight_info//航班信息结构体
 {

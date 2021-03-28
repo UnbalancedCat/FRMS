@@ -982,14 +982,11 @@ void reserve_flight_ticket(void)
 		}
 	}
 
-	//
-	//处理航班信息记录到旅客
-	//
 	switch (located_flight_info[0])
 	{
-	case'y':
+	case'y'://处理航班信息记录到旅客
 		rewind(stdin);
-		passenger_item(node);//借助全局变量指针
+		passenger_item(node);//传递指针
 		system("pause"); system("cls"); break;
 	case'n':system("cls"); return;
 	}//插入记录订票的函数
