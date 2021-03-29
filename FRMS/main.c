@@ -1,9 +1,10 @@
 #define _CRT_SECURE_NO_WARNINGS  
 #include "global.h"
 
-int main()
+int main(void)
 {
-	atexit(push_flight_info);
+	atexit(shut_down);
+	full_screen();
 	init();
 	menu();
 	//play_music();
