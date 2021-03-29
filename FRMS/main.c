@@ -3,7 +3,8 @@
 
 int main(void)
 {
-	atexit(backup_files);
+	atexit(shut_down);
+	full_screen();
 	init();
 	menu();
 	//play_music();

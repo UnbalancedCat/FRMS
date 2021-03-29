@@ -42,7 +42,8 @@ passenger* located_passenger_info_global;
 
 //º¯Êý
 void init(void);
-void backup_files(void);
+void full_screen(void);
+void shut_down(void);
 void line(void);
 void show_flight_info_title(void);
 void show_FRMS_title(void);
