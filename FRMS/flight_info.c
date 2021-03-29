@@ -4,18 +4,32 @@
 #include<string.h>
 #include<malloc.h>
 #include"global.h"
-#include"flight_info.h"
 //程序启动时读取文件
 void init(void)
 {
 	pull_flight_info();//读取航班信息;
-	read_passenger();
+	pull_passenger_info();
+	line();
+	printf("\n\n\n                                                              欢      迎      使      用\n\n\n");
+	printf("                                              航      班      预      定      管      理      系      统\n\n\n\n");
+	line();
+	printf("                        |");
+	system("pause");
+	system("cls");
 }
 //程序关闭时保存并自动备份文件
-void backup_files()
+void shut_down(void)
 {
 	push_flight_info();
-	file_backup_auto();
+	push_passenger_info();
+	menu_file_backup_auto();
+	system("cls");
+	line();
+	printf("\n\n\n                                                             退      出      成      功!\n\n\n");
+	printf("                                                     欢      迎      再      次      使      用\n\n\n\n");
+	line();
+	printf("                        |");
+	system("pause");
 }
 //读取文件函数
 void pull_flight_info(void)
@@ -27,7 +41,7 @@ void pull_flight_info(void)
 
 	if (fp == NULL)
 	{
-		printf("航班信息文件缺失！\a\n");//提示文件是否缺失
+		printf("                        |航班信息文件缺失！\a\n");//提示文件是否缺失
 		return;
 	}
 	else
@@ -38,7 +52,7 @@ void pull_flight_info(void)
 
 		if (node == NULL)
 		{
-			printf("内存分配失败！\a\n");//提示空间是否分配不足
+			printf("                        |内存分配失败！\a\n");//提示空间是否分配不足
 			return;//中止函数
 		}
 		else
@@ -46,7 +60,7 @@ void pull_flight_info(void)
 			//第一次录入
 			if (fscanf(fp, "%s %s %s %s %s %s %s %s", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price) != 8)
 			{
-				printf("文件读写失败！\a\n");//提示文件是否读写成功
+				printf("                        |文件读写失败！\a\n");//提示文件是否读写成功
 				return;//中止函数
 			}
 			//剩余录入
@@ -57,7 +71,7 @@ void pull_flight_info(void)
 				node->next_part = node->next_global;
 				if (node->next_global == NULL)
 				{
-					printf("内存分配失败！\a\n");//提示空间是否分配不足
+					printf("                        |内存分配失败！\a\n");//提示空间是否分配不足
 					return;//中止函数
 				}
 				else
@@ -77,7 +91,7 @@ void pull_flight_info(void)
 							strcpy(node->price, "0");
 							node->next_global = NULL;
 							node->next_part = NULL;
-							secret = node;//保存最后成员的地址
+							secret_flight_info = node;//保存最后成员的地址
 						}
 						break;
 					}				
@@ -111,12 +125,9 @@ void push_flight_info(void)
 //显示航班信息函数
 void show_flight_info(flight* head)//需要 显示的链表的首地址
 {
-	system("cls");
 	int i = 0;//定义循环变量
 	flight* node = head;//定义并初始化普通节点
 
-	show_FRMS_title();//调用输出航班预定管理系统题头函数
-	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info_subtitle();//调用输出航班时刻表分类栏函数
 
 	line();
@@ -124,7 +135,7 @@ void show_flight_info(flight* head)//需要 显示的链表的首地址
 	{
 		while (node->next_global != NULL)
 		{
-			printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+			printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 			node = node->next_global;
 		}
 	}
@@ -132,13 +143,13 @@ void show_flight_info(flight* head)//需要 显示的链表的首地址
 	{
 		if (head == NULL)
 		{
-			printf("                                      没 有 符 合 条 件 的 信 息\n");
+			printf("                                                              没 有 符 合 条 件 的 信 息\n");
 		}
 		else
 		{
 			while (node->next_part != NULL)
 			{
-				printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+				printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", ++i, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 				node = node->next_part;
 			}
 		}
@@ -174,7 +185,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	case 'F':offset = 96; break;
 	case 'G':offset = 104; break;
 	case 'H':offset = 110; break;
-	default: printf("传递参数错误，排序关键字错误\n\a"); return head;
+	default: printf("                        |传递参数错误，排序关键字错误\n\a"); return head;
 	}
 
 	//一级关键字
@@ -279,7 +290,7 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 	return head;
 }
 //衔接排序函数
-void bridge_sort_flight_info()
+void bridge_sort_flight_info(void)
 {
 	int i = 8;
 	char direction[4] = { 0 };//顺序
@@ -287,7 +298,7 @@ void bridge_sort_flight_info()
 	int option_num = 0;//关键字个数
 
 	//处理排序标识符输入
-	printf("请选择排序顺序（D：顺序，U：倒叙）：");
+	printf("                        |请选择排序顺序（D：顺序，U：倒叙）：");
 	{
 		rewind(stdin);
 		fgets(direction, 3, stdin);	
@@ -296,8 +307,8 @@ void bridge_sort_flight_info()
 	}
 	while (direction[1]!='\0'||(direction[0]!='D' && direction[0] !='U'))
 	{
-		printf("含有非法字符，请重新输入！\a\n");
-		printf("请选择排序顺序（D：顺序，U：倒叙）：");
+		printf("                        |含有非法字符，请重新输入！\a\n");
+		printf("                        |请选择排序顺序（D：顺序，U：倒叙）：");
 		{
 			rewind(stdin);
 			fgets(direction, 3, stdin);	
@@ -306,7 +317,7 @@ void bridge_sort_flight_info()
 		}
 	}
 	//处理排序关键字输入
-	printf("请选择排序关键字序号（如：ABH ）：");
+	printf("                        |请选择排序关键字序号（如：ABH ）：");
 	{
 		rewind(stdin);
 		fgets(option_info, 10, stdin);
@@ -318,8 +329,8 @@ void bridge_sort_flight_info()
 	{
 		if (option_info[9] != '\0' || (option_info[i - 1] < 'A' || option_info[i - 1] > 'H'))
 		{
-			printf("含有非法字符，请重新输入！\a\n");
-			printf("请选择排序关键字序号（如：ABH ）：");
+			printf("                        |含有非法字符，请重新输入！\a\n");
+			printf("                        |请选择排序关键字序号（如：ABH ）：");
 			{
 				memset(option_info, 0, sizeof(option_info));
 				rewind(stdin);
@@ -336,7 +347,9 @@ void bridge_sort_flight_info()
 	
 	
 	head_flight_global = sort_flight_info(direction[0], option_num, option_info, flight_info_num, head_flight_global);
-	show_flight_info(head_flight_global);
+	//show_FRMS_title();//调用输出航班预定管理系统题头函数
+	//show_flight_info_title();//调用输出输出航班预定管理系统题头函数
+	//show_flight_info(head_flight_global);
 	return;
 }
 //多关键字精确查询函数（对数字查询为模糊查询）
@@ -352,7 +365,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 
 	if (strlen(option_info) == 0 || refer_info[0][0] == '\n')
 	{
-		printf("未检测到字符！\n\a");
+		printf("                        |未检测到字符！\n\a");
 		return;
 	}
 	switch (*option_info)
@@ -365,7 +378,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 	case 'F':offset = 96; break;
 	case 'G':offset = 104; break;
 	case 'H':offset = 110; break;
-	default: printf("传递参数错误，查询关键字错误\n\a"); return;
+	default: printf("                        |传递参数错误，查询关键字错误\n\a"); return;
 	}
 
 	//一级关键字
@@ -391,7 +404,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 			}
 			node = node->next_global;
 		}
-		buffer->next_part = secret;
+		buffer->next_part = secret_flight_info;
 	}
 	else//获取的首地址为查询链表地址
 	{
@@ -414,7 +427,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 			}
 			node = node->next_part;
 		}
-		buffer->next_part = secret;
+		buffer->next_part = secret_flight_info;
 	}
 
 	head_flight_part = head ;
@@ -427,7 +440,7 @@ void refine_search_flight_info(int option_num, char* option_info, char refer_inf
 	else if (search_flight_info_num == 0)head_flight_part = NULL;
 }
 //衔接查询函数
-void bridge_refine_search_sort_flight_info()
+void bridge_refine_search_sort_flight_info(void)
 {
 	int i = 0;//处理关键字个数
 	int j = 0;
@@ -441,7 +454,9 @@ void bridge_refine_search_sort_flight_info()
 		i = 8;
 		while (i)
 		{
-			printf("请选择查询关键词以及查询数据,输入0完成（如：A上海）：");
+			show_FRMS_title();
+			line();
+			printf("                        |请选择查询关键词以及查询数据,输入0完成（如：A上海）：");
 			{
 				rewind(stdin);
 				fgets(buffer, 23, stdin);
@@ -451,8 +466,8 @@ void bridge_refine_search_sort_flight_info()
 			if (buffer[0] == '0' && buffer[1] == '\0')break;
 			while (buffer[21] != '\0' || (buffer[0] < 'A' || buffer[0] > 'H'))
 			{
-				printf("含有非法字符，请重新输入！\a\n");
-				printf("请选择查询关键词以及查询数据,输入0完成（如：A上海）：");
+				printf("                        |含有非法字符，请重新输入！\a\n");
+				printf("                        |请选择查询关键词以及查询数据,输入0完成（如：A上海）：");
 				{
 					rewind(stdin);
 					fgets(buffer, 23, stdin);
@@ -468,7 +483,11 @@ void bridge_refine_search_sort_flight_info()
 	//} while (refer_info[8 - i][0]!='\0');
 		option_num = 8 - i;
 	refine_search_flight_info(option_num, option_info, refer_info, head_flight_global);
+	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_part);
+	printf("                        |");
 	system("pause");
 	return;
 }
@@ -479,21 +498,21 @@ void add_flight_info(void)
 	flight* temporary = (flight*)malloc(sizeof(flight));
 	if (temporary == NULL)
 	{
-		printf("申请空间失败\a\n");
+		printf("                        |申请空间失败\a\n");
 		return;
 	}
 	else
 	{
 		flight* node;
-		node = secret;
+		node = secret_flight_info;
 
 		{
 			line();
-			printf("|字符数限制长度：\n");
-			printf("|A:20   B:20   C:12   D:7   E:7   F:7   G:5   H:5\n");
+			printf("                        |字符数限制长度：\n");
+			printf("                        |A:20   B:20   C:12   D:7   E:7   F:7   G:5   H:5\n");
 			line();
-			printf("|请输入新添加的对应信息：\n");
-			printf("|A   始    发    地：");
+			printf("                        |请输入新添加的对应信息：\n");
+			printf("                        |A   始    发    地：");
 			{
 				rewind(stdin);
 				fgets(temporary->start_place, 22, stdin);
@@ -502,8 +521,8 @@ void add_flight_info(void)
 			}
 			while (temporary->start_place[0]=='\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|A   始    发    地：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |A   始    发    地：");
 				{
 					memset(temporary->start_place, 0, sizeof(temporary->start_place));
 					rewind(stdin);
@@ -512,7 +531,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->start_place[strlen(temporary->start_place) - 1]) temporary->start_place[strlen(temporary->start_place) - 1] = 0;
 				}
 			}
-			printf("|B   目    的    地：");
+			printf("                        |B   目    的    地：");
 			{
 				rewind(stdin);
 				fgets(temporary->end_place, 22, stdin);
@@ -521,8 +540,8 @@ void add_flight_info(void)
 			}
 			while (temporary->end_place[0]=='\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|B   目    的    地：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |B   目    的    地：");
 				{
 					memset(temporary->end_place, 0, sizeof(temporary->end_place));
 					rewind(stdin);
@@ -531,7 +550,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->end_place[strlen(temporary->end_place) - 1]) temporary->end_place[strlen(temporary->end_place) - 1] = 0;
 				}
 			}
-			printf("|C   航  空  公  司：");
+			printf("                        |C   航  空  公  司：");
 			{
 				rewind(stdin);
 				fgets(temporary->company, 14, stdin);
@@ -540,8 +559,8 @@ void add_flight_info(void)
 			}
 			while (temporary->company[0] == '\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|C   航  空  公  司：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |C   航  空  公  司：");
 				{
 					memset(temporary->company, 0, sizeof(temporary->company));
 					rewind(stdin);
@@ -550,7 +569,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->company[strlen(temporary->company) - 1]) temporary->company[strlen(temporary->company) - 1] = 0;
 				}
 			}
-			printf("|D   航    班    号：");
+			printf("                        |D   航    班    号：");
 			{
 				rewind(stdin);
 				fgets(temporary->flight_num, 8, stdin);
@@ -559,8 +578,8 @@ void add_flight_info(void)
 			}
 			while (temporary->flight_num[0] == '\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|D   航    班    号：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |D   航    班    号：");
 				{
 					memset(temporary->flight_num, 0, sizeof(temporary->flight_num));
 					rewind(stdin);
@@ -569,7 +588,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->flight_num[strlen(temporary->flight_num) - 1]) temporary->flight_num[strlen(temporary->flight_num) - 1] = 0;
 				}
 			}
-			printf("|E   起  飞  时  间：");
+			printf("                        |E   起  飞  时  间：");
 			{
 				rewind(stdin);
 				fgets(temporary->start_time, 8, stdin);
@@ -578,8 +597,8 @@ void add_flight_info(void)
 			}
 			while (temporary->start_time[0] == '\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|E   起  飞  时  间：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |E   起  飞  时  间：");
 				{
 					memset(temporary->start_time, 0, sizeof(temporary->start_time));
 					rewind(stdin);
@@ -588,7 +607,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->start_time[strlen(temporary->start_time) - 1]) temporary->start_time[strlen(temporary->start_time) - 1] = 0;
 				}
 			}
-			printf("|F   到  达  时  间：");
+			printf("                        |F   到  达  时  间：");
 			{
 				rewind(stdin);
 				fgets(temporary->end_time, 8, stdin);
@@ -597,8 +616,8 @@ void add_flight_info(void)
 			}
 			while (temporary->end_time[0] == '\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|F   到  达  时  间：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |F   到  达  时  间：");
 				{
 					memset(temporary->end_time, 0, sizeof(temporary->end_time));
 					rewind(stdin);
@@ -607,7 +626,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->end_time[strlen(temporary->end_time) - 1]) temporary->end_time[strlen(temporary->end_time) - 1] = 0;
 				}
 			}
-			printf("|G   载          客：");
+			printf("                        |G   载          客：");
 			{
 				rewind(stdin);
 				fgets(temporary->people_num, 6, stdin);
@@ -616,8 +635,8 @@ void add_flight_info(void)
 			}
 			while (temporary->people_num[0] == '\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|G   载          客：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |G   载          客：");
 				{
 					memset(temporary->people_num, 0, sizeof(temporary->people_num));
 					rewind(stdin);
@@ -626,7 +645,7 @@ void add_flight_info(void)
 					if ('\n' == temporary->people_num[strlen(temporary->people_num) - 1]) temporary->people_num[strlen(temporary->people_num) - 1] = 0;
 				}
 			}
-			printf("|H   价          格：");
+			printf("                        |H   价          格：");
 			{
 				rewind(stdin);
 				fgets(temporary->price, 6, stdin);
@@ -635,8 +654,8 @@ void add_flight_info(void)
 			}
 			while (temporary->price[0] == '\0')
 			{
-				printf("未检测到字符，请重新输入！\a\n");
-				printf("|H   价          格：");
+				printf("                        |未检测到字符，请重新输入！\a\n");
+				printf("                        |H   价          格：");
 				{
 					memset(temporary->price, 0, sizeof(temporary->price));
 					rewind(stdin);
@@ -663,7 +682,7 @@ void add_flight_info(void)
 		node->next_global = (flight*)malloc(sizeof(flight));
 		if (node->next_global == NULL)
 		{
-			printf("空间申请失败！\a\n");
+			printf("                        |空间申请失败！\a\n");
 			return;
 		}
 		else
@@ -671,9 +690,9 @@ void add_flight_info(void)
 			flight_info_num++;
 			node->next_part = node->next_global;
 			{
-				printf("添加成功\n");
+				printf("                        |添加成功\n");
 				line();
-				printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", flight_info_num, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+				printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", flight_info_num, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 				line();
 			}
 			node = node->next_global;
@@ -688,7 +707,7 @@ void add_flight_info(void)
 			strcpy(node->price, "0");
 			node->next_global = NULL;
 			node->next_part = NULL;
-			secret = node;//保存最后成员的地址
+			secret_flight_info = node;//保存最后成员的地址
 		}
 	}
 }
@@ -700,9 +719,11 @@ void modify_flight_info(void)
 	char located_flight_info[32];
 
 	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 
-	printf("请选择要修改的航班信息对应序号：");
+	printf("                        |请选择要修改的航班信息对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_flight_info, 4, stdin);
@@ -711,11 +732,11 @@ void modify_flight_info(void)
 	}
 	while (1)
 	{
-		if ((strtol(located_flight_info, NULL, 10) <= 0 || strtol(located_flight_info, NULL, 10) > flight_info_num))printf("数据越界！\a\n");
+		if ((strtol(located_flight_info, NULL, 10) <= 0 || strtol(located_flight_info, NULL, 10) > flight_info_num))printf("                        |数据越界！\a\n");
 		else
-			if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n");
+			if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n");
 			else break;
-		printf("请选择要修改的航班信息对应序号：");
+		printf("                        |请选择要修改的航班信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 4, stdin);
@@ -734,10 +755,10 @@ void modify_flight_info(void)
 		show_FRMS_title();
 		show_flight_info_subtitle();
 		line();
-		printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		line();
 	}
-	printf("请选择要修改的航班信息对应序号：");
+	printf("                        |请选择要修改的航班信息对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_flight_info, 4, stdin);
@@ -746,11 +767,11 @@ void modify_flight_info(void)
 	}
 	while (1)
 	{
-		if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n"); 
+		if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n"); 
 		else 
-			if (located_flight_info[0] < 'A' || located_flight_info[0] > 'H')printf("含有非法字符！\a\n");
+			if (located_flight_info[0] < 'A' || located_flight_info[0] > 'H')printf("                        |含有非法字符！\a\n");
 			else break;
-		printf("请选择要修改的航班信息对应序号：");
+		printf("                        |请选择要修改的航班信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 4, stdin);
@@ -768,23 +789,23 @@ void modify_flight_info(void)
 	case 'F':offset = 96, limmit = 8; break;
 	case 'G':offset = 104, limmit = 6; break;
 	case 'H':offset = 110, limmit = 6; break;
-	default: printf("传递参数错误，关键字错误\n\a"); return;
+	default: printf("                        |传递参数错误，关键字错误\n\a"); return;
 	}
 	{
 		line();
-		printf("|字符数限制长度：\n");
-		printf("|A:20   B:20   C:12   D:7   E:7   F:7   G:5   H:5\n");
+		printf("                        |字符数限制长度：\n");
+		printf("                        |A:20   B:20   C:12   D:7   E:7   F:7   G:5   H:5\n");
 		line();
-		printf("%s -> ", node->start_place + offset);
+		printf("                        |%s -> ", node->start_place + offset);
 		{
 			rewind(stdin);
 			fgets((node->start_place + offset), limmit, stdin);
 			rewind(stdin);
 			if ('\n' == (node->start_place + offset)[strlen((node->start_place + offset)) - 1]) (node->start_place + offset)[strlen((node->start_place + offset)) - 1] = 0;
 		}
-		printf("修改成功\n");
+		printf("                        |修改成功\n");
 		line();
-		printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		line();
 
 	}
@@ -798,9 +819,11 @@ void delete_flight_info(void)
 
 
 	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 
-	printf("请选择要删除的航班信息对应序号：");
+	printf("                        |请选择要删除的航班信息对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_flight_info, 4, stdin);
@@ -809,11 +832,11 @@ void delete_flight_info(void)
 	}
 	while (1)
 	{
-		if ((strtol(located_flight_info, NULL, 10) <= 0 || strtol(located_flight_info, NULL, 10) > flight_info_num))printf("数据越界！\a\n");
+		if ((strtol(located_flight_info, NULL, 10) <= 0 || strtol(located_flight_info, NULL, 10) > flight_info_num))printf("                        |数据越界！\a\n");
 		else
-			if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n");
+			if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n");
 			else break;
-		printf("请选择要删除的航班信息对应序号：");
+		printf("                        |请选择要删除的航班信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 4, stdin);
@@ -837,10 +860,10 @@ void delete_flight_info(void)
 			show_FRMS_title();
 			show_flight_info_subtitle();
 			line();
-			printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+			printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 			line();
 		}
-		printf("请确认是否删除这条航班信息（y or n）：");
+		printf("                        |请确认是否删除这条航班信息（y or n）：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 3, stdin);
@@ -849,11 +872,11 @@ void delete_flight_info(void)
 		}
 		while (1)
 		{
-			if (located_flight_info[0] != 'y' && located_flight_info[0] != 'n')printf("含有非法字符！\a\n");
+			if (located_flight_info[0] != 'y' && located_flight_info[0] != 'n')printf("                        |含有非法字符！\a\n");
 			else
-				if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n");
+				if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n");
 				else break;
-			printf("请确认是否删除这条航班信息（y or n）：");
+			printf("                        |请确认是否删除这条航班信息（y or n）：");
 			{
 				rewind(stdin);
 				fgets(located_flight_info, 3, stdin);
@@ -868,9 +891,9 @@ void delete_flight_info(void)
 			flight_info_num--;
 			if (node->next_part != NULL)head_flight_part--;
 			free(node);
-			printf("删除成功\n");
+			printf("                        |删除成功\n");
 		}
-		else printf("未进行删除操作\n");
+		else printf("                        |未进行删除操作\n");
 	}
 	else
 	{
@@ -878,9 +901,9 @@ void delete_flight_info(void)
 		show_FRMS_title();
 		show_flight_info_subtitle();
 		line();
-		printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		line();
-		printf("请确认是否删除这条航班信息（y or n）：");
+		printf("                        |请确认是否删除这条航班信息（y or n）：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 3, stdin);
@@ -889,11 +912,11 @@ void delete_flight_info(void)
 		}
 		while (1)
 		{
-			if (located_flight_info[0] != 'y'&& located_flight_info[0] != 'n')printf("含有非法字符！\a\n");
+			if (located_flight_info[0] != 'y'&& located_flight_info[0] != 'n')printf("                        |含有非法字符！\a\n");
 			else
-				if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n");
+				if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n");
 				else break;
-			printf("请确认是否删除这条航班信息（y or n）：");
+			printf("                        |请确认是否删除这条航班信息（y or n）：");
 			{
 				rewind(stdin);
 				fgets(located_flight_info, 3, stdin);
@@ -908,9 +931,9 @@ void delete_flight_info(void)
 			flight_info_num--;
 			if (node->next_part != NULL)head_flight_part--;
 			free(node);
-			printf("删除成功\n");
+			printf("                        |删除成功\n");
 		}
-		else printf("未进行删除操作\n");
+		else printf("                        |未进行删除操作\n");
 	}
 }
 //订票函数
@@ -921,9 +944,11 @@ void reserve_flight_ticket(void)
 	char located_flight_info[32];
 
 	system("cls");
+	show_FRMS_title();//调用输出航班预定管理系统题头函数
+	show_flight_info_title();//调用输出输出航班预定管理系统题头函数
 	show_flight_info(head_flight_global);
 
-	printf("请选择预定航班对应序号：");
+	printf("                        |请选择预定航班对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_flight_info, 4, stdin);
@@ -932,11 +957,11 @@ void reserve_flight_ticket(void)
 	}
 	while (1)
 	{
-		if ((strtol(located_flight_info, NULL, 10) <= 0 || strtol(located_flight_info, NULL, 10) > flight_info_num))printf("数据越界！\a\n");
+		if ((strtol(located_flight_info, NULL, 10) <= 0 || strtol(located_flight_info, NULL, 10) > flight_info_num))printf("                        |数据越界！\a\n");
 		else
-			if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n");
+			if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n");
 			else break;
-		printf("请选择要修改的航班信息对应序号：");
+		printf("                        |请选择要修改的航班信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 4, stdin);
@@ -955,11 +980,11 @@ void reserve_flight_ticket(void)
 		show_FRMS_title();
 		show_flight_info_subtitle();
 		line();
-		printf("|%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+		printf("                        |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
 		line();
 	}
 
-	printf("请确认是否预定本次航班（y or n）：");
+	printf("                        |请确认是否预定本次航班（y or n）：");
 	{
 		rewind(stdin);
 		fgets(located_flight_info, 3, stdin);
@@ -968,11 +993,11 @@ void reserve_flight_ticket(void)
 	}
 	while (1)
 	{
-		if (located_flight_info[0] != 'y' && located_flight_info[0] != 'n')printf("含有非法字符！\a\n");
+		if (located_flight_info[0] != 'y' && located_flight_info[0] != 'n')printf("                        |含有非法字符！\a\n");
 		else
-			if (located_flight_info[0] == '\0')printf("未检测到字符！\a\n");
+			if (located_flight_info[0] == '\0')printf("                        |未检测到字符！\a\n");
 			else break;
-		printf("请确认是否预定本次航班（y or n）：");
+		printf("                        |请确认是否预定本次航班（y or n）：");
 		{
 			rewind(stdin);
 			fgets(located_flight_info, 3, stdin);
@@ -980,42 +1005,89 @@ void reserve_flight_ticket(void)
 			if ('\n' == located_flight_info[strlen(located_flight_info) - 1]) located_flight_info[strlen(located_flight_info) - 1] = 0;
 		}
 	}
-	
-	//
-	//处理航班信息记录到旅客
-	//
 
-	if (located_flight_info[0] == 'y')printf("订票成功！/n");
-	return;
+	switch (located_flight_info[0])
+	{
+	case'y'://处理航班信息记录到旅客
+		rewind(stdin);
+		passenger_item(node);//传递指针
+		printf("                        |");
+		system("pause");
+		system("cls");
+		break;
+	case'n':system("cls"); return;
+	}//插入记录订票的函数
+
 }
+//订票函数附属函数
+char passenger_item(flight* fp_person)//订票明细
+{
+	char he[13] = { "data\\users\\" };//名尾巴
+	char tail[8] = { ".txt" };//名头
+	char total_file[120] = { 0 };//文件名，大点
+	flight* node = fp_person;
+	strcat(total_file, he);//接头
+	//strcat(total_file, Passenger[located_passenger].tell);//中间
+	strcat(total_file, "BHK");//测试用BHK备份
+	strcat(total_file, tail);//接尾
+	FILE* fp = fopen(total_file, "a+");
+	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//指针改为全局变量
+	printf("                        |订票成功！\n");
+	return 0;
+}
+
 //输出长横线
 void line(void)
 {
-	printf("-----------------------------------------------------------------------------------------------------\n");
-}
-//输出航班时刻表题头
-void show_flight_info_title(void)
-{
-	line();
-	printf("                                            航 班 时 刻 表\n");
+	printf("                        -----------------------------------------------------------------------------------------------------\n");
 }
 //输出航班预定管理系统题头
 void show_FRMS_title(void)
 {
 	line();
-	printf("\n                      航      班      预      定      管      理      系      统\n\n");
+	printf("\n                                              航      班      预      定      管      理      系      统\n\n");
+}
+//输出航班时刻表题头
+void show_flight_info_title(void)
+{
+	line();
+	printf("                                                                    航 班 时 刻 表\n");
 }
 //输出航班时刻表分类栏
 void show_flight_info_subtitle(void)
 {
 	line();
-	printf("|  |%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
+	printf("                        |  |%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", "A始发地", "B目的地", "C航空公司", "D航班号", "E起飞时间", "F到达时间", "G载客", "H票价");
+}
+//输出旅客信息表题头
+void show_passenger_info_title(void)
+{
+	line();
+	printf("                                                                    旅 客 信 息 表\n");
+}
+//输出旅客模式题头
+void show_passenger_title(void)
+{
+	line();
+	printf("                                                                      旅 客 模 式 \n");
+}
+//输出旅客信息分类栏
+void show_passenger_info_subtitle(void)
+{
+	line();
+	printf("                        |  |%20s|%20s|%12s|%23s|%17s|\n", "A用户昵称", "B用户密码", "C姓名", "D身份证号", "E联系方式");
 }
 //输出管理员标题
 void show_manager_title(void)
 {
 	line();
-	printf("                                            管 理 员 模 式\n");
+	printf("                                                                    管 理 员 模 式\n");
+}
+//输出历史记录标题
+void show_passenger_histroy_title(void)
+{
+	line();
+	printf("                                                                      历 史 记 录\n");
 }
 
 #include <Windows.h>
@@ -1027,8 +1099,8 @@ void play_music(void)
 	int i = 0;
 	char q = 'a';
 	char no_use = '\n';
-	char sentence[] = "Loading Knock Me Out. . .\nEnter q to stop the music and start the rael project         ;)\nPlease enter a letter:\0";
-	char sentence_reload[] = "Reloading Knock Me Out...\nWhy don't you LISTEN TO ME to continue!?                     :(\nEnter q!:\0";
+	char sentence[] = "                        |Loading Knock Me Out. . .\nEnter q to stop the music and start the rael project         ;)\nPlease enter a letter:\0";
+	char sentence_reload[] = "                        |Reloading Knock Me Out...\nWhy don't you LISTEN TO ME to continue!?                     :(\nEnter q!:\0";
 	while (q != 'q')
 	{
 		if (i == 0)
@@ -1056,77 +1128,16 @@ void play_music(void)
 
 	exit(0);
 }
+//全屏
+void full_screen(void)
+{
+	HWND hwnd = GetForegroundWindow();
+	int cx = GetSystemMetrics(SM_CXSCREEN);            /* 屏幕宽度 像素 */
+	int cy = GetSystemMetrics(SM_CYSCREEN);            /* 屏幕高度 像素 */
 
-//测试用主函数
-//int main()
-//{
-//	int i = 0;;
-//	//char option_sort[9] = { 'B','A','C','D','E','F','G','B' };
-//	char option_sort[9] = { 'A','H','C','B'};
-//	char refer_info[8][32] = { "上海","2","大韩" ,"MI"};
-//	int option_num = 3;
-//	char direction = 'A';
-//
-//	//music();//careful!
-//
-//	//测试函数
-//	{
-//		printf("读取全局数据...\n");
-//		pull_flight_info();
-//		printf("数据读写成功\n\n");
-//
-//		printf("输出全局数据...\n");
-//		show_flight_info(head_flight_global);
-//		printf("数据输出成功\n\n");
-//
-//		modify_flight_info();
-//
-//		delete_flight_info();
-//
-//		printf("查询数据...\n");
-//		refine_search_flight_info(option_num, option_sort, refer_info, head_flight_global);
-//		printf("查询关键字:%s\n", option_sort);
-//		printf("查询关键词:");
-//		while(refer_info[i][0]!='\0')
-//		{
-//			printf("%s ", refer_info[i]);
-//			i++;
-//		}
-//		printf("\n");
-//		printf("数据查询成功\n\n");
-//		system("pause");
-//
-//		printf("输出查询数据...\n");
-//		show_flight_info(head_flight_part);
-//		printf("数据输出成功\n\n");
-//		system("pause");
-//
-//		printf("排序全局数据...\n");
-//		head_flight_global = sort_flight_info(direction, option_num, option_sort, flight_info_num, head_flight_global);
-//		printf("排序关键字:%s\n", option_sort);
-//		printf("数据排序成功\n\n");
-//
-//
-//		printf("添加全局数据...\n");
-//		add_flight_info();
-//		printf("数据添加成功\n\n");
-//		system("pause");
-//		
-//
-//		printf("输出全局数据...\n");
-//		show_flight_info(head_flight_global);
-//		printf("数据输出成功\n\n");
-//		system("pause");
-//
-//		printf("保存全局数据...\n");
-//		push_flight_info();
-//		printf("数据保存成功\n\n");
-//		system("pause");
-//
-//	}
-//
-//
-//	printf("Done\n");
-//
-//	return 0;
-//}
+	LONG l_WinStyle = GetWindowLong(hwnd, GWL_STYLE);   /* 获取窗口信息 */
+	/* 设置窗口信息 最大化 取消标题栏及边框 */
+	SetWindowLong(hwnd, GWL_STYLE, (l_WinStyle | WS_POPUP | WS_MAXIMIZE) & ~WS_CAPTION & ~WS_THICKFRAME & ~WS_BORDER);
+
+	SetWindowPos(hwnd, HWND_TOP, 0, 0, cx, cy, 0);
+}
