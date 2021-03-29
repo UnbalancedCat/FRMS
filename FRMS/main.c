@@ -4,7 +4,6 @@
 int main(void)
 {
 	atexit(shut_down);
-	full_screen();
 	init();
 	menu();
 	//play_music();

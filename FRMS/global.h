@@ -1,6 +1,6 @@
 #pragma once
-#ifndef OUTPUT_H_
-#define OUTPUT_H_
+#ifndef GLOBAL_H_
+#define GLOBAL_H_
 
 //±äÁ¿
 typedef struct flight_info//º½°àĞÅÏ¢½á¹¹Ìå
@@ -12,8 +12,8 @@ typedef struct flight_info//º½°àĞÅÏ¢½á¹¹Ìå
 	char flight_num[8];		//º½°àºÅ
 	char start_time[8];		//Æğ·ÉÊ±¼ä
 	char end_time[8];		//µ½´ïÊ±¼ä
-	char people_num[6];			//ÔØ¿Í
-	char price[6];				//¼Û¸ñ
+	char people_num[6];		//×ùÎ»
+	char price[6];			//¼Û¸ñ
 	//±äÁ¿²¿·Ö´óĞ¡112
 	struct flight_info* next_global;	//±£´æÕûÌåµÄÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
 	struct flight_info* next_part;		//±£´æ²éÑ¯ºóÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
@@ -23,7 +23,7 @@ flight* head_flight_global, * head_flight_part, * secret_flight_info;//È«¾Ö±äÁ¿È
 int flight_info_num, search_flight_info_num;//È«¾Ö±äÁ¿º½°àĞÅÏ¢ÊıÁ¿
 flight* located_flight_info_global;
 
-typedef struct passenger_info//º½°àĞÅÏ¢½á¹¹Ìå
+typedef struct passenger_info//ÂÃ¿ÍĞÅÏ¢½á¹¹Ìå
 {
 
 	char nickname[50];	//ÓÃ»§êÇ³Æ
@@ -32,12 +32,12 @@ typedef struct passenger_info//º½°àĞÅÏ¢½á¹¹Ìå
 	char id_num[30];	//Éí·İÖ¤ºÅ
 	char phone_num[30];	//ÁªÏµ·½Ê½
 	//±äÁ¿²¿·Ö´óĞ¡210
-	struct passenger_info* next_global;	//±£´æÕûÌåµÄÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
+	struct passenger_info* next_global;		//±£´æÕûÌåµÄÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
 	struct passenger_info* next_part;		//±£´æ²éÑ¯ºóÁ´±íÏÂÒ»¸ö³ÉÔ±µÄµØÖ·
 	//Êµ¼Ê²âÊÔ´óĞ¡Î´²âÊÔ
 }passenger;
 passenger* head_passenger_global, * head_passenger_part, * secret_passenger_info;//È«¾Ö±äÁ¿È«¾ÖÍ·½ÚµãºÍ²¿·ÖÍ·½Úµã
-int passenger_info_num, search_passenger_info_num;//È«¾Ö±äÁ¿º½°àĞÅÏ¢ÊıÁ¿
+int passenger_info_num, search_passenger_info_num;//È«¾Ö±äÁ¿ÂÃ¿ÍĞÅÏ¢ÊıÁ¿
 passenger* located_passenger_info_global;
 
 //º¯Êı
@@ -97,14 +97,4 @@ void menu_file_recover(void);
 void menu_file(void);
 void menu_passenger_pull(void);
 
-//void add_passenger(void);          //Ìí¼ÓÂÃ¿ÍĞÅÏ¢
-//void delete_passenger(void);       //É¾³ıÂÃ¿ÍĞÅÏ¢
-//void mend_passenger(void);         //ĞŞ¸ÄÂÃ¿ÍĞÅÏ¢
-//void seek_passenger(void);         //²éÑ¯ÂÃ¿ÍĞÅÏ¢
-//void read_passenger(void);          //¶ÁÈ¡ÂÃ¿ÍĞÅÏ¢
-//void print_passenger(void);         //Êä³öÂÃ¿ÍĞÅÏ¢
-//void match_passenger(void);         //Æ¥ÅäÂÃ¿Íµç»°ÓëÃÜÂë
-//int search_passenger(void);			//Ñ°ÕÒ¶ÔÓ¦µÄÂÃ¿Í,·µ»ØkÖµ£¬¶ÔÓ¦Passenger[k]
-//void passenger_login(void);			//ÂÃ¿ÍµÇÂ¼
-
-#endif	//OUTPUT_H_
+#endif //GLOBAL_H_

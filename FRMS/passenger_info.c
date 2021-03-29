@@ -14,7 +14,7 @@ void pull_passenger_info(void)
 
 	if (fp == NULL)
 	{
-		printf("                        |旅客信息文件缺失！\a\n");//提示文件是否缺失
+		printf("                             |旅客信息文件缺失！\a\n");//提示文件是否缺失
 		return;
 	}
 	else
@@ -25,7 +25,7 @@ void pull_passenger_info(void)
 
 		if (node == NULL)
 		{
-			printf("                        |内存分配失败！\a\n");//提示空间是否分配不足
+			printf("                             |内存分配失败！\a\n");//提示空间是否分配不足
 			return;//中止函数
 		}
 		else
@@ -33,7 +33,7 @@ void pull_passenger_info(void)
 			//第一次录入
 			if (fscanf(fp, "%s %s %s %s %s", node->nickname, node->password, node->name, node->id_num, node->phone_num) != 5)
 			{
-				printf("                        |文件读写失败！\a\n");//提示文件是否读写成功
+				printf("                             |文件读写失败！\a\n");//提示文件是否读写成功
 				return;//中止函数
 			}
 			//剩余录入
@@ -44,7 +44,7 @@ void pull_passenger_info(void)
 				node->next_part = node->next_global;
 				if (node->next_global == NULL)
 				{
-					printf("                        |内存分配失败！\a\n");//提示空间是否分配不足
+					printf("                             |内存分配失败！\a\n");//提示空间是否分配不足
 					return;//中止函数
 				}
 				else
@@ -105,7 +105,7 @@ void show_passenger_info(passenger* head)//需要 显示的链表的首地址
 	{
 		while (node->next_global != NULL)
 		{	
-			printf("                        |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+			printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 			node = node->next_global;
 		}
 	}
@@ -113,13 +113,13 @@ void show_passenger_info(passenger* head)//需要 显示的链表的首地址
 	{
 		if (head == NULL)
 		{
-			printf("                                                              没 有 符 合 条 件 的 信 息\n");
+			printf("                                                                   没 有 符 合 条 件 的 信 息\n");
 		}
 		else
 		{
 			while (node->next_part != NULL)
 			{
-				printf("                        |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+				printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 				node = node->next_part;
 			}
 		}
@@ -250,7 +250,7 @@ void bridge_sort_passenger_info(void)
 	int option_num = 0;//关键字个数
 
 	//处理排序标识符输入
-	printf("                        |请选择排序顺序（D：顺序，U：倒叙）：");
+	printf("                             |请选择排序顺序（D：顺序，U：倒叙）：");
 	{
 		rewind(stdin);
 		fgets(direction, 3, stdin);
@@ -259,8 +259,8 @@ void bridge_sort_passenger_info(void)
 	}
 	while (direction[1] != '\0' || (direction[0] != 'D' && direction[0] != 'U'))
 	{
-		printf("                        |含有非法字符，请重新输入！\a\n");
-		printf("                        |请选择排序顺序（D：顺序，U：倒叙）：");
+		printf("                             |含有非法字符，请重新输入！\a\n");
+		printf("                             |请选择排序顺序（D：顺序，U：倒叙）：");
 		{
 			rewind(stdin);
 			fgets(direction, 3, stdin);
@@ -269,7 +269,7 @@ void bridge_sort_passenger_info(void)
 		}
 	}
 	//处理排序关键字输入
-	printf("                        |请选择排序关键字序号（如：AE ）：");
+	printf("                             |请选择排序关键字序号（如：AE ）：");
 	{
 		rewind(stdin);
 		fgets(option_info, 7, stdin);
@@ -281,8 +281,8 @@ void bridge_sort_passenger_info(void)
 	{
 		if (option_info[6] != '\0' || (option_info[i - 1] < 'A' || option_info[i - 1] > 'E'))
 		{
-			printf("                        |含有非法字符，请重新输入！\a\n");
-			printf("                        |请选择排序关键字序号（如：AE ）：");
+			printf("                             |含有非法字符，请重新输入！\a\n");
+			printf("                             |请选择排序关键字序号（如：AE ）：");
 			{
 				memset(option_info, 0, sizeof(option_info));
 				rewind(stdin);
@@ -317,7 +317,7 @@ void refine_search_passenger_info(int option_num, char* option_info, char refer_
 
 	if (strlen(option_info) == 0 || refer_info[0][0] == '\n')
 	{
-		printf("                        |未检测到字符！\n\a");
+		printf("                             |未检测到字符！\n\a");
 		return;
 	}
 	switch (*option_info)
@@ -327,7 +327,7 @@ void refine_search_passenger_info(int option_num, char* option_info, char refer_
 	case 'C':offset = 100; break;
 	case 'D':offset = 150; break;
 	case 'E':offset = 180; break;
-	default: printf("                        |传递参数错误，查询关键字错误\n\a"); return;
+	default: printf("                             |传递参数错误，查询关键字错误\n\a"); return;
 	}
 
 	//一级关键字
@@ -401,7 +401,7 @@ void bridge_refine_search_sort_passenger_info(void)
 	i = 5;
 	while (i)
 	{
-		printf("                        |请选择查询关键词以及查询数据,输入0完成（如：C张三）：");
+		printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：");
 		{
 			rewind(stdin);
 			fgets(buffer, 25, stdin);
@@ -411,8 +411,8 @@ void bridge_refine_search_sort_passenger_info(void)
 		if (buffer[0] == '0' && buffer[1] == '\0')break;
 		while (buffer[24] != '\0' || (buffer[0] < 'A' || buffer[0] > 'E'))
 		{
-			printf("                        |含有非法字符，请重新输入！\a\n");
-			printf("                        |请选择查询关键词以及查询数据,输入0完成（如：C张三）：");
+			printf("                             |含有非法字符，请重新输入！\a\n");
+			printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：");
 			{
 				rewind(stdin);
 				fgets(buffer, 25, stdin);
@@ -432,7 +432,7 @@ void bridge_refine_search_sort_passenger_info(void)
 	show_FRMS_title();//调用输出航班预定管理系统题头函数
 	show_passenger_info_title();//调用输出输出旅客题头函数
 	show_passenger_info(head_passenger_part);
-	printf("                        |");
+	printf("                             |");
 	system("pause");
 	return;
 }
@@ -443,7 +443,7 @@ void add_passenger_info(void)
 	passenger* temporary = (passenger*)malloc(sizeof(passenger));
 	if (temporary == NULL)
 	{
-		printf("                        |申请空间失败\a\n");
+		printf("                             |申请空间失败\a\n");
 		return;
 	}
 	else
@@ -453,11 +453,11 @@ void add_passenger_info(void)
 
 		{
 			line();
-			printf("                        |字符数限制长度：\n");
-			printf("                        |A:20   B:20   C:12   D:23   E:17\n");
+			printf("                             |字符数限制长度：\n");
+			printf("                             |A:20   B:20   C:12   D:23   E:17\n");
 			line();
-			printf("                        |请输入新添加的对应信息：\n");
-			printf("                        |A   昵          称：");
+			printf("                             |请输入新添加的对应信息：\n");
+			printf("                             |A   昵          称：");
 			{
 				rewind(stdin);
 				fgets(temporary->nickname, 21, stdin);
@@ -466,8 +466,8 @@ void add_passenger_info(void)
 			}
 			while (temporary->nickname[0] == '\0')
 			{
-				printf("                        |未检测到字符，请重新输入！\a\n");
-				printf("                        |A   昵          称：");
+				printf("                             |未检测到字符，请重新输入！\a\n");
+				printf("                             |A   昵          称：");
 				{
 					memset(temporary->nickname, 0, sizeof(temporary->nickname));
 					rewind(stdin);
@@ -476,7 +476,7 @@ void add_passenger_info(void)
 					if ('\n' == temporary->nickname[strlen(temporary->nickname) - 1]) temporary->nickname[strlen(temporary->nickname) - 1] = 0;
 				}
 			}
-			printf("                        |B   密          码：");
+			printf("                             |B   密          码：");
 			{
 				rewind(stdin);
 				fgets(temporary->password, 21, stdin);
@@ -485,8 +485,8 @@ void add_passenger_info(void)
 			}
 			while (temporary->password[0] == '\0')
 			{
-				printf("                        |未检测到字符，请重新输入！\a\n");
-				printf("                        |B   密          码：");
+				printf("                             |未检测到字符，请重新输入！\a\n");
+				printf("                             |B   密          码：");
 				{
 					memset(temporary->password, 0, sizeof(temporary->password));
 					rewind(stdin);
@@ -495,7 +495,7 @@ void add_passenger_info(void)
 					if ('\n' == temporary->password[strlen(temporary->password) - 1]) temporary->password[strlen(temporary->password) - 1] = 0;
 				}
 			}
-			printf("                        |C   真  实  姓  名：");
+			printf("                             |C   真  实  姓  名：");
 			{
 				rewind(stdin);
 				fgets(temporary->name, 13, stdin);
@@ -504,8 +504,8 @@ void add_passenger_info(void)
 			}
 			while (temporary->name[0] == '\0')
 			{
-				printf("                        |未检测到字符，请重新输入！\a\n");
-				printf("                        |C   真  实  姓  名：");
+				printf("                             |未检测到字符，请重新输入！\a\n");
+				printf("                             |C   真  实  姓  名：");
 				{
 					memset(temporary->name, 0, sizeof(temporary->name));
 					rewind(stdin);
@@ -514,7 +514,7 @@ void add_passenger_info(void)
 					if ('\n' == temporary->name[strlen(temporary->name) - 1]) temporary->name[strlen(temporary->name) - 1] = 0;
 				}
 			}
-			printf("                        |C   身 份 证 号 码：");
+			printf("                             |C   身 份 证 号 码：");
 			{
 				rewind(stdin);
 				fgets(temporary->id_num, 24, stdin);
@@ -523,8 +523,8 @@ void add_passenger_info(void)
 			}
 			while (temporary->id_num[0] == '\0')
 			{
-				printf("                        |未检测到字符，请重新输入！\a\n");
-				printf("                        |C   身 份 证 号 码：");
+				printf("                             |未检测到字符，请重新输入！\a\n");
+				printf("                             |C   身 份 证 号 码：");
 				{
 					memset(temporary->id_num, 0, sizeof(temporary->id_num));
 					rewind(stdin);
@@ -533,7 +533,7 @@ void add_passenger_info(void)
 					if ('\n' == temporary->id_num[strlen(temporary->id_num) - 1]) temporary->id_num[strlen(temporary->id_num) - 1] = 0;
 				}
 			}
-			printf("                        |E   电  话  号  码：");
+			printf("                             |E   电  话  号  码：");
 			{
 				rewind(stdin);
 				fgets(temporary->phone_num, 18, stdin);
@@ -542,8 +542,8 @@ void add_passenger_info(void)
 			}
 			while (temporary->phone_num[0] == '\0')
 			{
-				printf("                        |未检测到字符，请重新输入！\a\n");
-				printf("                        |E   电  话  号  码：");
+				printf("                             |未检测到字符，请重新输入！\a\n");
+				printf("                             |E   电  话  号  码：");
 				{
 					memset(temporary->phone_num, 0, sizeof(temporary->phone_num));
 					rewind(stdin);
@@ -567,7 +567,7 @@ void add_passenger_info(void)
 		node->next_global = (passenger*)malloc(sizeof(passenger));
 		if (node->next_global == NULL)
 		{
-			printf("                        |空间申请失败！\a\n");
+			printf("                             |空间申请失败！\a\n");
 			return;
 		}
 		else
@@ -575,9 +575,9 @@ void add_passenger_info(void)
 			passenger_info_num++;
 			node->next_part = node->next_global;
 			{
-				printf("                        |添加成功\n");
+				printf("                             |添加成功\n");
 				line();
-				printf("                        |%02d|%20s|%20s|%12s|%23s|%17s|\n", passenger_info_num, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+				printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", passenger_info_num, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 				line();
 			}
 			node = node->next_global;
@@ -605,7 +605,7 @@ void modify_passenger_info(void)
 	show_passenger_info_title();//调用输出输出航班预定管理系统题头函数
 	show_passenger_info(head_passenger_global);
 
-	printf("                        |请选择要修改的旅客信息对应序号：");
+	printf("                             |请选择要修改的旅客信息对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_passenger_info, 4, stdin);
@@ -614,11 +614,11 @@ void modify_passenger_info(void)
 	}
 	while (1)
 	{
-		if ((strtol(located_passenger_info, NULL, 10) <= 0 || strtol(located_passenger_info, NULL, 10) > passenger_info_num))printf("                        |数据越界！\a\n");
+		if ((strtol(located_passenger_info, NULL, 10) <= 0 || strtol(located_passenger_info, NULL, 10) > passenger_info_num))printf("                             |数据越界！\a\n");
 		else
-			if (located_passenger_info[0] == '\0')printf("                        |未检测到字符！\a\n");
+			if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
 			else break;
-		printf("                        |请选择要修改的旅客信息对应序号：");
+		printf("                             |请选择要修改的旅客信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_passenger_info, 4, stdin);
@@ -637,10 +637,10 @@ void modify_passenger_info(void)
 		show_FRMS_title();
 		show_passenger_info_subtitle();
 		line();
-		printf("                        |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+		printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
 	}
-	printf("                        |请选择要修改的旅客信息对应序号：");
+	printf("                             |请选择要修改的旅客信息对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_passenger_info, 4, stdin);
@@ -649,11 +649,11 @@ void modify_passenger_info(void)
 	}
 	while (1)
 	{
-		if (located_passenger_info[0] == '\0')printf("                        |未检测到字符！\a\n");
+		if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
 		else
-			if (located_passenger_info[0] < 'A' || located_passenger_info[0] > 'H')printf("                        |含有非法字符！\a\n");
+			if (located_passenger_info[0] < 'A' || located_passenger_info[0] > 'H')printf("                             |含有非法字符！\a\n");
 			else break;
-		printf("                        |请选择要修改的旅客信息对应序号：");
+		printf("                             |请选择要修改的旅客信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_passenger_info, 4, stdin);
@@ -669,12 +669,12 @@ void modify_passenger_info(void)
 	case 'D':offset = 150, limmit = 24; break;
 	case 'E':offset = 180, limmit = 18; break;
 
-	default: printf("                        |传递参数错误，关键字错误\n\a"); return;
+	default: printf("                             |传递参数错误，关键字错误\n\a"); return;
 	}
 	{
 		line();
-		printf("                        |字符数限制长度：\n");
-		printf("                        |A:20   B:20   C:12   D:23   E:17\n");
+		printf("                             |字符数限制长度：\n");
+		printf("                             |A:20   B:20   C:12   D:23   E:17\n");
 		line();
 		printf("%s -> ", node->nickname + offset);
 		{
@@ -683,7 +683,7 @@ void modify_passenger_info(void)
 			rewind(stdin);
 			if ('\n' == (node->nickname + offset)[strlen((node->nickname + offset)) - 1]) (node->nickname + offset)[strlen((node->nickname + offset)) - 1] = 0;
 		}
-		printf("                        |修改成功\n");
+		printf("                             |修改成功\n");
 		line();
 		printf("|%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
@@ -703,7 +703,7 @@ void delete_passenger_info(void)
 	show_passenger_info_title();//调用输出输出航班预定管理系统题头函数
 	show_passenger_info(head_passenger_global);
 
-	printf("                        |请选择要删除的旅客信息对应序号：");
+	printf("                             |请选择要删除的旅客信息对应序号：");
 	{
 		rewind(stdin);
 		fgets(located_passenger_info, 4, stdin);
@@ -712,11 +712,11 @@ void delete_passenger_info(void)
 	}
 	while (1)
 	{
-		if ((strtol(located_passenger_info, NULL, 10) <= 0 || strtol(located_passenger_info, NULL, 10) > passenger_info_num))printf("                        |数据越界！\a\n");
+		if ((strtol(located_passenger_info, NULL, 10) <= 0 || strtol(located_passenger_info, NULL, 10) > passenger_info_num))printf("                             |数据越界！\a\n");
 		else
-			if (located_passenger_info[0] == '\0')printf("                        |未检测到字符！\a\n");
+			if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
 			else break;
-		printf("                        |请选择要删除的旅客信息对应序号：");
+		printf("                             |请选择要删除的旅客信息对应序号：");
 		{
 			rewind(stdin);
 			fgets(located_passenger_info, 4, stdin);
@@ -740,10 +740,10 @@ void delete_passenger_info(void)
 			show_FRMS_title();
 			show_passenger_info_subtitle();
 			line();
-			printf("                        |%02d|%20s|%20s|%12s|%23s|%17s|\n", max, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+			printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", max, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 			line();
 		}
-		printf("                        |请确认是否删除这条旅客信息（y or n）：");
+		printf("                             |请确认是否删除这条旅客信息（y or n）：");
 		{
 			rewind(stdin);
 			fgets(located_passenger_info, 3, stdin);
@@ -752,11 +752,11 @@ void delete_passenger_info(void)
 		}
 		while (1)
 		{
-			if (located_passenger_info[0] != 'y' && located_passenger_info[0] != 'n')printf("                        |含有非法字符！\a\n");
+			if (located_passenger_info[0] != 'y' && located_passenger_info[0] != 'n')printf("                             |含有非法字符！\a\n");
 			else
-				if (located_passenger_info[0] == '\0')printf("                        |未检测到字符！\a\n");
+				if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
 				else break;
-			printf("                        |请确认是否删除这条旅客信息（y or n）：");
+			printf("                             |请确认是否删除这条旅客信息（y or n）：");
 			{
 				rewind(stdin);
 				fgets(located_passenger_info, 3, stdin);
@@ -771,9 +771,9 @@ void delete_passenger_info(void)
 			passenger_info_num--;
 			if (node->next_part != NULL)head_passenger_part--;
 			free(node);
-			printf("                        |删除成功\n");
+			printf("                             |删除成功\n");
 		}
-		else printf("                        |未进行删除操作\n");
+		else printf("                             |未进行删除操作\n");
 	}
 	else
 	{
@@ -783,7 +783,7 @@ void delete_passenger_info(void)
 		line();
 		printf("|%02d|%20s|%20s|%12s|%23s|%17s|\n", max, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
-		printf("                        |请确认是否删除这条旅客信息（y or n）：");
+		printf("                             |请确认是否删除这条旅客信息（y or n）：");
 		{
 			rewind(stdin);
 			fgets(located_passenger_info, 3, stdin);
@@ -792,11 +792,11 @@ void delete_passenger_info(void)
 		}
 		while (1)
 		{
-			if (located_passenger_info[0] != 'y' && located_passenger_info[0] != 'n')printf("                        |含有非法字符！\a\n");
+			if (located_passenger_info[0] != 'y' && located_passenger_info[0] != 'n')printf("                             |含有非法字符！\a\n");
 			else
-				if (located_passenger_info[0] == '\0')printf("                        |未检测到字符！\a\n");
+				if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
 				else break;
-			printf("                        |请确认是否删除这条旅客信息（y or n）：");
+			printf("                             |请确认是否删除这条旅客信息（y or n）：");
 			{
 				rewind(stdin);
 				fgets(located_passenger_info, 3, stdin);
@@ -811,9 +811,9 @@ void delete_passenger_info(void)
 			passenger_info_num--;
 			if (node->next_part != NULL)head_passenger_part--;
 			free(node);
-			printf("                        |删除成功\n");
+			printf("                             |删除成功\n");
 		}
-		else printf("                        |未进行删除操作\n");
+		else printf("                             |未进行删除操作\n");
 	}
 }
 
@@ -830,7 +830,7 @@ void login_passenger(void)
 	show_FRMS_title();
 	show_passenger_title();
 	line();
-	printf("                        |请输入旅客用户名：");
+	printf("                             |请输入旅客用户名：");
 	{
 		rewind(stdin);
 		fgets(input_passenger_username, 25, stdin);
@@ -839,8 +839,8 @@ void login_passenger(void)
 	}
 	while (input_passenger_username[24] != '\0')
 	{
-		printf("                        |超出字符限制长度！\a\n");
-		printf("                        |请输入旅客用户名或身份证号码：");
+		printf("                             |超出字符限制长度！\a\n");
+		printf("                             |请输入旅客用户名或身份证号码：");
 		{
 			memset(input_passenger_username, 0, sizeof(input_passenger_username));
 			rewind(stdin);
@@ -858,8 +858,8 @@ void login_passenger(void)
 		}
 		if (i == passenger_info_num - 1)
 		{
-			printf("                        |用户名或身份证号码不存在！\a\n");
-			printf("                        |");
+			printf("                             |用户名或身份证号码不存在！\a\n");
+			printf("                             |");
 			system("pause");
 			system("cls");
 			return;
@@ -870,8 +870,8 @@ void login_passenger(void)
 	show_FRMS_title();
 	show_passenger_title();
 	line();
-	printf("                        |登陆账户：%s\n", input_passenger_username);
-	printf("                        |请输入密码：");
+	printf("                             |登陆账户：%s\n", input_passenger_username);
+	printf("                             |请输入密码：");
 	{
 		rewind(stdin);
 		fgets(input_passenger_password, 22, stdin);
@@ -880,8 +880,8 @@ void login_passenger(void)
 	}
 	while (input_passenger_password[21] != '\0')
 	{
-		printf("                        |超出字符限制长度！\a\n");
-		printf("                        |请输入密码：");
+		printf("                             |超出字符限制长度！\a\n");
+		printf("                             |请输入密码：");
 		{
 			memset(input_passenger_password, 0, sizeof(input_passenger_password));
 			rewind(stdin);
@@ -892,8 +892,8 @@ void login_passenger(void)
 	}
 	if (strcmp(input_passenger_password, node->password) != 0)
 	{
-		printf("                        |密码错误！\a\n");
-		printf("                        |");
+		printf("                             |密码错误！\a\n");
+		printf("                             |");
 		system("pause");
 		system("cls");
 		return;
@@ -901,8 +901,8 @@ void login_passenger(void)
 	else
 	{
 		line();
-		printf("                        |登录成功，欢迎您 %s！\n", node->name);
-		printf("                        |");
+		printf("                             |登录成功，欢迎您 %s！\n", node->name);
+		printf("                             |");
 		system("pause");
 		system("cls");
 		while (1)
@@ -912,7 +912,7 @@ void login_passenger(void)
 			show_FRMS_title();
 			show_passenger_title();
 			line();
-			printf("                        |%s，您是否要退出登录？（y or n）：", node->name);
+			printf("                             |%s，您是否要退出登录？（y or n）：", node->name);
 			{
 				rewind(stdin);
 				fgets(judge, 3, stdin);
@@ -921,8 +921,8 @@ void login_passenger(void)
 			}
 			while (judge[1] != '\0' || (judge[0] != 'y' && judge[0] != 'n'))
 			{
-				printf("                        |含有非法字符！\a\n");
-				printf("                        |%s，您是否要退出登录？（y or n）：", node->name);
+				printf("                             |含有非法字符！\a\n");
+				printf("                             |%s，您是否要退出登录？（y or n）：", node->name);
 				{
 					rewind(stdin);
 					fgets(judge, 3, stdin);
@@ -932,8 +932,8 @@ void login_passenger(void)
 			if (judge[0] == 'y')
 			{
 				line();
-				printf("                        |注销成功！欢迎再次使用本系统！\n");
-				printf("                        |");
+				printf("                             |注销成功！欢迎再次使用本系统！\n");
+				printf("                             |");
 				system("pause");
 				system("cls");
 				return;
@@ -941,8 +941,8 @@ void login_passenger(void)
 			else
 			{
 				line();
-				printf("                        |返回旅客菜单\n");
-				printf("                        |");
+				printf("                             |返回旅客菜单\n");
+				printf("                             |");
 				system("pause");
 				system("cls");
 			}
