@@ -62,11 +62,11 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 void bridge_sort_flight_info();//ÅÅÐòº¯ÊýÏÎ½Óº¯Êý
 void refine_search_flight_info(int option_num, char* option_info, char refer_info[][32], flight* head);
 void bridge_refine_search_sort_flight_info(void);
-char passenger_item(flight* fp_person);
+void passenger_item(flight* fp_person);
 void add_flight_info(void);
 void modify_flight_info();
 void delete_flight_info(void);
-void passenger_histroy(void);
+void menu_passenger_histroy(void);
 
 void login_passenger(void);
 void pull_passenger_info(void);

@@ -1246,20 +1246,20 @@ void reserve_flight_ticket(void)
 
 }
 //订票函数附属函数
-char passenger_item(flight* fp_person)//订票明细
+void passenger_item(flight* fp_person)//订票明细
 {
 	char he[13] = { "data\\users\\" };//名尾巴
 	char tail[8] = { ".txt" };//名头
 	char total_file[120] = { 0 };//文件名，大点
 	flight* node = fp_person;
 	strcat(total_file, he);//接头
-	//strcat(total_file, Passenger[located_passenger].tell);//中间
-	strcat(total_file, "BHK");//测试用BHK备份
+	strcat(total_file, located_passenger_info_global->nickname);//中间
+	//strcat(total_file, "BHK");//测试用BHK备份
 	strcat(total_file, tail);//接尾
 	FILE* fp = fopen(total_file, "a+");
 	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//指针改为全局变量
 	printf("                             |订票成功！\n");
-	return 0;
+	return;
 }
 
 //输出长横线

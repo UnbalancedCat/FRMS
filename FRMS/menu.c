@@ -667,7 +667,7 @@ void menu_passenger(void)
 		{
 		case '1':system("cls"); menu_passenger_flight_info(); break;
 		case '2':system("cls"); menu_passenger_info(); break;
-		case '0':system("cls"); return;
+		case '0':system("cls"); located_passenger_info_global = NULL; located_flight_info_global = NULL; return;
 		}
 
 	}
@@ -685,6 +685,7 @@ void menu_passenger_flight_info(void)
 		printf("                                                                            1. 排 序\n");
 		printf("                                                                            2. 查 询\n");
 		printf("                                                                            3. 订 票\n");
+		printf("                                                                            4. 历 史 订 单\n");
 		printf("                                                                            0. 返 回\n");
 		line();
 		printf("                             |请输入对应序号访问功能（0-3）：");
@@ -694,7 +695,7 @@ void menu_passenger_flight_info(void)
 			rewind(stdin);
 			if ('\n' == begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1]) begin_passenger_flight_info[strlen(begin_passenger_flight_info) - 1] = 0;
 		}
-		while (begin_passenger_flight_info[1] != '\0' || (begin_passenger_flight_info[0] < '0' && begin_passenger_flight_info[0] > '3'))
+		while (begin_passenger_flight_info[1] != '\0' || (begin_passenger_flight_info[0] < '0' && begin_passenger_flight_info[0] > '4'))
 		{
 			printf("                             |含有非法字符，请重新输入！\a\n");
 			printf("                             |请输入对应序号访问功能（0-2）：");
@@ -709,7 +710,8 @@ void menu_passenger_flight_info(void)
 		{
 		case '1':system("cls"); bridge_sort_flight_info(); break;
 		case '2':system("cls"); bridge_refine_search_sort_flight_info(); break;
-		case '3':system("cls"); break;
+		case '3':system("cls"); reserve_flight_ticket(); break;
+		case '4':system("cls"); menu_passenger_histroy(); break;
 		case '0':system("cls"); return;
 		}
 
@@ -762,8 +764,8 @@ void menu_passenger_pull(void)
 	char tail[8] = { ".txt" };//名头
 	char total_file[120] = { 0 };//文件名，大点
 	strcat(total_file, he);//接头
-	//strcat(total_file, Passenger[located_passenger].tell);//中间
-	strcat(total_file, "BHK");
+	strcat(total_file, located_passenger_info_global->nickname);//中间
+	//strcat(total_file, "BHK");
 	strcat(total_file, tail);//接尾
 	FILE* fp = fopen(total_file, "r");//file pointer
 
