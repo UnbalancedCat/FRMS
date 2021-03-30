@@ -444,6 +444,8 @@ void add_passenger_info(void)
 	if (temporary == NULL)
 	{
 		printf("                             |申请空间失败\a\n");
+		system("pause");
+		system("cls");
 		return;
 	}
 	else
@@ -452,6 +454,9 @@ void add_passenger_info(void)
 		node = secret_passenger_info;
 
 		{
+			show_FRMS_title();//调用输出航班预定管理系统题头函数
+			show_passenger_info_title();//调用输出输出航班预定管理系统题头函数
+			show_passenger_info(head_passenger_global);
 			line();
 			printf("                             |字符数限制长度：\n");
 			printf("                             |A:20   B:20   C:12   D:23   E:17\n");
@@ -514,7 +519,7 @@ void add_passenger_info(void)
 					if ('\n' == temporary->name[strlen(temporary->name) - 1]) temporary->name[strlen(temporary->name) - 1] = 0;
 				}
 			}
-			printf("                             |C   身 份 证 号 码：");
+			printf("                             |D   身 份 证 号 码：");
 			{
 				rewind(stdin);
 				fgets(temporary->id_num, 24, stdin);
@@ -524,7 +529,7 @@ void add_passenger_info(void)
 			while (temporary->id_num[0] == '\0')
 			{
 				printf("                             |未检测到字符，请重新输入！\a\n");
-				printf("                             |C   身 份 证 号 码：");
+				printf("                             |D   身 份 证 号 码：");
 				{
 					memset(temporary->id_num, 0, sizeof(temporary->id_num));
 					rewind(stdin);
@@ -592,6 +597,9 @@ void add_passenger_info(void)
 			secret_passenger_info = node;//保存最后成员的地址
 		}
 	}
+	printf("                             |");
+	system("pause");
+	system("cls");
 }
 //修改旅客信息函数
 void modify_passenger_info(void)
@@ -676,7 +684,7 @@ void modify_passenger_info(void)
 		printf("                             |字符数限制长度：\n");
 		printf("                             |A:20   B:20   C:12   D:23   E:17\n");
 		line();
-		printf("%s -> ", node->nickname + offset);
+		printf("                             %s -> ", node->nickname + offset);
 		{
 			rewind(stdin);
 			fgets((node->nickname + offset), limmit, stdin);
@@ -685,10 +693,12 @@ void modify_passenger_info(void)
 		}
 		printf("                             |修改成功\n");
 		line();
-		printf("|%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+		printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
-
 	}
+	printf("                             |");
+	system("pause");
+	system("cls");
 }
 //删除旅客信息函数
 void delete_passenger_info(void)
@@ -781,7 +791,7 @@ void delete_passenger_info(void)
 		show_FRMS_title();
 		show_passenger_info_subtitle();
 		line();
-		printf("|%02d|%20s|%20s|%12s|%23s|%17s|\n", max, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+		printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", max, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
 		printf("                             |请确认是否删除这条旅客信息（y or n）：");
 		{
@@ -815,6 +825,9 @@ void delete_passenger_info(void)
 		}
 		else printf("                             |未进行删除操作\n");
 	}
+	printf("                             |");
+	system("pause");
+	system("cls");
 }
 
 //旅客登录函数

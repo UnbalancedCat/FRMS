@@ -273,10 +273,9 @@ void menu_manager_passager(void)
 	{
 
 		show_FRMS_title();
-		show_manager_title();
-		show_passenger_info(head_passenger_global);
-		line();
 		show_passenger_info_title();
+		show_passenger_info(head_passenger_global);
+		show_manager_title();
 		line();
 		printf("                                                                           1. Ìí ¼Ó\n");
 		printf("                                                                           2. É¾ ³ý\n");
