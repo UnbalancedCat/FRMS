@@ -59,18 +59,19 @@ void menu_manager_login(void)
 			printf("\n                                                                        管 理 员 登 录\n\n");
 			line();
 		}
-		printf("                             |请输入密码(按0返回)：");
+		printf("                             |键入c取消输入，返回上级菜单！\n");
+		printf("                             |请输入密码：");
 		{
 			rewind(stdin);
 			fgets(password_input, 8, stdin);
 			rewind(stdin);
 			if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 		}
-		if (password_input[0] == '0' && password_input[1] == '\0')break;
+		if (password_input[0] == 'c' && password_input[1] == '\0')break;
 		while (strcmp(password_input, password_real) != 0)
 		{
 			printf("                             |密码错误！\a\n");
-			printf("                             |请重新输入密码(按0返回)：");
+			printf("                             |请重新输入密码：");
 			{
 				memset(password_input, 0, sizeof(password_input));
 				rewind(stdin);
@@ -78,7 +79,7 @@ void menu_manager_login(void)
 				rewind(stdin);
 				if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 			}
-			if (password_input[0] == '0' && password_input[1] == '\0')break;
+			if (password_input[0] == 'c' && password_input[1] == '\0')break;
 		}
 		{
 			fclose(fp);
