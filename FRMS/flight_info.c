@@ -10,7 +10,7 @@ void init(void)
 	pull_flight_info();//读取航班信息;
 	pull_passenger_info();
 
-	full_screen();
+	//full_screen();
 	line();
 	printf("\n\n\n                                                                   欢      迎      使      用\n\n\n");
 	printf("                                                   航      班      预      定      管      理      系      统\n\n\n\n");

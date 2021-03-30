@@ -519,7 +519,7 @@ void add_passenger_info(void)
 					if ('\n' == temporary->name[strlen(temporary->name) - 1]) temporary->name[strlen(temporary->name) - 1] = 0;
 				}
 			}
-			printf("                             |C   身 份 证 号 码：");
+			printf("                             |D   身 份 证 号 码：");
 			{
 				rewind(stdin);
 				fgets(temporary->id_num, 24, stdin);
@@ -529,7 +529,7 @@ void add_passenger_info(void)
 			while (temporary->id_num[0] == '\0')
 			{
 				printf("                             |未检测到字符，请重新输入！\a\n");
-				printf("                             |C   身 份 证 号 码：");
+				printf("                             |D   身 份 证 号 码：");
 				{
 					memset(temporary->id_num, 0, sizeof(temporary->id_num));
 					rewind(stdin);
@@ -597,6 +597,7 @@ void add_passenger_info(void)
 			secret_passenger_info = node;//保存最后成员的地址
 		}
 	}
+	printf("                             |");
 	system("pause");
 	system("cls");
 }
@@ -694,9 +695,10 @@ void modify_passenger_info(void)
 		line();
 		printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
-		system("pause");
-		system("cls");
 	}
+	printf("                             |");
+	system("pause");
+	system("cls");
 }
 //删除旅客信息函数
 void delete_passenger_info(void)
@@ -823,6 +825,7 @@ void delete_passenger_info(void)
 		}
 		else printf("                             |未进行删除操作\n");
 	}
+	printf("                             |");
 	system("pause");
 	system("cls");
 }
