@@ -250,7 +250,7 @@ void bridge_sort_passenger_info(void)
 	int option_num = 0;//关键字个数
 
 	//处理排序标识符输入
-	printf("                             |请选择排序顺序（D：顺序，U：倒叙）：");
+	/*printf("                             |请选择排序顺序（D：顺序，U：倒叙）：");
 	{
 		rewind(stdin);
 		fgets(direction, 3, stdin);
@@ -267,7 +267,7 @@ void bridge_sort_passenger_info(void)
 			rewind(stdin);
 			if ('\n' == direction[strlen(direction) - 1]) direction[strlen(direction) - 1] = 0;
 		}
-	}
+	}*/
 	//处理排序关键字输入
 	printf("                             |请选择排序关键字序号（如：AE ）：");
 	{
@@ -275,6 +275,15 @@ void bridge_sort_passenger_info(void)
 		fgets(option_info, 7, stdin);
 		rewind(stdin);
 		if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+	}
+	if (option_info[0] == 'c' && option_info[1] == '\0')
+	{
+		line();
+		printf("                             |取消成功！\n");
+		printf("                             |");
+		system("pause");
+		system("cls");
+		return;
 	}
 	i = (int)strlen(option_info);
 	while (i)
@@ -849,6 +858,15 @@ void delete_passenger_info(void)
 		rewind(stdin);
 		if ('\n' == located_passenger_info[strlen(located_passenger_info) - 1]) located_passenger_info[strlen(located_passenger_info) - 1] = 0;
 	}
+	if (located_passenger_info[0] == 'c' && located_passenger_info[1] == '\0')
+	{
+		line();
+		printf("                             |取消成功！\n");
+		printf("                             |");
+		system("pause");
+		system("cls");
+		return;
+	}
 	while (1)
 	{
 		if ((strtol(located_passenger_info, NULL, 10) <= 0 || strtol(located_passenger_info, NULL, 10) > passenger_info_num))printf("                             |数据越界！\a\n");
@@ -861,6 +879,15 @@ void delete_passenger_info(void)
 			fgets(located_passenger_info, 4, stdin);
 			rewind(stdin);
 			if ('\n' == located_passenger_info[strlen(located_passenger_info) - 1]) located_passenger_info[strlen(located_passenger_info) - 1] = 0;
+		}
+		if (located_passenger_info[0] == 'c' && located_passenger_info[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
 		}
 	}
 
