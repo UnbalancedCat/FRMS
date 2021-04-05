@@ -406,7 +406,7 @@ void menu_file_backup_to(void)
 		show_manager_title();
 		line();
 		printf("                             |示例：data\\file_name.txt\n");
-		printf("                             |请输入所要备份的文件路径,包含扩展名(按0返回）：");
+		printf("                             |请输入所要备份的文件路径,包含扩展名(按c取消操作）：");
 		
 		{
 			rewind(stdin);
@@ -414,19 +414,37 @@ void menu_file_backup_to(void)
 			rewind(stdin);
 			if ('\n' == yuan_name[strlen(yuan_name) - 1]) yuan_name[strlen(yuan_name) - 1] = 0;
 		}
-		if (strcmp(yuan_name, "0") == 0)
+		//if (strcmp(yuan_name, "0") == 0)
+		//{
+			//system("cls"); return;
+		//}
+		if (yuan_name[0] == 'c' && yuan_name[1] == '\0')
 		{
-			system("cls"); return;
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
 		}
 		else
 		{
 			printf("                             |示例：backup\\file_name.txt\n");
-			printf("                             |请输入备份路径：");
+			printf("                             |请输入备份路径(按c取消操作）：");
 			{
 				rewind(stdin);
 				fgets(bei_name, 150, stdin);
 				rewind(stdin);
 				if ('\n' == bei_name[strlen(bei_name) - 1]) bei_name[strlen(bei_name) - 1] = 0;
+			}
+			if (bei_name[0] == 'c' && bei_name[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
 			}
 			FILE* fp1_1 = fopen(yuan_name, "r");//源文件名
 			FILE* fp2_1 = fopen(bei_name, "w");//目标文件名
@@ -470,6 +488,7 @@ void menu_file_backup_to(void)
 void menu_file_backup(void)
 {
 	push_flight_info();
+	push_passenger_info();
 	char ch;
 	while(1)
 	{
@@ -488,7 +507,7 @@ void menu_file_backup(void)
 		}
 		else
 		{
-			system("copy .\\data\\flight_info .\\backup\\flight_info");
+			system("copy .\\data\\flight_info\\ .\\backup\\flight_info\\");
 			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
@@ -517,6 +536,7 @@ void menu_file_backup(void)
 		}
 		
 	}
+
 	
 }
 void menu_file_recover(void)
@@ -528,11 +548,11 @@ void menu_file_recover(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		FILE* fp1_1 = fopen("backup\\flight_info.txt", "r");
-		FILE* fp1_2 = fopen("backup\\passenger_info.txt", "r");
-		FILE* fp1_3 = fopen("backup\\password_manager.txt", "r");
 
-		if (fp1_1 == NULL || fp1_2 == NULL || fp1_3 == NULL)
+		FILE* fp1_2 = fopen("backup\\passenger_info.txt", "r");//单独拷贝passenger_info
+		FILE* fp1_3 = fopen("backup\\password_manager.txt", "r");//password_manager
+
+		if ( fp1_2 == NULL || fp1_3 == NULL)
 		{
 			system("cls");
 			printf("                             |找不到指定文件!\a\n");
@@ -541,15 +561,7 @@ void menu_file_recover(void)
 		}
 		else
 		{
-
-			FILE* fp2_1 = fopen("data\\flight_info.txt", "w");
-			while ((ch = fgetc(fp1_1)) != EOF)//1
-			{
-				fputc(ch, fp2_1);
-			}
-			fclose(fp1_1);
-			fclose(fp2_1);
-
+			system("copy .\\backup\\flight_info\\ .\\data\\flight_info\\");
 			FILE* fp2_2 = fopen("data\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
@@ -566,6 +578,10 @@ void menu_file_recover(void)
 			fclose(fp1_3);
 			fclose(fp2_3);
 
+			system("cls");
+			show_FRMS_title();
+			show_manager_title();
+			line();
 			printf("                             |已恢复至 data 文件夹!\n");
 			printf("                             |");
 			system("pause");
@@ -596,7 +612,7 @@ void menu_file_recover_to(void)
 		show_manager_title();
 		line();
 		printf("                             |示例：backup\\file_name.txt\n");
-		printf("                             |请输入已备份文件路径(按0返回)：");
+		printf("                             |请输入已备份文件路径(按c取消操作)：");
 
 		{
 			rewind(stdin);
@@ -604,19 +620,33 @@ void menu_file_recover_to(void)
 			rewind(stdin);
 			if ('\n' == bei_ex_name[strlen(bei_ex_name) - 1]) bei_ex_name[strlen(bei_ex_name) - 1] = 0;
 		}
-		if (strcmp(bei_ex_name, "0") == 0)
+		if (bei_ex_name[0] == 'c' && bei_ex_name[1] == '\0')
 		{
-			system("cls"); return;
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
 		}
 		else
 		{
 			printf("                             |示例：data\\file_name.txt\n");
-			printf("                             |请输入需恢复文件路径：");
+			printf("                             |请输入需恢复文件路径(按c取消操作)：");
 			{
 				rewind(stdin);
 				fgets(hui_name, 150, stdin);
 				rewind(stdin);
 				if ('\n' == hui_name[strlen(hui_name) - 1]) hui_name[strlen(hui_name) - 1] = 0;
+			}
+			if (hui_name[0] == 'c' && hui_name[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
 			}
 
 			FILE* fp1 = fopen(bei_ex_name, "r");//文件备份名
