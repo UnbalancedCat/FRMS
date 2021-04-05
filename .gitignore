@@ -5,7 +5,6 @@ Release/
 ignore/
 x64/
 FRMS/x64
-data/users/
 
 # Other files and folders
 .vs/
