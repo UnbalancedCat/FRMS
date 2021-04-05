@@ -35,4 +35,4 @@ Take Visual Studio 2019 as an example
 2.  新建 Feat_xxx 分支
 3.  提交代码
 
-[![star](https://gitee.com/UnbalancedCat/FRMS/badge/star.svg?theme=dark)](https://gitee.com/UnbalancedCat/FRMS/stargazers)
+[![start](https://gitee.com/UnbalancedCat/FRMS/badge/star.svg?theme=dark)](https://gitee.com/UnbalancedCat/FRMS/stargazers)
