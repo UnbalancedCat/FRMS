@@ -386,6 +386,7 @@ void bridge_sort_flight_info(void)
 		return;
 	}
 	i = (int)strlen(option_info);
+	if (i == 0)i++;
 	while (i)
 	{
 		if (option_info[9] != '\0' || (option_info[i - 1] < 'A' || option_info[i - 1] > 'H'))
@@ -409,6 +410,7 @@ void bridge_sort_flight_info(void)
 				return;
 			}
 			i = (int)strlen(option_info);
+			if (i == 0)i++;
 		}
 		else i--;
 	}

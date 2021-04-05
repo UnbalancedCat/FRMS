@@ -252,7 +252,8 @@ void bridge_sort_passenger_info(void)
 
 	//处理排序标识符输入
 	show_FRMS_title();
-	line();
+	show_passenger_info_title();
+	show_passenger_info(head_passenger_global);
 	printf("                             |键入c取消输入，返回上级菜单!\n");
 	/*printf("                             |请选择排序顺序（D：顺序，U：倒叙）：");
 	{
@@ -429,6 +430,8 @@ void bridge_refine_search_sort_passenger_info(void)
 	{
 		i = 5;
 		show_FRMS_title();
+		show_passenger_info_title();
+		show_passenger_info(head_passenger_global);
 		line();
 		printf("                             |关键词个数上限为5个，键入f完成输入；键入c取消输入，返回上级菜单！\n");
 		line();
