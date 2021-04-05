@@ -358,11 +358,11 @@ void menu_file(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                                                 1. 备 份 全 局 文 件\n");
-		printf("                                                                 2. 自 定 义 备 份\n");
-		printf("                                                                 3. 恢 复 全 局 文 件\n");
-		printf("                                                                 4. 自 定 义 恢 复\n");
-		printf("                                                                 0. 返 回\n");
+		printf("                                                                        1. 备 份 全 局 文 件\n");
+		printf("                                                                        2. 自 定 义 备 份\n");
+		printf("                                                                        3. 恢 复 全 局 文 件\n");
+		printf("                                                                        4. 自 定 义 恢 复\n");
+		printf("                                                                        0. 返 回\n");
 		line();
 		printf("                             |请输入对应序号访问功能（0-3）：");
 		{
