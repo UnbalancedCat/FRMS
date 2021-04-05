@@ -329,7 +329,8 @@ void bridge_sort_flight_info(void)
 
 	//处理排序标识符输入
 	show_FRMS_title();
-	line();
+	show_flight_info_title();
+	show_flight_info(head_flight_global);
 	printf("                             |键入c取消输入，返回上级菜单!\n");
 	/*printf("                             |请选择排序顺序（D：顺序，U：倒叙）：");
 	{
@@ -522,7 +523,8 @@ void bridge_refine_search_sort_flight_info(void)
 	{
 		i = 8;
 		show_FRMS_title();
-		line();
+		show_flight_info_title();
+		show_flight_info(head_flight_global);
 		printf("                             |关键词个数上限为8个，键入f完成输入；键入c取消输入，返回上级菜单！\n");
 		line();
 		while (i)
@@ -1292,7 +1294,7 @@ void passenger_item(flight* fp_person)//订票明细
 	
 	flight* node = fp_person;
 	strcat(total_file, he);//接头
-	strcat(total_file, located_passenger_info_global->nickname);//中间
+	strcat(total_file, located_passenger_info_global->name);//中间
 	//strcat(total_file, "BHK");//测试用BHK备份
 	strcat(total_file, tail);//接尾
 
@@ -1314,7 +1316,8 @@ void line(void)
 void show_FRMS_title(void)
 {
 	line();
-	printf("\n\n                                                  航      班      预      定      管      理      系      统\n\n\n");
+	printf("\n\n                                                  航      班      预      定      管      理      系      统\n\n");
+	printf("                                                          %04d    年      %02d      月      %02d      日\n\n", init_time->tm_year + 1900, init_time->tm_mon+1, init_time->tm_mday);
 }
 //输出航班时刻表题头
 void show_flight_info_title(void)

@@ -903,31 +903,9 @@ void modify_passenger_info_passenger(void)
 	line();
 	printf("                             |  |%20s|%20s|%12s|%23s|%17s|\n", node->nickname, node->password, node->name, node->id_num, node->phone_num);
 	line();
-
 	printf("                             |键入c取消修改，返回上级菜单!\n");
-	printf("                             |请选择要修改的旅客信息对应序号：");
-	{
-		rewind(stdin);
-		fgets(located_passenger_info, 4, stdin);
-		rewind(stdin);
-		if ('\n' == located_passenger_info[strlen(located_passenger_info) - 1]) located_passenger_info[strlen(located_passenger_info) - 1] = 0;
-	}
-	if (located_passenger_info[0] == 'c' && located_passenger_info[1] == '\0')
-	{
-		line();
-		printf("                             |取消成功！\n");
-		printf("                             |");
-		system("pause");
-		system("cls");
-		return;
-	}
 	while (1)
 	{
-		if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
-		else
-			if (located_passenger_info[0] < 'A' || located_passenger_info[0] > 'H')printf("                             |含有非法字符！\a\n");
-			else break;
-		printf("                             |键入c取消修改，返回上级菜单!\n");
 		printf("                             |请选择要修改的旅客信息对应序号：");
 		{
 			rewind(stdin);
@@ -944,16 +922,46 @@ void modify_passenger_info_passenger(void)
 			system("cls");
 			return;
 		}
-	}
-	switch (located_passenger_info[0])
-	{
-	case 'A':offset = 0, limmit = 21; break;
-	case 'B':offset = 50, limmit = 21; break;
-	case 'C':offset = 100, limmit = 13; break;
-	case 'D':offset = 150, limmit = 24; break;
-	case 'E':offset = 180, limmit = 18; break;
-
-	default: printf("                             |传递参数错误，关键字错误\n\a"); return;
+		while (1)
+		{
+			if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
+			else
+				if (located_passenger_info[0] < 'A' || located_passenger_info[0] > 'H')printf("                             |含有非法字符！\a\n");
+				else break;
+			printf("                             |键入c取消修改，返回上级菜单!\n");
+			printf("                             |请选择要修改的旅客信息对应序号：");
+			{
+				rewind(stdin);
+				fgets(located_passenger_info, 4, stdin);
+				rewind(stdin);
+				if ('\n' == located_passenger_info[strlen(located_passenger_info) - 1]) located_passenger_info[strlen(located_passenger_info) - 1] = 0;
+			}
+			if (located_passenger_info[0] == 'c' && located_passenger_info[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
+		}
+		switch (located_passenger_info[0])
+		{
+		case 'A':offset = 0, limmit = 21; break;
+		case 'B':offset = 50, limmit = 21; break;
+		case 'C':break;
+		case 'D':offset = 150, limmit = 24; break;
+		case 'E':offset = 180, limmit = 18; break;
+		default: printf("                             |传递参数错误，关键字错误\n\a"); return;
+		}
+		if (located_passenger_info[0] != 'C')break;
+		else
+		{
+			line();
+			printf("                             |没有权限！如需修改姓名，请联系管理员！\a\n");
+			line();
+		}
 	}
 	{
 		line();
