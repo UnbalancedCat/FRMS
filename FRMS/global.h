@@ -26,7 +26,7 @@ flight* located_flight_info_global;
 typedef struct passenger_info//旅客信息结构体
 {
 
-	char nickname[50];	//用户昵称
+	char nickname[50];	//用户名
 	char password[50];	//用户密码
 	char name[50];		//姓名
 	char id_num[30];	//身份证号
@@ -66,6 +66,7 @@ void passenger_item(flight* fp_person);
 void add_flight_info(void);
 void modify_flight_info();
 void delete_flight_info(void);
+void reserve_flight_ticket(void);
 void menu_passenger_histroy(void);
 
 void login_passenger(void);
@@ -78,6 +79,7 @@ void refine_search_passenger_info(int option_num, char* option_info, char refer_
 void bridge_refine_search_sort_passenger_info(void);
 void add_passenger_info(void);
 void modify_passenger_info(void);
+void modify_passenger_info_passenger(void);
 void delete_passenger_info(void);
 
 void menu(void);//主菜单

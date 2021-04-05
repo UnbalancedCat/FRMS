@@ -472,7 +472,7 @@ void add_passenger_info(void)
 			line();
 			printf("                             |键入c取消录入，返回上级菜单!\n");
 			printf("                             |请输入新添加的对应信息：\n");
-			printf("                             |A   昵          称：");
+			printf("                             |A   用    户    名：");
 			{
 				rewind(stdin);
 				fgets(temporary->nickname, 21, stdin);
@@ -491,7 +491,7 @@ void add_passenger_info(void)
 			while (temporary->nickname[0] == '\0')
 			{
 				printf("                             |未检测到字符，请重新输入！\a\n");
-				printf("                             |A   昵          称：");
+				printf("                             |A   用    户    名：");
 				{
 					memset(temporary->nickname, 0, sizeof(temporary->nickname));
 					rewind(stdin);
@@ -701,7 +701,7 @@ void add_passenger_info(void)
 	system("pause");
 	system("cls");
 }
-//修改旅客信息函数
+//修改旅客信息函数_管理员
 void modify_passenger_info(void)
 {
 	int i;
@@ -832,6 +832,94 @@ void modify_passenger_info(void)
 		printf("                             |修改成功\n");
 		line();
 		printf("                             |%02d|%20s|%20s|%12s|%23s|%17s|\n", ++i, node->nickname, node->password, node->name, node->id_num, node->phone_num);
+		line();
+	}
+	printf("                             |");
+	system("pause");
+	system("cls");
+}
+//修改旅客信息函数_旅客
+void modify_passenger_info_passenger(void)
+{
+	passenger* node = located_passenger_info_global;
+	char located_passenger_info[32];
+	int offset, limmit;
+
+
+	system("cls");
+	show_FRMS_title();
+	show_passenger_title();
+	show_passenger_info_subtitle();
+	line();
+	printf("                             |  |%20s|%20s|%12s|%23s|%17s|\n", node->nickname, node->password, node->name, node->id_num, node->phone_num);
+	line();
+
+	printf("                             |键入c取消修改，返回上级菜单!\n");
+	printf("                             |请选择要修改的旅客信息对应序号：");
+	{
+		rewind(stdin);
+		fgets(located_passenger_info, 4, stdin);
+		rewind(stdin);
+		if ('\n' == located_passenger_info[strlen(located_passenger_info) - 1]) located_passenger_info[strlen(located_passenger_info) - 1] = 0;
+	}
+	if (located_passenger_info[0] == 'c' && located_passenger_info[1] == '\0')
+	{
+		line();
+		printf("                             |取消成功！\n");
+		printf("                             |");
+		system("pause");
+		system("cls");
+		return;
+	}
+	while (1)
+	{
+		if (located_passenger_info[0] == '\0')printf("                             |未检测到字符！\a\n");
+		else
+			if (located_passenger_info[0] < 'A' || located_passenger_info[0] > 'H')printf("                             |含有非法字符！\a\n");
+			else break;
+		printf("                             |键入c取消修改，返回上级菜单!\n");
+		printf("                             |请选择要修改的旅客信息对应序号：");
+		{
+			rewind(stdin);
+			fgets(located_passenger_info, 4, stdin);
+			rewind(stdin);
+			if ('\n' == located_passenger_info[strlen(located_passenger_info) - 1]) located_passenger_info[strlen(located_passenger_info) - 1] = 0;
+		}
+		if (located_passenger_info[0] == 'c' && located_passenger_info[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
+	}
+	switch (located_passenger_info[0])
+	{
+	case 'A':offset = 0, limmit = 21; break;
+	case 'B':offset = 50, limmit = 21; break;
+	case 'C':offset = 100, limmit = 13; break;
+	case 'D':offset = 150, limmit = 24; break;
+	case 'E':offset = 180, limmit = 18; break;
+
+	default: printf("                             |传递参数错误，关键字错误\n\a"); return;
+	}
+	{
+		line();
+		printf("                             |字符数限制长度：\n");
+		printf("                             |A:20   B:20   C:12   D:23   E:17\n");
+		line();
+		printf("                             |%s -> ", node->nickname + offset);
+		{
+			rewind(stdin);
+			fgets((node->nickname + offset), limmit, stdin);
+			rewind(stdin);
+			if ('\n' == (node->nickname + offset)[strlen((node->nickname + offset)) - 1]) (node->nickname + offset)[strlen((node->nickname + offset)) - 1] = 0;
+		}
+		printf("                             |修改成功\n");
+		line();
+		printf("                             |  |%20s|%20s|%12s|%23s|%17s|\n", node->nickname, node->password, node->name, node->id_num, node->phone_num);
 		line();
 	}
 	printf("                             |");
@@ -985,7 +1073,6 @@ void delete_passenger_info(void)
 	system("pause");
 	system("cls");
 }
-
 //旅客登录函数
 void login_passenger(void)
 {

@@ -296,7 +296,8 @@ flight* sort_flight_info(char direction, int option_num, char* option_info, int 
 void bridge_sort_flight_info(void)
 {
 	int i = 8;
-	char direction[4] = "D";//顺序
+	char direction[4] = { 0 };
+	direction[0] = 'D';//顺序
 	char option_info[10] = { 0 };//存储关键字
 	int option_num = 0;//关键字个数
 
@@ -1259,6 +1260,7 @@ void passenger_item(flight* fp_person)//订票明细
 	FILE* fp = fopen(total_file, "a+");
 	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//指针改为全局变量
 	printf("                             |订票成功！\n");
+	fclose(fp);
 	return;
 }
 
@@ -1301,7 +1303,7 @@ void show_passenger_title(void)
 void show_passenger_info_subtitle(void)
 {
 	line();
-	printf("                             |  |%20s|%20s|%12s|%23s|%17s|\n", "A用户昵称", "B用户密码", "C姓名", "D身份证号", "E联系方式");
+	printf("                             |  |%20s|%20s|%12s|%23s|%17s|\n", "A用户名", "B用户密码", "C姓名", "D身份证号", "E联系方式");
 }
 //输出管理员标题
 void show_manager_title(void)

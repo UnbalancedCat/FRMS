@@ -724,23 +724,22 @@ void menu_passenger_info(void)
 	{
 		show_FRMS_title();
 		show_passenger_title();
+		show_passenger_info(located_passenger_info_global);
 		line();
-		printf("                                                                        1. 添 加\n");
-		printf("                                                                        2. 删 除\n");
-		printf("                                                                        3. 修 改\n");
+		printf("                                                                        1. 修 改\n");
 		printf("                                                                        0. 返 回\n");
 		line();
-		printf("                             |请输入对应序号访问功能（0-3）：");
+		printf("                             |请输入对应序号访问功能（0-1）：");
 		{
 			rewind(stdin);
 			fgets(begin_passenger_info, 3, stdin);
 			rewind(stdin);
 			if ('\n' == begin_passenger_info[strlen(begin_passenger_info) - 1]) begin_passenger_info[strlen(begin_passenger_info) - 1] = 0;
 		}
-		while (begin_passenger_info[1] != '\0' || (begin_passenger_info[0] < '0' && begin_passenger_info[0] > '3'))
+		while (begin_passenger_info[1] != '\0' || (begin_passenger_info[0] < '0' && begin_passenger_info[0] > '1'))
 		{
 			printf("                             |含有非法字符，请重新输入！\a\n");
-			printf("                             |请输入对应序号访问功能（0-2）：");
+			printf("                             |请输入对应序号访问功能（0-1）：");
 			{
 				rewind(stdin);
 				fgets(begin_passenger_info, 3, stdin);
@@ -751,9 +750,7 @@ void menu_passenger_info(void)
 
 		switch (begin_passenger_info[0])
 		{
-		case '1':system("cls"); add_passenger_info(); break;
-		case '2':system("cls"); delete_passenger_info(); break;
-		case '3':system("cls");  modify_passenger_info(); break;
+		case '1':system("cls"); modify_passenger_info_passenger(); break;
 		case '0':system("cls"); return;
 		}
 	}
