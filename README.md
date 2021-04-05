@@ -1,3 +1,4 @@
+[![star](https://gitee.com/UnbalancedCat/FRMS/badge/star.svg?theme=dark)](https://gitee.com/UnbalancedCat/FRMS/stargazers)
 # Flight Reservation Management System
 # 航班预定管理系统
 
