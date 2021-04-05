@@ -358,8 +358,8 @@ void menu_file(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                                             1. 备 份 文 件 到 backup 文 件 夹\n");
-		printf("                                                             2.备 份 文 件 到 指 定 路 径\n");
+		printf("                                                             1.备 份 文 件 到 backup 文 件 夹\n");
+		printf("                                                             2.备 份 文 件 到 任 意 路 径\n");
 		printf("                                                             3.恢 复\n");
 		printf("                                                             0.返 回\n");
 		line();
@@ -469,7 +469,7 @@ void menu_file_backup(void)
 		show_manager_title();
 		line();
 		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
-		FILE* fp1_2 = fopen("data\\passenger.txt", "r");
+		FILE* fp1_2 = fopen("data\\passenger_info.txt", "r");
 		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
 		
 		if (fp1_1 == NULL|| fp1_2 == NULL|| fp1_3 == NULL )
@@ -490,7 +490,7 @@ void menu_file_backup(void)
 			fclose(fp1_1);
 			fclose(fp2_1);
 
-			FILE* fp2_2 = fopen("backup\\passenger.txt", "w");
+			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
 				fputc(ch, fp2_2);
