@@ -706,9 +706,9 @@ void menu_passenger(void)
 		show_FRMS_title();
 		show_passenger_title();
 		line();
-		printf("                                                                         1. 航 班 信 息\n");
-		printf("                                                                         2. 旅 客 信 息\n");
-		printf("                                                                         0. 退 出\n");
+		printf("                                                                        1. 航 班 信 息\n");
+		printf("                                                                        2. 旅 客 信 息\n");
+		printf("                                                                        0. 退 出\n");
 		line();
 		printf("                             |请输入对应序号访问功能（0-2）：");
 		{
@@ -717,7 +717,7 @@ void menu_passenger(void)
 			rewind(stdin);
 			if ('\n' == begin_passenger[strlen(begin_passenger) - 1])  begin_passenger[strlen(begin_passenger) - 1] = 0;
 		}
-		while (begin_passenger[1] != '\0' || (begin_passenger[0] != '1' || begin_passenger[0] != '2' && begin_passenger[0] != '0'))
+		while (begin_passenger[1] != '\0' || (begin_passenger[0] != '1' && begin_passenger[0] != '2' && begin_passenger[0] != '0'))
 		{
 			printf("                             |含有非法字符，请重新输入！\a\n");
 			printf("                             |请输入对应序号访问功能（0-2）：");
@@ -748,11 +748,11 @@ void menu_passenger_flight_info(void)
 		show_flight_info(head_flight_global);
 		show_passenger_title();
 		line();
-		printf("                                                                            1. 排 序\n");
-		printf("                                                                            2. 查 询\n");
-		printf("                                                                            3. 订 票\n");
-		printf("                                                                            4. 历 史 订 单\n");
-		printf("                                                                            0. 返 回\n");
+		printf("                                                                          1. 排 序\n");
+		printf("                                                                          2. 查 询\n");
+		printf("                                                                          3. 订 票\n");
+		printf("                                                                          4. 历 史 订 单\n");
+		printf("                                                                          0. 返 回\n");
 		line();
 		printf("                             |请输入对应序号访问功能（0-3）：");
 		{
@@ -793,8 +793,8 @@ void menu_passenger_info(void)
 		show_passenger_title();
 		show_passenger_info(located_passenger_info_global);
 		line();
-		printf("                                                                        1. 修 改\n");
-		printf("                                                                        0. 返 回\n");
+		printf("                                                                           1. 修 改\n");
+		printf("                                                                           0. 返 回\n");
 		line();
 		printf("                             |请输入对应序号访问功能（0-1）：");
 		{

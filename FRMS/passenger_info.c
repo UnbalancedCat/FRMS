@@ -273,31 +273,25 @@ void bridge_sort_passenger_info(void)
 		}
 	}*/
 	//处理排序关键字输入
-	while (1)
+
+	printf("                             |请选择排序关键字序号（如：AE ）：");
 	{
-		printf("                             |请选择排序关键字序号（如：AE ）：");
-		{
-			rewind(stdin);
-			fgets(option_info, 7, stdin);
-			rewind(stdin);
-			if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
-		}
-		if (option_info[0] == 'c' && option_info[1] == '\0')
-		{
-			line();
-			printf("                             |取消成功！\n");
-			printf("                             |");
-			system("pause");
-			system("cls");
-			return;
-		}
-		i = (int)strlen(option_info);
-		if (option_info[0] != '\0')break;
-		else
-		{
-			printf("                             |未检测到字符，请重新输入！\a\n");
-		}
+		rewind(stdin);
+		fgets(option_info, 7, stdin);
+		rewind(stdin);
+		if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
 	}
+	if (option_info[0] == 'c' && option_info[1] == '\0')
+	{
+		line();
+		printf("                             |取消成功！\n");
+		printf("                             |");
+		system("pause");
+		system("cls");
+		return;
+	}
+	i = (int)strlen(option_info);
+	if (i==0)i++;
 	while (i)
 	{
 		if (option_info[6] != '\0' || (option_info[i - 1] < 'A' || option_info[i - 1] > 'E'))
@@ -321,6 +315,7 @@ void bridge_sort_passenger_info(void)
 				return;
 			}
 			i = (int)strlen(option_info);
+			if (i==0)i++;
 		}
 		else i--;
 	}
@@ -1213,6 +1208,7 @@ void login_passenger(void)
 		show_FRMS_title();
 		show_passenger_title();
 		line();
+		printf("                             |键入c取消修改，返回上级菜单!\n");
 		printf("                             |登陆账户：%s\n", input_passenger_username);
 		printf("                             |请输入密码：");
 		{
@@ -1220,6 +1216,15 @@ void login_passenger(void)
 			fgets(input_passenger_password, 22, stdin);
 			rewind(stdin);
 			if ('\n' == input_passenger_password[strlen(input_passenger_password) - 1]) input_passenger_password[strlen(input_passenger_password) - 1] = 0;
+		}
+		if (input_passenger_password[0] == 'c' && input_passenger_password[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
 		}
 		while (input_passenger_password[21] != '\0')
 		{
@@ -1232,6 +1237,15 @@ void login_passenger(void)
 				rewind(stdin);
 				if ('\n' == input_passenger_password[strlen(input_passenger_password) - 1]) input_passenger_password[strlen(input_passenger_password) - 1] = 0;
 			}
+		}
+		if (input_passenger_password[0] == 'c' && input_passenger_password[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
 		}
 		if (strcmp(input_passenger_password, node->password) != 0)
 		{
