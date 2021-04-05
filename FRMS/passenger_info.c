@@ -152,7 +152,7 @@ passenger* sort_passenger_info(char direction, int option_num, char* option_info
 	case 'C':offset = 100; break;
 	case 'D':offset = 150; break;
 	case 'E':offset = 180; break;
-	default: printf("传递参数错误，排序关键字错误\n\a"); return head;
+	default: printf("                             |传递参数错误，排序关键字错误\n\a"); return head;
 	}
 
 	//一级关键字
@@ -273,23 +273,31 @@ void bridge_sort_passenger_info(void)
 		}
 	}*/
 	//处理排序关键字输入
-	printf("                             |请选择排序关键字序号（如：AE ）：");
+	while (1)
 	{
-		rewind(stdin);
-		fgets(option_info, 7, stdin);
-		rewind(stdin);
-		if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+		printf("                             |请选择排序关键字序号（如：AE ）：");
+		{
+			rewind(stdin);
+			fgets(option_info, 7, stdin);
+			rewind(stdin);
+			if ('\n' == option_info[strlen(option_info) - 1]) option_info[strlen(option_info) - 1] = 0;
+		}
+		if (option_info[0] == 'c' && option_info[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
+		i = (int)strlen(option_info);
+		if (option_info[0] != '\0')break;
+		else
+		{
+			printf("                             |未检测到字符，请重新输入！\a\n");
+		}
 	}
-	if (option_info[0] == 'c' && option_info[1] == '\0')
-	{
-		line();
-		printf("                             |取消成功！\n");
-		printf("                             |");
-		system("pause");
-		system("cls");
-		return;
-	}
-	i = (int)strlen(option_info);
 	while (i)
 	{
 		if (option_info[6] != '\0' || (option_info[i - 1] < 'A' || option_info[i - 1] > 'E'))
