@@ -417,6 +417,7 @@ void bridge_sort_flight_info(void)
 	//处理排序关键字个数
 	option_num = (int)strlen(option_info);
 	head_flight_global = sort_flight_info(direction[0], option_num, option_info, flight_info_num, head_flight_global);
+	system("cls");
 	show_flight_info_title();
 	show_flight_info(head_flight_global);
 	printf("                             |排序成功！\n");
