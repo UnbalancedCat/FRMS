@@ -410,7 +410,9 @@ void bridge_refine_search_sort_passenger_info(void)
 	i = 5;
 	while (i)
 	{
-		printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：");
+		printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：\n");
+		printf("                             |键入c取消录入，返回上级菜单!\n");
+		printf("                             |");
 		{
 			rewind(stdin);
 			fgets(buffer, 25, stdin);
@@ -418,10 +420,21 @@ void bridge_refine_search_sort_passenger_info(void)
 			if ('\n' == buffer[strlen(buffer) - 1]) buffer[strlen(buffer) - 1] = 0;
 		}
 		if (buffer[0] == '0' && buffer[1] == '\0')break;
+		else if (buffer[0] == 'c' && buffer[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
 		while (buffer[24] != '\0' || (buffer[0] < 'A' || buffer[0] > 'E'))
 		{
 			printf("                             |含有非法字符，请重新输入！\a\n");
-			printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：");
+			printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：\n");
+			printf("                             |键入c取消录入，返回上级菜单!\n");
+			printf("                             |");
 			{
 				rewind(stdin);
 				fgets(buffer, 25, stdin);
@@ -430,6 +443,15 @@ void bridge_refine_search_sort_passenger_info(void)
 			}
 		}
 		if (buffer[0] == '0' && buffer[1] == '\0')break;
+		else if (buffer[0] == 'c' && buffer[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
 		option_info[5 - i] = buffer[0];
 		strcpy(refer_info[5 - i], buffer + 1);
 		i--;
