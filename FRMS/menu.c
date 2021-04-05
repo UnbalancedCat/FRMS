@@ -791,7 +791,9 @@ void menu_passenger_info(void)
 		system("cls");
 		show_FRMS_title();
 		show_passenger_title();
-		show_passenger_info(located_passenger_info_global);
+		show_passenger_info_subtitle();
+		line();
+		printf("                             |  |%20s|%20s|%12s|%23s|%17s|\n", located_passenger_info_global->nickname, located_passenger_info_global->password, located_passenger_info_global->name, located_passenger_info_global->id_num, located_passenger_info_global->phone_num);
 		line();
 		printf("                                                                           1. ÐÞ ¸Ä\n");
 		printf("                                                                           0. ·µ »Ø\n");

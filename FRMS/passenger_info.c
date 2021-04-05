@@ -76,7 +76,7 @@ void push_passenger_info(void)
 {
 	passenger* node = head_passenger_global;
 	FILE* fp;//定义文件指针
-	fp = fopen("data\\passenger_info.output", "w");//打开并覆盖清楚passenger_info.txt文件内容
+	fp = fopen("data\\passenger_info.txt", "w");//打开并覆盖清楚passenger_info.txt文件内容
 	if (fp == NULL)
 	{
 		printf("文件输出错误！\a\n");//提示fopen是否成功返回指针
@@ -951,9 +951,11 @@ void modify_passenger_info(void)
 void modify_passenger_info_passenger(void)
 {
 	passenger* node = located_passenger_info_global;
+	passenger* buffer;
 	char located_passenger_info[32];
 	int offset, limmit;
-
+	int max = passenger_info_num;
+	int i;
 
 	system("cls");
 	show_FRMS_title();
@@ -987,7 +989,6 @@ void modify_passenger_info_passenger(void)
 			else
 				if (located_passenger_info[0] < 'A' || located_passenger_info[0] > 'H')printf("                             |含有非法字符！\a\n");
 				else break;
-			printf("                             |键入c取消修改，返回上级菜单!\n");
 			printf("                             |请选择要修改的旅客信息对应序号：");
 			{
 				rewind(stdin);
@@ -1027,12 +1028,44 @@ void modify_passenger_info_passenger(void)
 		printf("                             |字符数限制长度：\n");
 		printf("                             |A:20   B:20   C:12   D:23   E:17\n");
 		line();
-		printf("                             |%s -> ", node->nickname + offset);
+		while (1)
 		{
-			rewind(stdin);
-			fgets((node->nickname + offset), limmit, stdin);
-			rewind(stdin);
-			if ('\n' == (node->nickname + offset)[strlen((node->nickname + offset)) - 1]) (node->nickname + offset)[strlen((node->nickname + offset)) - 1] = 0;
+			printf("                             |%s -> ", node->nickname + offset);
+			memset(located_passenger_info, 0, sizeof(located_passenger_info));
+			strcpy(located_passenger_info, (located_passenger_info_global->nickname + offset));
+			{
+				rewind(stdin);
+				fgets((node->nickname + offset), limmit, stdin);
+				rewind(stdin);
+				if ('\n' == (node->nickname + offset)[strlen((node->nickname + offset)) - 1]) (node->nickname + offset)[strlen((node->nickname + offset)) - 1] = 0;
+			}
+			if ((node->nickname + offset)[0] == 'c' && (node->nickname + offset)[1] == '\0')
+			{
+				line();
+				memset((located_passenger_info_global->nickname + offset), 0, sizeof((located_passenger_info_global->nickname + offset)));
+				strcpy((located_passenger_info_global->nickname + offset), located_passenger_info);
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
+			buffer = head_passenger_global;
+			for (i = 0; i < max; i++)
+			{
+				if ((strcmp(node->nickname + offset, buffer->nickname + offset) != 0)||(node->nickname + offset)==(buffer->nickname+offset))
+				{
+					buffer = buffer->next_global;
+				}
+				else
+				{
+					printf("                             |数据已存在，请重新输入！\a\n");
+					memset((located_passenger_info_global->nickname + offset), 0, sizeof((located_passenger_info_global->nickname + offset)));
+					strcpy((located_passenger_info_global->nickname + offset), located_passenger_info);
+					break;
+				}
+			}
+			if (strcmp("\0", buffer->nickname + offset) == 0)break;
 		}
 		printf("                             |修改成功\n");
 		line();
