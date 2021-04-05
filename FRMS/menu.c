@@ -444,6 +444,7 @@ void menu_file_backup_to(void)
 				printf("                             |找不到指定文件!\a\n");
 				printf("                             |");
 				system("pause");
+				system("cls");
 				return;
 
 			}
