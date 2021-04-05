@@ -1249,25 +1249,18 @@ void reserve_flight_ticket(void)
 void passenger_item(flight* fp_person)//订票明细
 {
 	char he[20] = { "data\\users\\" };//名头,data里的
-	char he_2[20] = { "backup\\users\\" };//名头,备份里的
 	char tail[8] = { ".txt" };//名尾
 	char total_file[120] = { 0 };//原始users文件名，大点
-	char total_file_2[120] = { 0 };//备份文件名，大点
+	
 	flight* node = fp_person;
 	strcat(total_file, he);//接头
 	strcat(total_file, located_passenger_info_global->nickname);//中间
 	//strcat(total_file, "BHK");//测试用BHK备份
 	strcat(total_file, tail);//接尾
 
-	strcat(total_file_2, he_2);//接头
-	strcat(total_file_2, located_passenger_info_global->nickname);//中间
-	//strcat(total_file, "BHK");//测试用BHK备份
-	strcat(total_file_2, tail);//接尾
 
 	FILE* fp = fopen(total_file, "a+");//data里的
-	FILE* fp2 = fopen(total_file_2, "a+");//backup里的
 	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//写入data下的user
-	fprintf(fp2, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//写入back下的user
 	printf("                             |订票成功！\n");
 	return;
 }

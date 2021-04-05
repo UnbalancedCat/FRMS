@@ -407,56 +407,69 @@ void bridge_refine_search_sort_passenger_info(void)
 	int option_num = 0;//关键字个数
 	char buffer[32] = { 0 };//缓冲数组
 
-	i = 5;
-	while (i)
+
+	while (1)
 	{
-		printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：\n");
-		printf("                             |键入c取消录入，返回上级菜单!\n");
-		printf("                             |");
+		i = 5;
+		show_FRMS_title();
+		line();
+		printf("                             |关键词个数上限为5个，键入f完成输入；键入c取消输入，返回上级菜单！\n");
+		line();
+		while (i)
 		{
-			rewind(stdin);
-			fgets(buffer, 25, stdin);
-			rewind(stdin);
-			if ('\n' == buffer[strlen(buffer) - 1]) buffer[strlen(buffer) - 1] = 0;
-		}
-		if (buffer[0] == '0' && buffer[1] == '\0')break;
-		else if (buffer[0] == 'c' && buffer[1] == '\0')
-		{
-			line();
-			printf("                             |取消成功！\n");
-			printf("                             |");
-			system("pause");
-			system("cls");
-			return;
-		}
-		while (buffer[24] != '\0' || (buffer[0] < 'A' || buffer[0] > 'E'))
-		{
-			printf("                             |含有非法字符，请重新输入！\a\n");
-			printf("                             |请选择查询关键词以及查询数据,输入0完成（如：C张三）：\n");
-			printf("                             |键入c取消录入，返回上级菜单!\n");
-			printf("                             |");
+			printf("                             |请选择查询关键词以及查询数据（如：C张三）：");
 			{
 				rewind(stdin);
 				fgets(buffer, 25, stdin);
 				rewind(stdin);
 				if ('\n' == buffer[strlen(buffer) - 1]) buffer[strlen(buffer) - 1] = 0;
 			}
+			if (buffer[0] == 'f' && buffer[1] == '\0')break;
+			if (buffer[0] == 'c' && buffer[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
+			while (buffer[24] != '\0' || (buffer[0] < 'A' || buffer[0] > 'E'))
+			{
+				printf("                             |含有非法字符！\a\n");
+				printf("                             |请选择查询关键词以及查询数据（如：C张三）：");
+				{
+					rewind(stdin);
+					fgets(buffer, 25, stdin);
+					rewind(stdin);
+					if ('\n' == buffer[strlen(buffer) - 1]) buffer[strlen(buffer) - 1] = 0;
+				}
+			}
+			if (buffer[0] == 'f' && buffer[1] == '\0')break;
+			if (buffer[0] == 'c' && buffer[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
+			if (buffer[0] == 'f' && buffer[1] == '\0')break;
+			option_info[5 - i] = buffer[0];
+			strcpy(refer_info[5 - i], buffer + 1);
+			i--;
 		}
-		if (buffer[0] == '0' && buffer[1] == '\0')break;
-		else if (buffer[0] == 'c' && buffer[1] == '\0')
+		if (refer_info[0][0] != '\0')break;
+		else
 		{
 			line();
-			printf("                             |取消成功！\n");
+			printf("                             |未接收到查询数据！请重新输入！\a\n");
 			printf("                             |");
 			system("pause");
 			system("cls");
-			return;
 		}
-		option_info[5 - i] = buffer[0];
-		strcpy(refer_info[5 - i], buffer + 1);
-		i--;
 	}
-
 	option_num = 5 - i;
 	refine_search_passenger_info(option_num, option_info, refer_info, head_passenger_global);
 	system("cls");
@@ -487,7 +500,7 @@ void add_passenger_info(void)
 		{
 			show_FRMS_title();//调用输出航班预定管理系统题头函数
 			show_passenger_info_title();//调用输出输出航班预定管理系统题头函数
-			show_passenger_info(head_passenger_global);
+			//show_passenger_info(head_passenger_global);
 			line();
 			printf("                             |字符数限制长度：\n");
 			printf("                             |A:20   B:20   C:12   D:23   E:17\n");
