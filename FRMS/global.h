@@ -101,8 +101,9 @@ void menu_passenger_info(void);//ÂÃ¿ÍÐÅÏ¢
 void menu_file_backup(void);
 void menu_file_backup_auto(void);
 void menu_file_backup_to(void);
-void menu_file_recover(void);
+void menu_file_recover_to(void);
 void menu_file(void);
 void menu_passenger_pull(void);
+void menu_file_recover(void);
 
 #endif //GLOBAL_H_

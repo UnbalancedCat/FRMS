@@ -360,10 +360,11 @@ void menu_file(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                                                             1.备 份 文 件 到 backup 文 件 夹\n");
-		printf("                                                             2.备 份 文 件 到 任 意 路 径\n");
-		printf("                                                             3.恢 复\n");
-		printf("                                                             0.返 回\n");
+		printf("                                                                        1. 备 份 全 局 文 件\n");
+		printf("                                                                        2. 自 定 义 备 份\n");
+		printf("                                                                        3. 恢 复 全 局 文 件\n");
+		printf("                                                                        4. 自 定 义 恢 复\n");
+		printf("                                                                        0. 返 回\n");
 		line();
 		printf("                             |请输入对应序号访问功能（0-3）：");
 		{
@@ -372,7 +373,7 @@ void menu_file(void)
 			rewind(stdin);
 			if ('\n' == choo[strlen(choo) - 1]) choo[strlen(choo) - 1] = 0;
 		}
-		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' &&choo[0] != '3' && choo[0] != '0'))
+		while (choo[1] != '\0' || (choo[0] != '1' && choo[0] != '2' &&choo[0] != '3' && choo[0] != '4' && choo[0] != '0'))
 		{
 			printf("                             |含有非法字符，请重新输入！\a\n");
 			printf("                             |请输入对应序号访问功能（0-3）：");
@@ -387,7 +388,8 @@ void menu_file(void)
 		{
 		case '1':system("cls"); menu_file_backup(); break;
 		case '2': system("cls"); menu_file_backup_to(); break;
-		case '3':system("cls"); menu_file_recover(); break;
+		case '3': system("cls"); menu_file_recover(); break;
+		case '4':system("cls"); menu_file_recover_to(); break;
 		case '0':system("cls"); return;
 		}
 
@@ -403,7 +405,7 @@ void menu_file_backup_to(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                             |示例：C:\\Users\\data\\file_name.txt\n");
+		printf("                             |示例：data\\file_name.txt\n");
 		printf("                             |请输入所要备份的文件路径,包含扩展名(按0返回）：");
 		
 		{
@@ -418,7 +420,7 @@ void menu_file_backup_to(void)
 		}
 		else
 		{
-			printf("                             |示例：C:\\Users\\backup\\file_name.txt\n");
+			printf("                             |示例：backup\\file_name.txt\n");
 			printf("                             |请输入备份路径：");
 			{
 				rewind(stdin);
@@ -431,15 +433,20 @@ void menu_file_backup_to(void)
 
 			if (fp1_1 == NULL)
 			{
-				system("cls");
 				printf("                             |找不到指定文件!\a\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
 				return;
 
 			}
 			if (fp2_1 == NULL)
 			{
+				
+				printf("                             |找不到指定文件!\a\n");
+				printf("                             |");
+				system("pause");
 				system("cls");
-				printf("                             |找不到指定文件!\a\n");//检查文件是否为空
 				return;
 
 			}
@@ -518,6 +525,64 @@ void menu_file_backup(void)
 	}
 	
 }
+void menu_file_recover(void)
+{
+	char ch;
+	while (1)
+	{
+
+		show_FRMS_title();
+		show_manager_title();
+		line();
+		FILE* fp1_1 = fopen("backup\\flight_info.txt", "r");
+		FILE* fp1_2 = fopen("backup\\passenger_info.txt", "r");
+		FILE* fp1_3 = fopen("backup\\password_manager.txt", "r");
+
+		if (fp1_1 == NULL || fp1_2 == NULL || fp1_3 == NULL)
+		{
+			system("cls");
+			printf("                             |找不到指定文件!\a\n");
+			return;
+
+		}
+		else
+		{
+
+			FILE* fp2_1 = fopen("data\\flight_info.txt", "w");
+			while ((ch = fgetc(fp1_1)) != EOF)//1
+			{
+				fputc(ch, fp2_1);
+			}
+			fclose(fp1_1);
+			fclose(fp2_1);
+
+			FILE* fp2_2 = fopen("data\\passenger_info.txt", "w");
+			while ((ch = fgetc(fp1_2)) != EOF)//2
+			{
+				fputc(ch, fp2_2);
+			}
+			fclose(fp1_2);
+			fclose(fp2_2);
+
+			FILE* fp2_3 = fopen("data\\password_manager.txt", "w");
+			while ((ch = fgetc(fp1_3)) != EOF)//3
+			{
+				fputc(ch, fp2_3);
+			}
+			fclose(fp1_3);
+			fclose(fp2_3);
+
+			printf("                             |已恢复至 data 文件夹!\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
+
+	}
+	pull_flight_info();
+	pull_passenger_info();
+}
 void menu_file_backup_auto(void)
 {
 	push_flight_info();
@@ -525,7 +590,7 @@ void menu_file_backup_auto(void)
 	system("copy .\\data .\\backup");
 	printf("                             |自动备份成功!\n");
 }
-void menu_file_recover(void)
+void menu_file_recover_to(void)
 {
 
 	char bei_ex_name[155] = { 0 };//文件备份名
@@ -536,7 +601,7 @@ void menu_file_recover(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		printf("                             |示例：C:\\Users\\backup\\file_name.txt\n");
+		printf("                             |示例：backup\\file_name.txt\n");
 		printf("                             |请输入已备份文件路径(按0返回)：");
 
 		{
@@ -551,7 +616,7 @@ void menu_file_recover(void)
 		}
 		else
 		{
-			printf("                             |示例：C:\\Users\\data\\file_name.txt\n");
+			printf("                             |示例：data\\file_name.txt\n");
 			printf("                             |请输入需恢复文件路径：");
 			{
 				rewind(stdin);
@@ -565,14 +630,21 @@ void menu_file_recover(void)
 
 			if (fp1 == NULL)
 			{
-				system("cls");
+		
+	
 				printf("                             |找不到指定文件!\a\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
 				return;
 			}
 			if (fp2 == NULL)
 			{
-				system("cls");
+				
 				printf("                             |找不到指定文件!\a\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
 				return;
 			}
 
