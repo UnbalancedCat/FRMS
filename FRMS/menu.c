@@ -515,7 +515,7 @@ void menu_file_backup(void)
 		else
 		{
 			system("copy .\\data\\flight_info\\ .\\backup\\flight_info\\");
-			system("copy .\\data\\users .\\backup\\users");
+			system("copy .\\data\\users\\ .\\backup\\users\\");
 			
 			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
@@ -571,7 +571,7 @@ void menu_file_recover(void)
 		else
 		{
 			system("copy .\\backup\\flight_info\\ .\\data\\flight_info\\");
-			system("copy .\\backup\\users .\\data\\users");
+			system("copy .\\backup\\users\\ .\\data\\users\\");
 			FILE* fp2_2 = fopen("data\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
@@ -607,9 +607,9 @@ void menu_file_backup_auto(void)
 {
 	push_flight_info();
 	push_passenger_info();
-	system("copy .\\data .\\backup");
-	system("copy .\\data\\users .\\backup\\users");
-	system("copy .\\data\\flight_info .\\backup\\users\\flight_info");
+	system("copy .\\data\\ .\\backup\\");
+	system("copy .\\data\\users\\ .\\backup\\users\\");
+	system("copy .\\data\\flight_info\\ .\\backup\\users\\flight_info\\");
 	printf("                             |自动备份成功!\n");
 }
 void menu_file_recover_to(void)
