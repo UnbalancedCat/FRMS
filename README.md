@@ -1,4 +1,3 @@
-[![star](https://gitee.com/UnbalancedCat/FRMS/badge/star.svg?theme=dark)](https://gitee.com/UnbalancedCat/FRMS/stargazers)
 # Flight Reservation Management System
 # 航班预定管理系统
 
@@ -35,3 +34,5 @@ Take Visual Studio 2019 as an example
 1.  Fork 本仓库并新建 Pull Request
 2.  新建 Feat_xxx 分支
 3.  提交代码
+
+[![star](https://gitee.com/UnbalancedCat/FRMS/badge/star.svg?theme=dark)](https://gitee.com/UnbalancedCat/FRMS/stargazers)
