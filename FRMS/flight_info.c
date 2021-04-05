@@ -8,9 +8,27 @@
 //程序启动时读取文件,以及启动界面
 void init(void)
 {
-	time(&timep);
-	init_time = gmtime(&timep);
+	{
+		char time_swap[5];
+		time(&timep);
+		init_time = gmtime(&timep);
+		init_time->tm_hour += 8;
+		_itoa(init_time->tm_hour, time_swap, 10);
+		strcat(get_time, time_swap);
+		strcat(get_time, ":");
+		_itoa(init_time->tm_min, time_swap, 10);
+		strcat(get_time, time_swap);
 
+		memset(flight_info_path, 0, sizeof(flight_info_path));
+		strcat(flight_info_path, "data\\flight_info\\flight_info");
+		_itoa(init_time->tm_year + 1900, time_swap, 10);
+		strcat(flight_info_path, time_swap);
+		_itoa(init_time->tm_mon + 1, time_swap, 10);
+		strcat(flight_info_path, time_swap);
+		_itoa(init_time->tm_mday, time_swap, 10);
+		strcat(flight_info_path, time_swap);
+		strcat(flight_info_path, ".txt");
+	}
 	pull_flight_info();//读取航班信息;
 	pull_passenger_info();
 
@@ -27,7 +45,6 @@ void init(void)
 void shut_down(void)
 {
 	menu_file_backup_auto();
-	system("pause");
 	system("cls");
 	line();
 	printf("\n\n\n                                                                  退      出      成      功\n\n\n");
@@ -42,8 +59,7 @@ void pull_flight_info(void)
 	flight_info_num = 0;//初始化航班信息数量
 	FILE* fp;//定义文件指针
 
-	fp = fopen("data\\flight_info.txt", "r");//打开flight_info.txt文件
-
+	fp = fopen(flight_info_path, "r");//打开flight_info.txt文件
 	if (fp == NULL)
 	{
 		printf("                             |航班信息文件缺失！\a\n");//提示文件是否缺失
@@ -68,6 +84,8 @@ void pull_flight_info(void)
 				printf("                             |文件读写失败！\a\n");//提示文件是否读写成功
 				return;//中止函数
 			}
+			if (strcmp("0", node->people_num) >= 0)strcpy(node->people_num, "告罄");
+			if (strcmp(get_time,node->start_time)>=0)strcpy(node->people_num,"起飞");
 			//剩余录入
 			while (1)
 			{
@@ -99,19 +117,25 @@ void pull_flight_info(void)
 							secret_flight_info = node;//保存最后成员的地址
 						}
 						break;
-					}				
+					}
+					else
+					{
+						if (strcmp("0", node->people_num) >= 0)strcpy(node->people_num, "告罄");
+						if (strcmp(get_time, node->start_time) >= 0)strcpy(node->people_num, "起飞");
+					}
 				}
 			}
 			fclose(fp);//关闭文件
 		}
 	}
+	head_flight_global=sort_flight_info('D', 2, "GE", flight_info_num, head_flight_global);
 }
 //保存文件函数
 void push_flight_info(void)
 {
 	flight* node = head_flight_global;
 	FILE* fp;//定义文件指针
-	fp = fopen("data\\flight_info.output", "w");//打开并覆盖清楚flight_info.txt文件内容
+	fp = fopen(flight_info_path, "w");//打开并覆盖清楚flight_info.txt文件内容
 	if (fp == NULL)
 	{
 		printf("文件输出错误！\a\n");//提示fopen是否成功返回指针
@@ -1209,7 +1233,7 @@ void reserve_flight_ticket(void)
 		system("cls");
 		show_FRMS_title();
 		line();
-		printf("                             |抱歉！您所选的航班以售罄！\a\n");
+		printf("                             |抱歉！您所选的航班已起飞或售罄！\a\n");
 		printf("                             |");
 		system("pause");
 		system("cls");

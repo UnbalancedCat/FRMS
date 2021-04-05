@@ -477,28 +477,18 @@ void menu_file_backup(void)
 		show_FRMS_title();
 		show_manager_title();
 		line();
-		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
 		FILE* fp1_2 = fopen("data\\passenger_info.txt", "r");
 		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
 		
-		if (fp1_1 == NULL|| fp1_2 == NULL|| fp1_3 == NULL )
+		if (fp1_2 == NULL|| fp1_3 == NULL )
 		{
 			system("cls");
 			printf("                             |找不到指定文件!\a\n");
 			return;
-
 		}
 		else
 		{
-			
-			FILE* fp2_1 = fopen("backup\\flight_info.txt", "w");
-			while ((ch = fgetc(fp1_1)) != EOF)//1
-			{
-				fputc(ch, fp2_1);
-			}
-			fclose(fp1_1);
-			fclose(fp2_1);
-
+			system("copy .\\data\\flight_info .\\backup\\flight_info");
 			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
@@ -515,6 +505,10 @@ void menu_file_backup(void)
 			fclose(fp1_3);
 			fclose(fp2_3);
 
+			system("cls");
+			show_FRMS_title();
+			show_manager_title();
+			line();
 			printf("                             |已备份至 backup 文件夹!\n");
 			printf("                             |");
 			system("pause");

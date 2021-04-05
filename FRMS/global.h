@@ -5,7 +5,8 @@
 #include <time.h>
 time_t timep;
 struct tm* init_time;
-
+char get_time[8];
+char flight_info_path[50];
 //变量
 typedef struct flight_info//航班信息结构体
 {
