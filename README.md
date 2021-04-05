@@ -4,7 +4,8 @@
 #### Introduction
 #### 介绍
 
-Curriculum design needed. Reference only.
+Curriculum design needed. Reference only
+
 课设需要，仅供参考
 
 #### The following IDEs are recommended
