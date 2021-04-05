@@ -281,20 +281,21 @@ void menu_manager_passager(void)
 		printf("                                                                           1. 添 加\n");
 		printf("                                                                           2. 删 除\n");
 		printf("                                                                           3. 修 改\n");
-		printf("                                                                           4. 查 询\n");
+		printf("                                                                           4. 排 序\n");
+		printf("                                                                           5. 查 询\n");
 		printf("                                                                           0. 返 回\n");
 		line();
-		printf("                             |请输入对应序号访问功能（0-4）：");
+		printf("                             |请输入对应序号访问功能（0-5）：");
 		{
 			rewind(stdin);
 			fgets(begin_manager_passager, 3, stdin);
 			rewind(stdin);
 			if ('\n' == begin_manager_passager[strlen(begin_manager_passager) - 1]) begin_manager_passager[strlen(begin_manager_passager) - 1] = 0;
 		}
-		while (begin_manager_passager[1] != '\0' || (begin_manager_passager[0] < '0' && begin_manager_passager[0] > '4'))
+		while (begin_manager_passager[1] != '\0' || (begin_manager_passager[0] < '0' && begin_manager_passager[0] > '5'))
 		{
 			printf("                             |含有非法字符，请重新输入！\a\n");
-			printf("                             |请输入对应序号访问功能（0-2）：");
+			printf("                             |请输入对应序号访问功能（0-5）：");
 			{
 				rewind(stdin);
 				fgets(begin_manager_passager, 3, stdin);
@@ -307,7 +308,8 @@ void menu_manager_passager(void)
 		case '1':system("cls"); add_passenger_info(); break;
 		case '2':system("cls"); delete_passenger_info();  break;
 		case '3':system("cls"); modify_passenger_info();  break;
-		case '4':system("cls"); bridge_refine_search_sort_passenger_info(); break;
+		case '4':system("cls"); bridge_sort_passenger_info(); break;
+		case '5':system("cls"); bridge_refine_search_sort_passenger_info(); break;
 		case '0':system("cls"); return;
 		}
 
@@ -519,51 +521,9 @@ void menu_file_backup(void)
 void menu_file_backup_auto(void)
 {
 	push_flight_info();
-	char ch;
-	while (1)
-	{
-		FILE* fp1_1 = fopen("data\\flight_info.txt", "r");
-		FILE* fp1_2 = fopen("data\\passenger_info.txt", "r");
-		FILE* fp1_3 = fopen("data\\password_manager.txt", "r");
-
-		if (fp1_1 == NULL || fp1_2 == NULL || fp1_3 == NULL)
-		{
-			printf("                             |自动备份失败！\a\n");
-			return;
-		}
-		else
-		{
-
-			FILE* fp2_1 = fopen("backup\\flight_info.txt", "w");
-			while ((ch = fgetc(fp1_1)) != EOF)//1
-			{
-				fputc(ch, fp2_1);
-			}
-			fclose(fp1_1);
-			fclose(fp2_1);
-
-			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
-			while ((ch = fgetc(fp1_2)) != EOF)//2
-			{
-				fputc(ch, fp2_2);
-			}
-			fclose(fp1_2);
-			fclose(fp2_2);
-
-			FILE* fp2_3 = fopen("backup\\password_manager.txt", "w");
-			while ((ch = fgetc(fp1_3)) != EOF)//3
-			{
-				fputc(ch, fp2_3);
-			}
-			fclose(fp1_3);
-			fclose(fp2_3);
-
-			printf("                             |自动备份成功!\n");
-			return;
-		}
-
-	}
-
+	push_passenger_info();
+	system("copy .\\data .\\backup");
+	printf("                             |自动备份成功!\n");
 }
 void menu_file_recover(void)
 {

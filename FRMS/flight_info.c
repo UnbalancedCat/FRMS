@@ -1,4 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS  
+#include <time.h>
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
@@ -7,6 +8,9 @@
 //程序启动时读取文件,以及启动界面
 void init(void)
 {
+	time(&timep);
+	init_time = gmtime(&timep);
+
 	pull_flight_info();//读取航班信息;
 	pull_passenger_info();
 
@@ -22,10 +26,8 @@ void init(void)
 //程序关闭时保存并自动备份文件，以及退出界面
 void shut_down(void)
 {
-	push_flight_info();
-	push_passenger_info();
 	menu_file_backup_auto();
-
+	system("pause");
 	system("cls");
 	line();
 	printf("\n\n\n                                                                  退      出      成      功\n\n\n");
@@ -562,6 +564,7 @@ void bridge_refine_search_sort_flight_info(void)
 	show_flight_info(head_flight_part);
 	printf("                             |");
 	system("pause");
+	system("cls");
 	return;
 }
 //添加航班信息函数
@@ -1201,15 +1204,25 @@ void reserve_flight_ticket(void)
 	node = head_flight_global;
 
 	for (i = 0; i < max - 1; i++)node = node->next_global;
-
+	if (atoi(node->people_num) <= 0)
 	{
 		system("cls");
 		show_FRMS_title();
-		show_flight_info_subtitle();
 		line();
-		printf("                             |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
-		line();
+		printf("                             |抱歉！您所选的航班以售罄！\a\n");
+		printf("                             |");
+		system("pause");
+		system("cls");
+		return;
 	}
+
+	system("cls");
+	show_FRMS_title();
+	show_flight_info_subtitle();
+	line();
+	printf("                             |%02d|%20s|%20s|%12s|%7s|%9s|%9s|%6s|%6s|\n", max, node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);
+	line();
+
 
 	printf("                             |请确认是否预定本次航班（y or n）：");
 	{
@@ -1263,6 +1276,7 @@ void passenger_item(flight* fp_person)//订票明细
 	FILE* fp = fopen(total_file, "a+");//data里的
 	fprintf(fp, "%s %s %s %s %s %s %s %s\n", node->start_place, node->end_place, node->company, node->flight_num, node->start_time, node->end_time, node->people_num, node->price);//写入data下的user
 	printf("                             |订票成功！\n");
+	_itoa(atoi(node->people_num) - 1, node->people_num, 10);
 	fclose(fp);
 	return;
 }

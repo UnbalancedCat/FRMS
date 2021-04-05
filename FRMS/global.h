@@ -2,6 +2,10 @@
 #ifndef GLOBAL_H_
 #define GLOBAL_H_
 
+#include <time.h>
+time_t timep;
+struct tm* init_time;
+
 //变量
 typedef struct flight_info//航班信息结构体
 {
@@ -39,6 +43,8 @@ typedef struct passenger_info//旅客信息结构体
 passenger* head_passenger_global, * head_passenger_part, * secret_passenger_info;//全局变量全局头节点和部分头节点
 int passenger_info_num, search_passenger_info_num;//全局变量旅客信息数量
 passenger* located_passenger_info_global;
+
+
 
 //函数
 void init(void);
