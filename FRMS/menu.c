@@ -388,7 +388,7 @@ void menu_file(void)
 		printf("                                                                        4. 自 定 义 恢 复\n");
 		printf("                                                                        0. 返 回\n");
 		line();
-		printf("                             |请输入对应序号访问功能（0-3）：");
+		printf("                             |请输入对应序号访问功能（0-4）：");
 		{
 			rewind(stdin);
 			fgets(choo, 3, stdin);
@@ -775,7 +775,7 @@ void menu_passenger_flight_info(void)
 		printf("                                                                          4. 历 史 订 单\n");
 		printf("                                                                          0. 返 回\n");
 		line();
-		printf("                             |请输入对应序号访问功能（0-3）：");
+		printf("                             |请输入对应序号访问功能（0-4）：");
 		{
 			rewind(stdin);
 			fgets(begin_passenger_flight_info, 3, stdin);
