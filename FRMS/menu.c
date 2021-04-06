@@ -69,7 +69,15 @@ void menu_manager_login(void)
 			rewind(stdin);
 			if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 		}
-		if (password_input[0] == 'c' && password_input[1] == '\0')break;
+		if (password_input[0] == 'c' && password_input[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
 		while (strcmp(password_input, password_real) != 0)
 		{
 			printf("                             |密码错误！\a\n");
@@ -81,7 +89,15 @@ void menu_manager_login(void)
 				rewind(stdin);
 				if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 			}
-			if (password_input[0] == 'c' && password_input[1] == '\0')break;
+			if (password_input[0] == 'c' && password_input[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
 		}
 		{
 			fclose(fp);
@@ -609,7 +625,7 @@ void menu_file_backup_auto(void)
 	push_passenger_info();
 	system("copy .\\data\\ .\\backup\\");
 	system("copy .\\data\\users\\ .\\backup\\users\\");
-	system("copy .\\data\\flight_info\\ .\\backup\\users\\flight_info\\");
+	system("copy .\\data\\flight_info\\ .\\backup\\flight_info\\");
 	printf("                             |自动备份成功!\n");
 }
 void menu_file_recover_to(void)
