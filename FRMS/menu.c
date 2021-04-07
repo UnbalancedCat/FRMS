@@ -69,7 +69,15 @@ void menu_manager_login(void)
 			rewind(stdin);
 			if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 		}
-		if (password_input[0] == 'c' && password_input[1] == '\0')break;
+		if (password_input[0] == 'c' && password_input[1] == '\0')
+		{
+			line();
+			printf("                             |取消成功！\n");
+			printf("                             |");
+			system("pause");
+			system("cls");
+			return;
+		}
 		while (strcmp(password_input, password_real) != 0)
 		{
 			printf("                             |密码错误！\a\n");
@@ -81,7 +89,15 @@ void menu_manager_login(void)
 				rewind(stdin);
 				if ('\n' == password_input[strlen(password_input) - 1]) password_input[strlen(password_input) - 1] = 0;
 			}
-			if (password_input[0] == 'c' && password_input[1] == '\0')break;
+			if (password_input[0] == 'c' && password_input[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
 		}
 		{
 			fclose(fp);
@@ -372,7 +388,7 @@ void menu_file(void)
 		printf("                                                                        4. 自 定 义 恢 复\n");
 		printf("                                                                        0. 返 回\n");
 		line();
-		printf("                             |请输入对应序号访问功能（0-3）：");
+		printf("                             |请输入对应序号访问功能（0-4）：");
 		{
 			rewind(stdin);
 			fgets(choo, 3, stdin);
@@ -515,6 +531,8 @@ void menu_file_backup(void)
 		else
 		{
 			system("copy .\\data\\flight_info\\ .\\backup\\flight_info\\");
+			system("copy .\\data\\users\\ .\\backup\\users\\");
+			
 			FILE* fp2_2 = fopen("backup\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
@@ -569,6 +587,7 @@ void menu_file_recover(void)
 		else
 		{
 			system("copy .\\backup\\flight_info\\ .\\data\\flight_info\\");
+			system("copy .\\backup\\users\\ .\\data\\users\\");
 			FILE* fp2_2 = fopen("data\\passenger_info.txt", "w");
 			while ((ch = fgetc(fp1_2)) != EOF)//2
 			{
@@ -604,7 +623,9 @@ void menu_file_backup_auto(void)
 {
 	push_flight_info();
 	push_passenger_info();
-	system("copy .\\data .\\backup");
+	system("copy .\\data\\ .\\backup\\");
+	system("copy .\\data\\users\\ .\\backup\\users\\");
+	system("copy .\\data\\flight_info\\ .\\backup\\flight_info\\");
 	printf("                             |自动备份成功!\n");
 }
 void menu_file_recover_to(void)
@@ -754,7 +775,7 @@ void menu_passenger_flight_info(void)
 		printf("                                                                          4. 历 史 订 单\n");
 		printf("                                                                          0. 返 回\n");
 		line();
-		printf("                             |请输入对应序号访问功能（0-3）：");
+		printf("                             |请输入对应序号访问功能（0-4）：");
 		{
 			rewind(stdin);
 			fgets(begin_passenger_flight_info, 3, stdin);
