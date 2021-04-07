@@ -9,14 +9,29 @@
 void init(void)
 {
 	{
-		char time_swap[5];
+		char time_swap[6] = { 0 };
+		char time_buffer[6];
 		time(&timep);
 		init_time = gmtime(&timep);
 		init_time->tm_hour += 8;
 		_itoa(init_time->tm_hour, time_swap, 10);
+		if (strlen(time_swap) == 1)
+		{
+			memset(time_buffer, 0, sizeof(time_buffer));
+			time_buffer[0] = '0';
+			strcat(time_buffer, time_swap);
+			strcpy(time_swap, time_buffer);
+		}
 		strcat(get_time, time_swap);
 		strcat(get_time, ":");
 		_itoa(init_time->tm_min, time_swap, 10);
+		if (strlen(time_swap) == 1)
+		{
+			memset(time_buffer, 0, sizeof(time_buffer));
+			time_buffer[0] = '0';
+			strcat(time_buffer, time_swap);
+			strcpy(time_swap, time_buffer);
+		}
 		strcat(get_time, time_swap);
 
 		memset(flight_info_path, 0, sizeof(flight_info_path));
