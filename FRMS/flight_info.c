@@ -989,16 +989,17 @@ void modify_flight_info(void)
 				rewind(stdin);
 				if ('\n' == located_flight_info[strlen(located_flight_info) - 1]) located_flight_info[strlen(located_flight_info) - 1] = 0;
 			}
+			if (located_flight_info[0] == 'c' && located_flight_info[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
+			}
 		}
-		if (located_flight_info[0] == 'c')
-		{
-			line();
-			printf("                             |取消成功！\n");
-			printf("                             |");
-			system("pause");
-			system("cls");
-			return;
-		}
+		
 		switch (located_flight_info[0])
 		{
 		case 'A':offset = 0, limmit = 21; break;
@@ -1022,6 +1023,15 @@ void modify_flight_info(void)
 				fgets((node->start_place + offset), limmit, stdin);
 				rewind(stdin);
 				if ('\n' == (node->start_place + offset)[strlen((node->start_place + offset)) - 1]) (node->start_place + offset)[strlen((node->start_place + offset)) - 1] = 0;
+			}
+			if ((node->start_place + offset)[0] == 'c'&& (node->start_place + offset)[1] == '\0')
+			{
+				line();
+				printf("                             |取消成功！\n");
+				printf("                             |");
+				system("pause");
+				system("cls");
+				return;
 			}
 			show_flight_info_subtitle();
 			line();
